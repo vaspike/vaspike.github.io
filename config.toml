@@ -1,0 +1,27 @@
+baseURL = 'http://example.org/'
+theme = "risotto"
+title = "risotto demo"
+author = "Joe Roe"
+copyright = "© 2021 Joe Roe"
+paginate = 3
+languageCode = "en"
+DefaultContentLanguage = "en"
+enableInlineShortcodes = true
+# prevent build failures when using Hugo's Instagram shortcode due to deprecated Instagram API.
+# See https://github.com/gohugoio/hugo/issues/7228#issuecomment-714490456
+ignoreErrors = ["error-remote-getjson"]
+
+# Automatically add content sections to main menu
+sectionPagesMenu = "main"
+
+[params]
+
+[params.theme]
+palette = "gruvbox-dark"
+mode = "dark-mode"
+
+# Sidebar: about/bio
+[params.about]
+title = "risotto"
+description = "A [hugo](https://gohugo.io) theme inspired by terminal ricing."
+logo = "images/rice.svg"
