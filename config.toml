@@ -1,4 +1,4 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://vaspike.github.io/vaspike'
 theme = "risotto"
 title = "risotto demo"
 author = "Joe Roe"

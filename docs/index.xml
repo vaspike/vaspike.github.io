@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>risotto demo</title>
-    <link>http://example.org/</link>
+    <link>https://vaspike.github.io/vaspike/</link>
     <description>Recent content on risotto demo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>© 2021 Joe Roe</copyright><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2021 Joe Roe</copyright><atom:link href="https://vaspike.github.io/vaspike/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
