@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>risotto demo</title>
-    <link>https://vaspike.github.io/</link>
+    <link>https://vaspike.com/</link>
     <description>Recent content on risotto demo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2021 Joe Roe</copyright>
-    <lastBuildDate>Tue, 31 May 2022 20:59:22 +0800</lastBuildDate><atom:link href="https://vaspike.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 31 May 2022 20:59:22 +0800</lastBuildDate><atom:link href="https://vaspike.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>First</title>
-      <link>https://vaspike.github.io/posts/first/</link>
+      <link>https://vaspike.com/posts/first/</link>
       <pubDate>Tue, 31 May 2022 20:59:22 +0800</pubDate>
       
-      <guid>https://vaspike.github.io/posts/first/</guid>
+      <guid>https://vaspike.com/posts/first/</guid>
       <description></description>
     </item>
     
