@@ -14,6 +14,8 @@ ignoreErrors = ["error-remote-getjson"]
 # Automatically add content sections to main menu
 sectionPagesMenu = "main"
 
+publishDir = "docs"
+
 [params]
 
 [params.theme]
