@@ -2,17 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://vaspike.github.io/vaspike/posts/first/</loc>
+    <loc>https://vaspike.github.io/posts/first/</loc>
     <lastmod>2022-05-31T20:59:22+08:00</lastmod>
   </url><url>
-    <loc>https://vaspike.github.io/vaspike/posts/</loc>
+    <loc>https://vaspike.github.io/posts/</loc>
     <lastmod>2022-05-31T20:59:22+08:00</lastmod>
   </url><url>
-    <loc>https://vaspike.github.io/vaspike/</loc>
+    <loc>https://vaspike.github.io/</loc>
     <lastmod>2022-05-31T20:59:22+08:00</lastmod>
   </url><url>
-    <loc>https://vaspike.github.io/vaspike/categories/</loc>
+    <loc>https://vaspike.github.io/categories/</loc>
   </url><url>
-    <loc>https://vaspike.github.io/vaspike/tags/</loc>
+    <loc>https://vaspike.github.io/tags/</loc>
   </url>
 </urlset>
