@@ -1,11 +1,11 @@
 baseURL = 'https://vaspike.com'
 theme = "risotto"
-title = "risotto demo"
-author = "Joe Roe"
-copyright = "© 2021 Joe Roe"
+title = "@River Mao"
+author = "River Mao"
+copyright = "© 2022 River Mao"
 paginate = 3
-languageCode = "en"
-DefaultContentLanguage = "en"
+languageCode = "zh"
+DefaultContentLanguage = "zh"
 enableInlineShortcodes = true
 # prevent build failures when using Hugo's Instagram shortcode due to deprecated Instagram API.
 # See https://github.com/gohugoio/hugo/issues/7228#issuecomment-714490456
@@ -24,6 +24,12 @@ mode = "dark-mode"
 
 # Sidebar: about/bio
 [params.about]
-title = "risotto"
-description = "A [hugo](https://gohugo.io) theme inspired by terminal ricing."
-logo = "images/rice.svg"
+title = "River Mao's Blog"
+description = "环游是无趣~"
+logo = "images/terminal.png"
+
+
+[[params.socialLinks]]
+icon = "fab fa-github"
+title = "GitHub"
+url = "https://github.com/vaspike"

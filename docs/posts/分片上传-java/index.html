@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    <head><title>分片上传 &ndash; @River Mao</title>
+<meta name="description" content="环游是无趣~">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"/>
+<link rel="icon" href="data:image/png;base64,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" type="image/png">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css" integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://vaspike.com/css/colour/gruvbox-dark.css">
+<link rel="stylesheet" href="https://vaspike.com/css/colour/dark-mode.css">
+<link rel="stylesheet" href="https://vaspike.com/css/risotto.css">
+<link rel="stylesheet" href="https://vaspike.com/css/custom.css">
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><h1 class="page__logo"><a href="https://vaspike.com" class="page__logo-inner">@River Mao</a></h1>
+<nav class="page__nav main-nav">
+    <ul>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item active" href="/posts/" title="Posts">Posts</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>分片上传</h1>
+    </header>
+    <div class="content__body">
+        <h2 id="分片上传-java">分片上传 Java</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @author rxz
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @since 2021/4/26 15:33
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Api</span><span style="color:#f92672">(</span>tags <span style="color:#f92672">=</span> <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;文件接口&#34;</span><span style="color:#f92672">})</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequestMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;file&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FileController</span> <span style="color:#66d9ef">implements</span> InitializingBean <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 文件保存路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Value</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;${uploadFile.Path}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String FILE_UPLOAD_PATH<span style="color:#f92672">;</span><span style="color:#75715e">//普通上传文件路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Value</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;${uploadBigFile.Path}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String BIG_FILE_UPLOAD_PATH<span style="color:#f92672">;</span><span style="color:#75715e">//分片上传文件保存路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> ConcurrentHashMap<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> map<span style="color:#f92672">;</span><span style="color:#75715e">//key:文件名 value:当前上传了几个分片
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> ConcurrentHashMap<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> chunkNum<span style="color:#f92672">;</span><span style="color:#75715e">//key:文件名 value:上传完共需多少个分片
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//    private String filePath;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@Value</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;${icon_watermark}&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String ICON_WATERMARK<span style="color:#f92672">;</span><span style="color:#75715e">//水印相对路径
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> iconBytes<span style="color:#f92672">;</span><span style="color:#75715e">//待初始化,水印logo字节数组
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@PostMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;upload&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@ResponseBody</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@ApiOperation</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;上传文件,调用后可使用resources/拼接返回值进行访问资源&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> BasicRspRlt<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">upload</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestParam</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;file&#34;</span><span style="color:#f92672">)</span> <span style="color:#a6e22e">@ApiParam</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;上传的文件 MultipartFile格式&#34;</span><span style="color:#f92672">,</span> required <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span> MultipartFile file<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                                      <span style="color:#a6e22e">@ApiParam</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;文件名,此参为空时新上传文件不会覆盖旧文件&#34;</span><span style="color:#f92672">)</span> String filename<span style="color:#f92672">,</span><span style="color:#a6e22e">@ApiParam</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;是否需添加水印&#34;</span><span style="color:#f92672">)</span> Boolean markFlag<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>file<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> OfficialWebException<span style="color:#f92672">(</span>SystemError<span style="color:#f92672">.</span><span style="color:#a6e22e">FILE_PART_MISSS</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        String fileName <span style="color:#f92672">=</span> file<span style="color:#f92672">.</span><span style="color:#a6e22e">getOriginalFilename</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        String suffixName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>fileName <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            suffixName <span style="color:#f92672">=</span> fileName<span style="color:#f92672">.</span><span style="color:#a6e22e">substring</span><span style="color:#f92672">(</span>fileName<span style="color:#f92672">.</span><span style="color:#a6e22e">lastIndexOf</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;.&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//生成文件名称通用方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        String newFileName<span style="color:#f92672">;</span><span style="color:#75715e">//加水印前的文件名
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        String newFileName1<span style="color:#f92672">;</span><span style="color:#75715e">//添加水印后文件名称
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        SimpleDateFormat sdf <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> SimpleDateFormat<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;yyyyMMdd_HHmmss&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        Random r <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Random<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>filename <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            newFileName <span style="color:#f92672">=</span> sdf<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Date<span style="color:#f92672">())</span> <span style="color:#f92672">+</span> r<span style="color:#f92672">.</span><span style="color:#a6e22e">nextInt</span><span style="color:#f92672">(</span>100<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> suffixName<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            newFileName1 <span style="color:#f92672">=</span> sdf<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Date<span style="color:#f92672">())</span> <span style="color:#f92672">+</span> r<span style="color:#f92672">.</span><span style="color:#a6e22e">nextInt</span><span style="color:#f92672">(</span>100<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> suffixName<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            newFileName <span style="color:#f92672">=</span> sdf<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Date<span style="color:#f92672">())</span> <span style="color:#f92672">+</span> r<span style="color:#f92672">.</span><span style="color:#a6e22e">nextInt</span><span style="color:#f92672">(</span>100<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            newFileName1 <span style="color:#f92672">=</span> fileName<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 保存文件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> bytes <span style="color:#f92672">=</span> file<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            Path path <span style="color:#f92672">=</span> Paths<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>FILE_UPLOAD_PATH <span style="color:#f92672">+</span> newFileName<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            Files<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>path<span style="color:#f92672">,</span> bytes<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IOException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>markFlag<span style="color:#f92672">!=</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&amp;&amp;</span> markFlag<span style="color:#f92672">){</span><span style="color:#75715e">//如果要添加水印,则进入if
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>iconBytes<span style="color:#f92672">==</span><span style="color:#66d9ef">null</span><span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>                myInit<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">boolean</span> flag <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                flag <span style="color:#f92672">=</span> ImageUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">markImageByIcon</span><span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">iconBytes</span><span style="color:#f92672">,</span> FILE_UPLOAD_PATH <span style="color:#f92672">+</span> newFileName<span style="color:#f92672">,</span> FILE_UPLOAD_PATH <span style="color:#f92672">+</span> newFileName1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>flag<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> OfficialWebException<span style="color:#f92672">(</span>SystemError<span style="color:#f92672">.</span><span style="color:#a6e22e">ADD_WATERMARK_EXCEPTION</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span><span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">boolean</span> deleteFlag <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span>FILE_UPLOAD_PATH <span style="color:#f92672">+</span> newFileName<span style="color:#f92672">).</span><span style="color:#a6e22e">delete</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>deleteFlag<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>                    LoggerFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">getLogger</span><span style="color:#f92672">(</span>getClass<span style="color:#f92672">()).</span><span style="color:#a6e22e">error</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;删除临时图片失败&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> BasicRspRlt<span style="color:#f92672">&lt;&gt;(</span>newFileName1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> BasicRspRlt<span style="color:#f92672">&lt;&gt;(</span>newFileName<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@PostMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;chunkStart&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@ApiOperation</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;分片上传文件前置接口&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> BasicRspRlt<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">chunkStart</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestParam</span> <span style="color:#a6e22e">@ApiParam</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;文件名&#34;</span><span style="color:#f92672">,</span> required <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span> String fileName<span style="color:#f92672">,</span> <span style="color:#a6e22e">@RequestParam</span> <span style="color:#a6e22e">@ApiParam</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;文件分片数&#34;</span><span style="color:#f92672">,</span> required <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span> Integer num<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        SimpleDateFormat sdf <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> SimpleDateFormat<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;yyyyMMdd_HHmmss&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        String format <span style="color:#f92672">=</span> sdf<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Date<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        String filePath <span style="color:#f92672">=</span> format <span style="color:#f92672">+</span> fileName<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">chunkNum</span><span style="color:#f92672">==</span><span style="color:#66d9ef">null</span><span style="color:#f92672">||</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">==</span><span style="color:#66d9ef">null</span><span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">map</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ConcurrentHashMap<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">chunkNum</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ConcurrentHashMap<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>filePath<span style="color:#f92672">,</span> 1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">chunkNum</span><span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>filePath<span style="color:#f92672">,</span> num<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> BasicRspRlt<span style="color:#f92672">&lt;&gt;(</span>filePath<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@PostMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;chunkUpload&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@ApiOperation</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;分片上传文件接口&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> BasicRspRlt<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">chunkUpload</span><span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestParam</span> <span style="color:#a6e22e">@ApiParam</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;文件&#34;</span><span style="color:#f92672">,</span> required <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span> MultipartFile file<span style="color:#f92672">,</span> <span style="color:#a6e22e">@RequestParam</span> <span style="color:#a6e22e">@ApiParam</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;第几片(从1起始计数)&#34;</span><span style="color:#f92672">,</span> required <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span> Integer chunk<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                                            <span style="color:#a6e22e">@RequestParam</span> <span style="color:#a6e22e">@ApiParam</span><span style="color:#f92672">(</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;chunkStart接口中返回的文件名&#34;</span><span style="color:#f92672">,</span> required <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span> String filePath<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>map <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> bytes <span style="color:#f92672">=</span> file<span style="color:#f92672">.</span><span style="color:#a6e22e">getBytes</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>                String tempName <span style="color:#f92672">=</span> BIG_FILE_UPLOAD_PATH <span style="color:#f92672">+</span> filePath <span style="color:#f92672">+</span> chunk <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.tmp&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                Path path <span style="color:#f92672">=</span> Paths<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>tempName<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                Files<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>path<span style="color:#f92672">,</span> bytes<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                Integer x <span style="color:#f92672">=</span> map<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>filePath<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>x <span style="color:#f92672">&lt;</span> chunkNum<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>filePath<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                    map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>filePath<span style="color:#f92672">,</span> x <span style="color:#f92672">+</span> 1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//                    map.remove(this.filePath);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                    FileOutputStream fileOutputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileOutputStream<span style="color:#f92672">(</span>BIG_FILE_UPLOAD_PATH <span style="color:#f92672">+</span> filePath<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> buf <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>1024<span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">long</span> i <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;=</span> chunkNum<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>filePath<span style="color:#f92672">);</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        String chunkFile <span style="color:#f92672">=</span> filePath <span style="color:#f92672">+</span> i <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;.tmp&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                        File file1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span>BIG_FILE_UPLOAD_PATH <span style="color:#f92672">+</span> chunkFile<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                        InputStream inputStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileInputStream<span style="color:#f92672">(</span>file1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">int</span> len<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">while</span> <span style="color:#f92672">((</span>len <span style="color:#f92672">=</span> inputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">(</span>buf<span style="color:#f92672">))</span> <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                            fileOutputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>buf<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> len<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>                        inputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">boolean</span> delete <span style="color:#f92672">=</span> file1<span style="color:#f92672">.</span><span style="color:#a6e22e">delete</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>delete<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> OfficialWebException<span style="color:#f92672">(</span>SystemError<span style="color:#f92672">.</span><span style="color:#a6e22e">FILE_DELETE_EXCEPTION</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>                    fileOutputStream<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IOException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span><span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> OfficialWebException<span style="color:#f92672">(</span>SystemError<span style="color:#f92672">.</span><span style="color:#a6e22e">UPLOADING_BEFORE_CHUNK_START</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> BasicRspRlt<span style="color:#f92672">&lt;&gt;(</span>chunk<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;download&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@ApiOperation</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;文件下载&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">download</span> <span style="color:#f92672">(</span><span style="color:#a6e22e">@RequestParam</span> String FileName<span style="color:#f92672">,</span> HttpServletResponse response<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> UnsupportedEncodingException <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>FileName<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">)){</span>
+</span></span><span style="display:flex;"><span>            FileInputStream fs <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            BufferedInputStream bis <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> buffer <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>1024<span style="color:#f92672">];</span>
+</span></span><span style="display:flex;"><span>            String downloadFilePath <span style="color:#f92672">=</span> FILE_UPLOAD_PATH<span style="color:#f92672">+</span>FileName<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            File file <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span>downloadFilePath<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>file<span style="color:#f92672">.</span><span style="color:#a6e22e">exists</span><span style="color:#f92672">()){</span><span style="color:#75715e">//如果要下载的文件在第一个文件目录找不到,将file路径改为另一个目录
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                downloadFilePath <span style="color:#f92672">=</span> BIG_FILE_UPLOAD_PATH<span style="color:#f92672">+</span>FileName<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                file <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span>downloadFilePath<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>file<span style="color:#f92672">.</span><span style="color:#a6e22e">exists</span><span style="color:#f92672">()){</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;FILE_NOT_EXIST~&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            response<span style="color:#f92672">.</span><span style="color:#a6e22e">addHeader</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Content-Disposition&#34;</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;attachment; filename=&#34;</span><span style="color:#f92672">+</span>URLEncoder<span style="color:#f92672">.</span><span style="color:#a6e22e">encode</span><span style="color:#f92672">(</span>FileName<span style="color:#f92672">,</span><span style="color:#e6db74">&#34;UTF-8&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> bytes <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span><span style="color:#75715e">//下面流的写法是网上的解决方案,这个下载接口仅仅为了解决浏览器端下载ppt等文件会默认打开的问题,因此此方法唯一重要的就是上一句设置响应头
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                fs <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileInputStream<span style="color:#f92672">(</span>file<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                bis <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BufferedInputStream<span style="color:#f92672">(</span>fs<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                ServletOutputStream os <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">getOutputStream</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> bis<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">(</span>buffer<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                bytes <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[</span>fs<span style="color:#f92672">.</span><span style="color:#a6e22e">available</span><span style="color:#f92672">()];</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">while</span> <span style="color:#f92672">(</span>i <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                    os<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>buffer<span style="color:#f92672">,</span> 0<span style="color:#f92672">,</span> i<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                    i <span style="color:#f92672">=</span> bis<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">(</span>buffer<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IOException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> RuntimeException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;您访问的文件刚刚被删除了~&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span><span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>fs<span style="color:#f92672">!=</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&amp;&amp;</span>bis<span style="color:#f92672">!=</span><span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        fs<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>                        bis<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IOException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span><span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> OfficialWebException<span style="color:#f92672">(</span>SystemError<span style="color:#f92672">.</span><span style="color:#a6e22e">MUST_PATAMATER_NOT_NULL</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@GetMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;clear_map_and_temp&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@ApiOperation</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;清空上传中断生成的临时文件和哈希缓存&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> BasicRsp <span style="color:#a6e22e">mapAndTempClear</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>map<span style="color:#f92672">!=</span><span style="color:#66d9ef">null</span><span style="color:#f92672">&amp;&amp;</span>chunkNum<span style="color:#f92672">!=</span><span style="color:#66d9ef">null</span><span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>            map<span style="color:#f92672">.</span><span style="color:#a6e22e">clear</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            chunkNum<span style="color:#f92672">.</span><span style="color:#a6e22e">clear</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">final</span> String patternName <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;.*.tmp&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        File dirPath <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span>BIG_FILE_UPLOAD_PATH<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        String<span style="color:#f92672">[]</span> list <span style="color:#f92672">=</span> dirPath<span style="color:#f92672">.</span><span style="color:#a6e22e">list</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> FilenameFilter<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">final</span> Pattern pattern <span style="color:#f92672">=</span> Pattern<span style="color:#f92672">.</span><span style="color:#a6e22e">compile</span><span style="color:#f92672">(</span>patternName<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>File dir<span style="color:#f92672">,</span> String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> pattern<span style="color:#f92672">.</span><span style="color:#a6e22e">matcher</span><span style="color:#f92672">(</span>name<span style="color:#f92672">).</span><span style="color:#a6e22e">matches</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">});</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">assert</span> list <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>String s <span style="color:#f92672">:</span> list<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//            System.out.println(s);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            String tempFilePath <span style="color:#f92672">=</span> BIG_FILE_UPLOAD_PATH <span style="color:#f92672">+</span> s<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">boolean</span> flag <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span>tempFilePath<span style="color:#f92672">).</span><span style="color:#a6e22e">delete</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> BasicRsp<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">myInit</span><span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>        ClassPathResource pathResource <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ClassPathResource<span style="color:#f92672">(</span>ICON_WATERMARK<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        InputStream is <span style="color:#f92672">=</span><span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            is <span style="color:#f92672">=</span> pathResource<span style="color:#f92672">.</span><span style="color:#a6e22e">getInputStream</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">iconBytes</span> <span style="color:#f92672">=</span> ImageUtil<span style="color:#f92672">.</span><span style="color:#a6e22e">toByteArray</span><span style="color:#f92672">(</span>is<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IOException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> OfficialWebException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;4040&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;获取流失败&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span><span style="color:#66d9ef">finally</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>is<span style="color:#f92672">!=</span><span style="color:#66d9ef">null</span><span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                    is<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>IOException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                    e<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">afterPropertiesSet</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        myInit<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div>
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    <img class="about__logo" src="https://vaspike.com/images/terminal.png" alt="Logo">
+<h1 class="about__title">River Mao&#39;s Blog</h1>
+<p class="about__description">环游是无趣~</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://github.com/vaspike" rel="me" aria-label="GitHub" title="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            
+            2022-05-31
+        </p>
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p class="copyright">© 2022 River Mao</p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>
