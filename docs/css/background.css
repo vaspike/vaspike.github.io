@@ -1,0 +1,11 @@
+:root{
+    --scroll-height: 100vh;
+}
+.background-top {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    position:fixed;
+    margin-top: 0;
+    z-index:-2;
+}
