@@ -1,7 +1,7 @@
 ---
 title: "About"
 date: 2022-07-07T16:34:53+08:00
-draft: true
+draft: false
 ---
 # 关于我
 - EN:
