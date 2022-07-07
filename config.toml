@@ -24,7 +24,7 @@ mode = "dark-mode"
 
 # Sidebar: about/bio
 [params.about]
-title = "River Mao's Blog"
+title = "毛小川's Blog"
 description = "环游是无趣~"
 logo = "images/terminal.png"
 
@@ -33,3 +33,11 @@ logo = "images/terminal.png"
 icon = "fab fa-github"
 title = "GitHub"
 url = "https://github.com/vaspike"
+
+[menu]
+
+[[menu.main]]
+identifier = "about"
+name = "About"
+url = "/about/"
+weight = 10

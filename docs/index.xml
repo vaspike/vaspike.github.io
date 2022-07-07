@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>@River Mao</title>
+    <title>About on @River Mao</title>
     <link>https://vaspike.com/</link>
-    <description>Recent content on @River Mao</description>
+    <description>Recent content in About on @River Mao</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <copyright>© 2022 River Mao</copyright>
-    <lastBuildDate>Tue, 31 May 2022 20:59:22 +0800</lastBuildDate><atom:link href="https://vaspike.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Jul 2022 16:34:53 +0800</lastBuildDate><atom:link href="https://vaspike.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>https://vaspike.com/about/</link>
+      <pubDate>Thu, 07 Jul 2022 16:34:53 +0800</pubDate>
+      
+      <guid>https://vaspike.com/about/</guid>
+      <description>关于我   EN:
+ Profession: Software developer Location: NanJing China Tech stack: Java,Kotlin,Go,Javascript,Typescript,Python    ZH:
+ 职业:软件开发工程师 城市:南京 前耳机发烧患者 | 周董歌迷晚期 | 95后 | 水陆空全栈选手(Java,Kotlin,Go,Js,Ts,Python)    | 有猫名为普朗克 | Planck: 
+  </description>
+    </item>
+    
     <item>
       <title>Rust-变量,常量,Shadowing</title>
       <link>https://vaspike.com/posts/rust%E7%9A%84%E5%8F%98%E9%87%8F%E5%B8%B8%E9%87%8Fshadowing/</link>
