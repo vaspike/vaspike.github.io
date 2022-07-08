@@ -34,6 +34,11 @@ icon = "fab fa-github"
 title = "GitHub"
 url = "https://github.com/vaspike"
 
+[[params.socialLinks]]
+icon = "fas fa-envelope"
+title = "Email"
+url = "mailto:vaspike@outlook.com"
+
 [menu]
 
 [[menu.main]]
