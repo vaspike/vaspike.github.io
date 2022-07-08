@@ -7,7 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <copyright>© 2022 River Mao</copyright>
-    <lastBuildDate>Tue, 31 May 2022 20:59:22 +0800</lastBuildDate><atom:link href="https://vaspike.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Jul 2022 16:39:51 +0800</lastBuildDate><atom:link href="https://vaspike.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kotlin中select关键字与Channel的用法</title>
+      <link>https://vaspike.com/posts/kotlin%E4%B8%ADselect%E5%85%B3%E9%94%AE%E5%AD%97%E4%B8%8Echannel%E7%9A%84%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Fri, 08 Jul 2022 16:39:51 +0800</pubDate>
+      
+      <guid>https://vaspike.com/posts/kotlin%E4%B8%ADselect%E5%85%B3%E9%94%AE%E5%AD%97%E4%B8%8Echannel%E7%9A%84%E7%94%A8%E6%B3%95/</guid>
+      <description>Kotlin中Channel的使用 类似Go中的Channel,Kotlin中的Channel也可以在协程间通信
+创建 最基本的声明方式:(Channel位于kotlinx.coroutines.channels.Channel)
+val channel01 = Channel&amp;lt;Int&amp;gt;() 其中Int处为泛型,代表通道中放置的数据类型,取和拿都是此类型的变量
+除此之外,构造函数还可以接收一个参数:
+val rendezvousChannel = Channel&amp;lt;Int&amp;gt;() val bufferedChannel = Channel&amp;lt;Int&amp;gt;(10) val conflatedChannel = Channel&amp;lt;Int&amp;gt;(CONFLATED) val unlimitedChannel = Channel&amp;lt;Int&amp;gt;(UNLIMITED) 含义如下:
+   通道类型 构造参数 通道特点     Rendezvous 空参 0尺寸buffer, send和receive要meet on time, 否则挂起. (默认类型)   Buffered Int值 Int值即为通道大小, 满了之后send挂起   Conflated CONFLATED 新元素会覆盖旧元素, receiver只会得到最新元素, send永不挂起   Unlimited UNLIMITED 无限元素, send不被挂起    send与receive  send:  val channel01 = Channel&amp;lt;Int&amp;gt;() repeat(100) {  channel01.</description>
+    </item>
+    
     <item>
       <title>Rust-变量,常量,Shadowing</title>
       <link>https://vaspike.com/posts/rust%E7%9A%84%E5%8F%98%E9%87%8F%E5%B8%B8%E9%87%8Fshadowing/</link>
