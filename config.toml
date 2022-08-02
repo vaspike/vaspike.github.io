@@ -42,7 +42,14 @@ url = "mailto:vaspike@outlook.com"
 [menu]
 
 [[menu.main]]
+identifier = "IELTS"
+name = "IELTS"
+url = "/ielts/"
+weight = 10
+
+[[menu.main]]
 identifier = "about"
 name = "About"
 url = "/about/"
 weight = 10
+
