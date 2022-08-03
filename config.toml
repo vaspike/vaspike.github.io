@@ -39,13 +39,13 @@ icon = "fas fa-envelope"
 title = "Email"
 url = "mailto:vaspike@outlook.com"
 
+[[params.socialLinks]]
+icon = "fas fa-book"
+title = "IELTS learning resources"
+url = "/ielts/"
+
 [menu]
 
-[[menu.main]]
-identifier = "IELTS"
-name = "IELTS"
-url = "/ielts/"
-weight = 10
 
 [[menu.main]]
 identifier = "about"
