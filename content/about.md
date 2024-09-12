@@ -2,16 +2,13 @@
 title: "关于我"
 draft: false
 ---
-- 男
-- 科班CS,软件开发工程师
-- 漂于南京,有只猫
-- 二刺螈
-- Love Kotlin,Jetbrains IDEs续费用户
+
+- 科班CS牛马,软件开发工程师
+- 南京漂,有只猫,二刺螈
+- Love Kotlin, Jetbrains IDEs subscriber
 
 ```markdown
-Java,Kotlin,JavaScript,Go,Python,C,C++
-
-Rust
+Java,Kotlin,JavaScript,Go,Python,C,C++ ,Rust
 ```
 
-- Email: [vaspike@outlook.com](mailto:vaspike@outlook.com)
+- Email: [i@rivermao.com](mailto:vaspike@outlook.com)
