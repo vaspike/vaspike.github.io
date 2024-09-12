@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>有向图的邻接矩阵表示与路径可达分析 - RiverMao</title>
+    <meta property="og:title" content="有向图的邻接矩阵表示与路径可达分析 - RiverMao">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css" media="print" onload="this.media='all'">
+
+    
+      
+    
+
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>hljs.configure({
+    ignoreUnescapedHTML: true
+});</script>
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <script type="text/javascript" src="/js/codeBlock.js"></script>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+  </head>
+
+  
+  <body class="program">
+    <header class="masthead">
+      <h1><a href="/">RiverMao</a></h1>
+
+<p class="tagline">环游是无趣~</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/program/">program</a></li>
+  
+  <li><a href="/life/">life</a></li>
+  
+  <li><a href="/about">about</a></li>
+  
+  <li><a href="/index.xml">rss</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>有向图的邻接矩阵表示与路径可达分析</h1>
+
+
+<h3>
+
+
+
+
+
+2024-09-12
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h2 id="数据结构">数据结构</h2>
+<ul>
+<li>Node</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.AllArgsConstructor;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.Builder;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.Data;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.NoArgsConstructor;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 用于图的邻接矩阵与搜索算法的数据结构, 只保留唯一标识这一种属性,减少内存开销
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @author rxz
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Builder</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@AllArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@NoArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Node</span><span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    T pre;
+</span></span><span style="display:flex;"><span>    T after;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Pair</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.AllArgsConstructor;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.Data;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 放置两个平级数据, 此对象用于推入栈或加入队列, 简化算法可读性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param &lt;K&gt; /
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param &lt;V&gt; /
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@AllArgsConstructor</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Pair</span><span style="color:#f92672">&lt;</span>K, V<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> K key;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> V value;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>GraphMatrixEntity</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.Data;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.extern.slf4j.Slf4j;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.io.Serializable;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.List;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 有向图的邻接矩阵对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param &lt;T&gt; Node节点的类型 一般为Long
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param &lt;K&gt; 原始对象集合的类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Slf4j</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Data</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GraphMatrixEntity</span><span style="color:#f92672">&lt;</span>T,K<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">implements</span> Serializable {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * 原始node集合
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> nodes;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * 邻接矩阵对照尺, 是一个线性表
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> standardRuler;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * 有向图的邻接矩阵表示
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[][]</span> graph;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * 有向图的所有头节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> headNodeIndex;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * 有向图的所有尾节点
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> tailNodeIndex;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * 原始集合(此数据结构在算法中不会被赋值,请注意判空)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>K<span style="color:#f92672">&gt;</span> rawList;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="邻接矩阵转换与路径可达性分析">邻接矩阵转换与路径可达性分析</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> cn.hutool.core.collection.CollUtil;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> lombok.extern.slf4j.Slf4j;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.*;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 图的邻接矩阵转换算法与基于广度优先搜算法的路径可达节点查找算法实现
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 使用此算法时必须声明泛型!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @param &lt;T&gt; id的类型, 出入库单中总是为Long
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @author rxz
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Slf4j</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GraphMatrixHandler</span><span style="color:#f92672">&lt;</span>T,K<span style="color:#f92672">&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> GraphMatrixEntity<span style="color:#f92672">&lt;</span>T,K<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">matrixTransfer</span>(List<span style="color:#f92672">&lt;</span>Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> nodeList) {
+</span></span><span style="display:flex;"><span>        GraphMatrixEntity<span style="color:#f92672">&lt;</span>T,K<span style="color:#f92672">&gt;</span> matrix <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> GraphMatrixEntity<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (CollUtil.<span style="color:#a6e22e">isEmpty</span>(nodeList)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> matrix;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//1. 去重nodes</span>
+</span></span><span style="display:flex;"><span>        HashSet<span style="color:#f92672">&lt;</span>Node<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> nodes <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashSet<span style="color:#f92672">&lt;&gt;</span>(nodeList);
+</span></span><span style="display:flex;"><span>        Set<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> allIdSet <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashSet<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//2. 将node集合转换为有向图, 用邻接矩阵的方式实现这个有向图</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 2.1 构造一个辅助map,对node集合进行数据整理(支持null的存在)</span>
+</span></span><span style="display:flex;"><span>        Map<span style="color:#f92672">&lt;</span>T, Set<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;&gt;</span> map <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        nodes.<span style="color:#a6e22e">forEach</span>(node <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>            Set<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> valueList <span style="color:#f92672">=</span> Optional.<span style="color:#a6e22e">ofNullable</span>(map.<span style="color:#a6e22e">get</span>(node.<span style="color:#a6e22e">pre</span>)).<span style="color:#a6e22e">orElse</span>(<span style="color:#66d9ef">new</span> HashSet<span style="color:#f92672">&lt;&gt;</span>());
+</span></span><span style="display:flex;"><span>            valueList.<span style="color:#a6e22e">add</span>(node.<span style="color:#a6e22e">after</span>);
+</span></span><span style="display:flex;"><span>            map.<span style="color:#a6e22e">put</span>(node.<span style="color:#a6e22e">pre</span>, valueList);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            allIdSet.<span style="color:#a6e22e">add</span>(node.<span style="color:#a6e22e">pre</span>);
+</span></span><span style="display:flex;"><span>            allIdSet.<span style="color:#a6e22e">add</span>(node.<span style="color:#a6e22e">after</span>);
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 2.2 初始化邻接矩阵</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> nodeIdList <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>(allIdSet);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> size <span style="color:#f92672">=</span> nodeIdList.<span style="color:#a6e22e">size</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span><span style="color:#f92672">[][]</span> graph <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>size<span style="color:#f92672">][</span>size<span style="color:#f92672">]</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> graph.<span style="color:#a6e22e">length</span>; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//i 严格对应preList的下标</span>
+</span></span><span style="display:flex;"><span>            T iElement <span style="color:#f92672">=</span> nodeIdList.<span style="color:#a6e22e">get</span>(i);
+</span></span><span style="display:flex;"><span>            Set<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> matchingSet <span style="color:#f92672">=</span> map.<span style="color:#a6e22e">get</span>(iElement);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> 0; j <span style="color:#f92672">&lt;</span> graph<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span>.<span style="color:#a6e22e">length</span>; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                T jElement <span style="color:#f92672">=</span> nodeIdList.<span style="color:#a6e22e">get</span>(j);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (matchingSet <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> matchingSet.<span style="color:#a6e22e">contains</span>(jElement)) {
+</span></span><span style="display:flex;"><span>                    graph<span style="color:#f92672">[</span>i<span style="color:#f92672">][</span>j<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> 1;
+</span></span><span style="display:flex;"><span>                } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                    graph<span style="color:#f92672">[</span>i<span style="color:#f92672">][</span>j<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> 0;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//3. 获取所有的头节点和尾节点(的索引)</span>
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> headNodeIndex <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> tailNodeIndex <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0; i <span style="color:#f92672">&lt;</span> nodeIdList.<span style="color:#a6e22e">size</span>(); i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">boolean</span> tailFlag <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">boolean</span> headFlag <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> 0; j <span style="color:#f92672">&lt;</span> nodeIdList.<span style="color:#a6e22e">size</span>(); j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>tailFlag <span style="color:#f92672">&amp;&amp;</span> graph<span style="color:#f92672">[</span>i<span style="color:#f92672">][</span>j<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> 1) {
+</span></span><span style="display:flex;"><span>                    tailFlag <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>headFlag <span style="color:#f92672">&amp;&amp;</span> graph<span style="color:#f92672">[</span>j<span style="color:#f92672">][</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> 1) {
+</span></span><span style="display:flex;"><span>                    headFlag <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>tailFlag) {
+</span></span><span style="display:flex;"><span>                tailNodeIndex.<span style="color:#a6e22e">add</span>(i);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>headFlag) {
+</span></span><span style="display:flex;"><span>                headNodeIndex.<span style="color:#a6e22e">add</span>(i);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//TODO: 如果有向图中没有任何端点(所有头和尾都存在环), 要如何处理?</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//4. 整理结果, 返回</span>
+</span></span><span style="display:flex;"><span>        matrix.<span style="color:#a6e22e">setGraph</span>(graph);
+</span></span><span style="display:flex;"><span>        matrix.<span style="color:#a6e22e">setNodes</span>(nodeList);
+</span></span><span style="display:flex;"><span>        matrix.<span style="color:#a6e22e">setStandardRuler</span>(nodeIdList);
+</span></span><span style="display:flex;"><span>        matrix.<span style="color:#a6e22e">setHeadNodeIndex</span>(headNodeIndex);
+</span></span><span style="display:flex;"><span>        matrix.<span style="color:#a6e22e">setTailNodeIndex</span>(tailNodeIndex);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> matrix;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * 使用广度优先算法, 在有向图的邻接矩阵中获取某个给定节点(索引)在n步数内可以到达的所有节点的索引
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param nodeIdList    矩阵对照尺
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param graph         有向图的邻接矩阵
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param headNodeIndex 开始节点的索引集合(在对照尺中的下标)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param n             步数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @return Map &lt; 开始节点的索引,所有可达节点在矩阵对照尺中的下标&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Map<span style="color:#f92672">&lt;</span>Integer, List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;&gt;</span> <span style="color:#a6e22e">findNodesWithNPossiblePaths</span>(List<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> nodeIdList, <span style="color:#66d9ef">int</span><span style="color:#f92672">[][]</span> graph, List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> headNodeIndex, <span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>        Map<span style="color:#f92672">&lt;</span>Integer, List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;&gt;</span> nPathLengthNodeIndexMap <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (CollUtil.<span style="color:#a6e22e">isEmpty</span>(headNodeIndex)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> nPathLengthNodeIndexMap;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (Integer index : headNodeIndex) {
+</span></span><span style="display:flex;"><span>            T headNode <span style="color:#f92672">=</span> nodeIdList.<span style="color:#a6e22e">get</span>(index);
+</span></span><span style="display:flex;"><span>            List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> reachableNodesOnPathN <span style="color:#f92672">=</span> bfs(nodeIdList, graph, headNode, n);
+</span></span><span style="display:flex;"><span>            nPathLengthNodeIndexMap.<span style="color:#a6e22e">put</span>(index, reachableNodesOnPathN);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> nPathLengthNodeIndexMap;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * 使用广度优先算法, 在有向图的邻接矩阵中获取某个给定节点(索引)在n步数内可以到达的所有节点的索引
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param nodeIdList 矩阵对照尺
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param graph      有向图的邻接矩阵
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param startNode  开始节点的索引(在对照尺中的下标)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param n          步数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @return 所有可达节点在矩阵对照尺中的下标
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">bfs</span>(List<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> nodeIdList, <span style="color:#66d9ef">int</span><span style="color:#f92672">[][]</span> graph, T startNode, <span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> startIndex <span style="color:#f92672">=</span> nodeIdList.<span style="color:#a6e22e">indexOf</span>(startNode);
+</span></span><span style="display:flex;"><span>        Queue<span style="color:#f92672">&lt;</span>Pair<span style="color:#f92672">&lt;</span>Integer, Integer<span style="color:#f92672">&gt;&gt;</span> queue <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LinkedList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        queue.<span style="color:#a6e22e">offer</span>(<span style="color:#66d9ef">new</span> Pair<span style="color:#f92672">&lt;&gt;</span>(startIndex, 0));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>queue.<span style="color:#a6e22e">isEmpty</span>()) {
+</span></span><span style="display:flex;"><span>            Pair<span style="color:#f92672">&lt;</span>Integer, Integer<span style="color:#f92672">&gt;</span> current <span style="color:#f92672">=</span> queue.<span style="color:#a6e22e">poll</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> currentNodeIndex <span style="color:#f92672">=</span> current.<span style="color:#a6e22e">getKey</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> currentDepth <span style="color:#f92672">=</span> current.<span style="color:#a6e22e">getValue</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (currentDepth <span style="color:#f92672">&lt;</span> n) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> 0; j <span style="color:#f92672">&lt;</span> graph<span style="color:#f92672">[</span>currentNodeIndex<span style="color:#f92672">]</span>.<span style="color:#a6e22e">length</span>; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (graph<span style="color:#f92672">[</span>currentNodeIndex<span style="color:#f92672">][</span>j<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> 1) {
+</span></span><span style="display:flex;"><span>                        queue.<span style="color:#a6e22e">offer</span>(<span style="color:#66d9ef">new</span> Pair<span style="color:#f92672">&lt;&gt;</span>(j, currentDepth <span style="color:#f92672">+</span> 1));
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (currentDepth <span style="color:#f92672">==</span> n) {
+</span></span><span style="display:flex;"><span>                result.<span style="color:#a6e22e">add</span>(currentNodeIndex);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * 使用广度优先搜索, 获取有向图中在给定步数m下, 可以到达给定节点(索引)的所有节点(索引)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param nodeIdList 矩阵对照尺
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param graph 有向图的邻接矩阵
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param tailNodeIndex 最终到达节点的索引(在对照尺中的下标)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @param m 步数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * @return 所有可出发节点在矩阵对照尺中的下标
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Map<span style="color:#f92672">&lt;</span>Integer, List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;&gt;</span> <span style="color:#a6e22e">findNodesReachingCanReach</span>(List<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> nodeIdList, <span style="color:#66d9ef">int</span><span style="color:#f92672">[][]</span> graph, List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> tailNodeIndex, <span style="color:#66d9ef">int</span> m) {
+</span></span><span style="display:flex;"><span>        Map<span style="color:#f92672">&lt;</span>Integer, List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;&gt;</span> goForwardnPathLengthNodeIndexMap <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (CollUtil.<span style="color:#a6e22e">isEmpty</span>(tailNodeIndex)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> goForwardnPathLengthNodeIndexMap;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (Integer index : tailNodeIndex) {
+</span></span><span style="display:flex;"><span>            T tailNode <span style="color:#f92672">=</span> nodeIdList.<span style="color:#a6e22e">get</span>(index);
+</span></span><span style="display:flex;"><span>            List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> reachableNodesOnPathM <span style="color:#f92672">=</span> bfsToReachNode(nodeIdList, graph, tailNode, m);
+</span></span><span style="display:flex;"><span>            goForwardnPathLengthNodeIndexMap.<span style="color:#a6e22e">put</span>(index, reachableNodesOnPathM);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> goForwardnPathLengthNodeIndexMap;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">bfsToReachNode</span>(List<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> nodeIdList, <span style="color:#66d9ef">int</span><span style="color:#f92672">[][]</span> graph, T targetNode, <span style="color:#66d9ef">int</span> m) {
+</span></span><span style="display:flex;"><span>        List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (nodeIdList.<span style="color:#a6e22e">isEmpty</span>()) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> targetIndex <span style="color:#f92672">=</span> nodeIdList.<span style="color:#a6e22e">indexOf</span>(targetNode);
+</span></span><span style="display:flex;"><span>        Queue<span style="color:#f92672">&lt;</span>Pair<span style="color:#f92672">&lt;</span>Integer, Integer<span style="color:#f92672">&gt;&gt;</span> queue <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LinkedList<span style="color:#f92672">&lt;&gt;</span>();
+</span></span><span style="display:flex;"><span>        queue.<span style="color:#a6e22e">offer</span>(<span style="color:#66d9ef">new</span> Pair<span style="color:#f92672">&lt;&gt;</span>(targetIndex, 0));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>queue.<span style="color:#a6e22e">isEmpty</span>()) {
+</span></span><span style="display:flex;"><span>            Pair<span style="color:#f92672">&lt;</span>Integer, Integer<span style="color:#f92672">&gt;</span> current <span style="color:#f92672">=</span> queue.<span style="color:#a6e22e">poll</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> currentNodeIndex <span style="color:#f92672">=</span> current.<span style="color:#a6e22e">getKey</span>();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> currentDepth <span style="color:#f92672">=</span> current.<span style="color:#a6e22e">getValue</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (currentDepth <span style="color:#f92672">&lt;</span> m) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> 0; j <span style="color:#f92672">&lt;</span> graph.<span style="color:#a6e22e">length</span>; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (graph<span style="color:#f92672">[</span>j<span style="color:#f92672">][</span>currentNodeIndex<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> 1) {
+</span></span><span style="display:flex;"><span>                        queue.<span style="color:#a6e22e">offer</span>(<span style="color:#66d9ef">new</span> Pair<span style="color:#f92672">&lt;&gt;</span>(j, currentDepth <span style="color:#f92672">+</span> 1));
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (currentDepth <span style="color:#f92672">==</span> m) {
+</span></span><span style="display:flex;"><span>                result.<span style="color:#a6e22e">add</span>(currentNodeIndex);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+
+  <footer>
+  
+  
+  
+  <hr>
+  <div class="copyright">© <a href="https://rivermao.com">RiverMao</a> | since 2020 | <em>本站文章均为原创,转载请标明出处</em></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
