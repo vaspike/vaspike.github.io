@@ -2,20 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://rivermao.com/program/</loc>
+    <lastmod>2024-09-12T14:23:49+08:00</lastmod>
+  </url><url>
+    <loc>https://rivermao.com/</loc>
+    <lastmod>2024-09-12T14:23:49+08:00</lastmod>
+  </url><url>
+    <loc>https://rivermao.com/program/graph-matrix-alg/</loc>
+    <lastmod>2024-09-12T14:23:49+08:00</lastmod>
+  </url><url>
     <loc>https://rivermao.com/life/2024-09-12/</loc>
     <lastmod>2024-09-12T12:31:30+08:00</lastmod>
   </url><url>
     <loc>https://rivermao.com/life/</loc>
     <lastmod>2024-09-12T12:31:30+08:00</lastmod>
   </url><url>
-    <loc>https://rivermao.com/</loc>
-    <lastmod>2024-09-12T12:31:30+08:00</lastmod>
-  </url><url>
     <loc>https://rivermao.com/life/birthday-25/</loc>
     <lastmod>2023-08-18T19:44:30+08:00</lastmod>
-  </url><url>
-    <loc>https://rivermao.com/program/</loc>
-    <lastmod>2023-03-10T08:39:51+08:00</lastmod>
   </url><url>
     <loc>https://rivermao.com/program/java-java-kotlin-jna-dll-call/</loc>
     <lastmod>2023-03-10T08:39:51+08:00</lastmod>
