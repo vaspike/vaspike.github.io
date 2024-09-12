@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Rust的数据类型 - RiverMao</title>
+    <meta property="og:title" content="Rust的数据类型 - RiverMao">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css" media="print" onload="this.media='all'">
+
+    
+      
+      <meta property="description" content="Rust是静态编译语言,在编译时必须知道所有变量的类型
+[&amp;hellip;] 基于使用的值编译器通常能够推断出变量的具体类型
+[&amp;hellip;] 但如果可能的类型比较多,就必须标注变量的具体类型,否则在编译期就会报错,例:
+[&amp;hellip;] fn main() { let test = &amp;#34;65&amp;#34;.parse().expect(&amp;#34;Not a number!&amp;#34;); &amp;hellip;">
+      <meta property="og:description" content="Rust是静态编译语言,在编译时必须知道所有变量的类型
+[&amp;hellip;] 基于使用的值编译器通常能够推断出变量的具体类型
+[&amp;hellip;] 但如果可能的类型比较多,就必须标注变量的具体类型,否则在编译期就会报错,例:
+[&amp;hellip;] fn main() { let test = &amp;#34;65&amp;#34;.parse().expect(&amp;#34;Not a number!&amp;#34;); &amp;hellip;">
+      
+    
+
+    
+    
+    <meta name="twitter:image" content="https://z3.ax1x.com/2021/08/15/fcf7mF.png">
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>hljs.configure({
+    ignoreUnescapedHTML: true
+});</script>
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <script type="text/javascript" src="/js/codeBlock.js"></script>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+  </head>
+
+  
+  <body class="program">
+    <header class="masthead">
+      <h1><a href="/">RiverMao</a></h1>
+
+<p class="tagline">环游是无趣~</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/program/">program</a></li>
+  
+  <li><a href="/life/">life</a></li>
+  
+  <li><a href="/about">about</a></li>
+  
+  <li><a href="/index.xml">rss</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Rust的数据类型</h1>
+
+
+<h3>
+
+
+
+
+
+2022-05-31
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="rust数据类型">Rust数据类型</h1>
+<h2 id="标量和复合类型">标量和复合类型</h2>
+<ul>
+<li>
+<p>Rust是静态编译语言,在编译时必须知道所有变量的类型</p>
+<ol>
+<li>
+<p>基于使用的值编译器通常能够推断出变量的具体类型</p>
+</li>
+<li>
+<p>但如果可能的类型比较多,就必须标注变量的具体类型,否则在编译期就会报错,例:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> test <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;65&#34;</span>.parse().expect(<span style="color:#e6db74">&#34;Not a number!&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+</ol>
+</li>
+</ul>
+<p>​          <img src="https://z3.ax1x.com/2021/08/15/fcf7mF.png" alt="编译报错"></p>
+<p>修改为:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> test: <span style="color:#66d9ef">u32</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;65&#34;</span>.parse().expect(<span style="color:#e6db74">&#34;Not a number!&#34;</span>);
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{}&#34;</span>, test);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/15/fc4Rx0.png" alt="更改为:"></p>
+<p>指定test变量的类型为<strong>u32</strong>类型,成功编译运行</p>
+<h2 id="标量">标量</h2>
+<ul>
+<li>一个标量类型代表一个单个的值</li>
+<li>Rust有四个主要的标量类型:
+<ul>
+<li>整数类型</li>
+<li>浮点类型</li>
+<li>布尔类型</li>
+<li>字符类型</li>
+</ul>
+</li>
+</ul>
+<h3 id="整数类型">整数类型</h3>
+<ul>
+<li>
+<p>整数类型没有小数部分</p>
+</li>
+<li>
+<p>例如<strong>u32</strong>就是一个无符号的整数类型,占据32位的空间</p>
+</li>
+<li>
+<p>无符号整数类型以<strong>u</strong>开头</p>
+</li>
+<li>
+<p>有符号的整数类型以<strong>i</strong>开头</p>
+</li>
+<li>
+<p>Rust的整数类型如下:</p>
+<p><img src="https://z3.ax1x.com/2021/08/15/fc5OYj.png" alt=""></p>
+<ul>
+<li>每种都分<strong>i</strong>和<strong>u</strong>,以及固定的位数</li>
+</ul>
+</li>
+<li>
+<p><strong>isize</strong>和<strong>usize</strong>类型</p>
+<ul>
+<li>isize和usize的位数由运行程序的计算机的架构所决定
+<ul>
+<li>如果是64位计算机,那就是64位的</li>
+<li>使用这两种类型的场景不多,主要是对某种集合进行索引操作</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="整数字面值">整数字面值</h3>
+<p><img src="https://z3.ax1x.com/2021/08/15/fcI54J.png" alt=""></p>
+<ul>
+<li>除了<strong>byte</strong>类型外,所有数值字面值都允许使用类型后缀
+<ul>
+<li>例如<strong>57u8</strong></li>
+</ul>
+</li>
+<li>如果不清楚应该使用哪种类型,可以使用Rust中相应的默认类型:
+<ul>
+<li>整数的默认类型就是<strong>i32</strong>
+<ul>
+<li>即使在64位系统中整体运行速度也很快</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="整数溢出">整数溢出</h3>
+<p>例如<strong>u8</strong>的范围是<strong>0~255</strong>,如果把一个<strong>u8</strong>变量的值设为256,那么:</p>
+<ul>
+<li>
+<p><strong>调试模式下编译(debug)</strong></p>
+<p>Rust会检查整数溢出,如果发生溢出,程序在运行时就会<strong>panic</strong></p>
+</li>
+<li>
+<p><strong>发布模式下编译(release)</strong></p>
+<p>Rust不会检查可能导致<strong>panic</strong>的整数溢出:</p>
+<ul>
+<li>如果溢出发生,Rust会执行环绕操作:
+<ul>
+<li><strong>256</strong>变成<strong>0</strong>,<strong>257</strong>变成<strong>1</strong></li>
+</ul>
+</li>
+<li>但程序不会<strong>panic</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="浮点类型">浮点类型</h2>
+<ul>
+<li>Rust有两种基础的浮点类型:
+<ul>
+<li><strong>f32</strong> ,32位,单精度</li>
+<li><strong>f64</strong> ,64位,双精度</li>
+</ul>
+</li>
+<li>Rust的浮点类型使用了IEEE-754标准来表述</li>
+<li><strong>f64</strong>是默认类型,因为在现代cpu上<strong>f64</strong>和<strong>f32</strong>的速度差不多,而且精度更高,例子:</li>
+</ul>
+<p><img src="https://z3.ax1x.com/2021/08/15/fcTgTU.png" alt=""></p>
+<h3 id="数值操作">数值操作</h3>
+<ul>
+<li>
+<p>加减乘除余:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//加
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">45</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">56</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//减
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> difference <span style="color:#f92672">=</span> <span style="color:#ae81ff">78.0</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">45.2</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//乘
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> product <span style="color:#f92672">=</span> <span style="color:#ae81ff">45</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">34</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//除
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> quotient <span style="color:#f92672">=</span> <span style="color:#ae81ff">89</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">12</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//取余
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> reminder <span style="color:#f92672">=</span> <span style="color:#ae81ff">65</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">4</span>;
+</span></span></code></pre></div><p>与其他语言无区别</p>
+</li>
+</ul>
+<h2 id="布尔类型">布尔类型</h2>
+<ul>
+<li>
+<p><strong>Rust</strong>的布尔类型也有两个值:</p>
+<ul>
+<li>true</li>
+<li>false</li>
+</ul>
+</li>
+<li>
+<p>大小为一个字节</p>
+</li>
+<li>
+<p>符号为bool</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//两种声明bool值的方式
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> flag_t <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> flag_f:<span style="color:#66d9ef">bool</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="字符类型">字符类型</h2>
+<ul>
+<li>
+<p>Rust中的<strong>char</strong>类型用来描述语言中最基础的字符</p>
+</li>
+<li>
+<p>字符类型的字面值使用单引号</p>
+</li>
+<li>
+<p>占用四个字节</p>
+</li>
+<li>
+<p>是Unicode标量值,可以表示比ASCLL多得多的字符内容:拼音,中日韩文,零长度空白字符,emoji表情等:</p>
+</li>
+<li>
+<p>但Unicode并没有字符的概念,因此直觉上认为的字符也许和Rust中的概念并不相符:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> a:<span style="color:#66d9ef">char</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;s&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> b <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;在&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;😂&#39;</span>;
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="复合类型">复合类型</h2>
+<ul>
+<li>复合类型可以将多个值放在一个类型里</li>
+<li>Rust提供了两种基本的数据类型:
+<ul>
+<li>元组(Tuple)</li>
+<li>数组</li>
+</ul>
+</li>
+</ul>
+<h3 id="tuple元组">Tuple(元组)</h3>
+<ul>
+<li>
+<p>Tuple可以将多种类型的多个值放在一个类型中</p>
+</li>
+<li>
+<p>Tuple的长度是固定的,一旦声明后就不可改变</p>
+</li>
+<li>
+<p><strong>创建Tuple:</strong></p>
+<ul>
+<li>
+<p>在小括号中,将值用逗号分开</p>
+</li>
+<li>
+<p>Tuple 的每个位置都对应一个类型, Tuple中的各元素类型不必相同:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> tup:(<span style="color:#66d9ef">i32</span>,<span style="color:#66d9ef">f64</span>,<span style="color:#66d9ef">u8</span>) <span style="color:#f92672">=</span> (<span style="color:#ae81ff">78</span>,<span style="color:#ae81ff">45.4</span>,<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p><strong>获取Tuple中的值:</strong></p>
+<ul>
+<li>
+<p>可以使用模式匹配来<strong>解构</strong>(destructure)一个Tuple来获取元素的值</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> tup:(<span style="color:#66d9ef">i32</span>,<span style="color:#66d9ef">f64</span>,<span style="color:#66d9ef">u8</span>) <span style="color:#f92672">=</span> (<span style="color:#ae81ff">78</span>,<span style="color:#ae81ff">45.4</span>,<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> (x,y,z) <span style="color:#f92672">=</span> tup;
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{},{},{}&#34;</span>,x,y,z);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/15/fcLZ5T.png" alt=""></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>访问Tuple中的值</strong></p>
+<ul>
+<li>
+<p>对Tuple变量使用点标记法,后接元素的索引号</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> tup:(<span style="color:#66d9ef">i32</span>,<span style="color:#66d9ef">f64</span>,<span style="color:#66d9ef">u8</span>) <span style="color:#f92672">=</span> (<span style="color:#ae81ff">78</span>,<span style="color:#ae81ff">45.4</span>,<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{},{},{}&#34;</span>,tup.<span style="color:#ae81ff">0</span>,tup.<span style="color:#ae81ff">1</span>,tup.<span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/15/fcqUun.png" alt=""></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="数组">数组</h3>
+<ul>
+<li>
+<p>数组可以将多个值放在一个类型里</p>
+</li>
+<li>
+<p>数组中的每个元素的类型<strong>必须相同</strong></p>
+</li>
+<li>
+<p>数组的长度也是固定的,声明后不可变</p>
+</li>
+<li>
+<p><strong>声明数组</strong></p>
+<ul>
+<li>
+<p>在中括号里,各个值使用逗号分开:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> arr <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>];
+</span></span></code></pre></div></li>
+</ul>
+</li>
+<li>
+<p><strong>数组的用处</strong></p>
+<ul>
+<li>
+<p>如果想让你的数组存放在stack(栈)上而不是heap上,或者像保证有固定数量的元素,这时使用数组更有好处</p>
+</li>
+<li>
+<p>但是数组没有<strong>Vector</strong>灵活</p>
+<ul>
+<li>Vector和数组类似,它由便准库提供</li>
+<li>Vector的长度是可变的</li>
+<li>如果不确定应该使用数组还是Vector时,大概率应该使用Vector</li>
+</ul>
+</li>
+<li>
+<p><strong>数组的类型</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> a:[<span style="color:#66d9ef">i32</span>;<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>];
+</span></span></code></pre></div><ul>
+<li>
+<p>另一种声明数组的方式(特殊)</p>
+<ul>
+<li>
+<p>如果数组的每个元素都相同,那么在中括号中指定初始值,初始值后是一个分号,最后是数组的长度:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> [<span style="color:#ae81ff">3</span>;<span style="color:#ae81ff">5</span>];<span style="color:#75715e">//那么此语句等价为:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>];
+</span></span></code></pre></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>访问数组的元素</strong></p>
+<ul>
+<li>
+<p>数组是Stack上分配的单个块的内存</p>
+</li>
+<li>
+<p>可以使用索引来访问数组的元素:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> arr <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> arr[<span style="color:#ae81ff">0</span>];<span style="color:#75715e">//1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> y <span style="color:#f92672">=</span> arr[<span style="color:#ae81ff">4</span>];<span style="color:#75715e">//8
+</span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>Rust中如果访问超出数组索引的元素则会报错,不允许访问,这与C/C++是不同的</p>
+</li>
+</ul>
+</li>
+</ul>
+
+
+
+  <footer>
+  
+  
+  
+  <hr>
+  <div class="copyright">© <a href="https://rivermao.com">RiverMao</a> | since 2020 | <em>本站文章均为原创,转载请标明出处</em></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

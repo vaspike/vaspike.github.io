@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>在java或kotlin中使用jna调用dll动态链接库 - RiverMao</title>
+    <meta property="og:title" content="在java或kotlin中使用jna调用dll动态链接库 - RiverMao">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css" media="print" onload="this.media='all'">
+
+    
+      
+      <meta property="description" content="Java Native Access (JNA),Github地址:JNA
+在仓库的README.md中有:
+[&amp;hellip;] JNA provides Java programs easy access to native shared libraries without writing anything but Java code - no JNI or native code is &amp;hellip;">
+      <meta property="og:description" content="Java Native Access (JNA),Github地址:JNA
+在仓库的README.md中有:
+[&amp;hellip;] JNA provides Java programs easy access to native shared libraries without writing anything but Java code - no JNI or native code is &amp;hellip;">
+      
+    
+
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>hljs.configure({
+    ignoreUnescapedHTML: true
+});</script>
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <script type="text/javascript" src="/js/codeBlock.js"></script>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+  </head>
+
+  
+  <body class="program">
+    <header class="masthead">
+      <h1><a href="/">RiverMao</a></h1>
+
+<p class="tagline">环游是无趣~</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/program/">program</a></li>
+  
+  <li><a href="/life/">life</a></li>
+  
+  <li><a href="/about">about</a></li>
+  
+  <li><a href="/index.xml">rss</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>在java或kotlin中使用jna调用dll动态链接库</h1>
+
+
+<h3>
+
+
+
+
+
+2023-03-10
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h2 id="1jna介绍">1.jna介绍</h2>
+<p>Java Native Access (JNA),Github地址:<a href="https://github.com/java-native-access/jna">JNA</a></p>
+<p>在仓库的README.md中有:</p>
+<blockquote>
+<p>JNA provides Java programs easy access to native shared libraries without writing anything but Java code - no JNI or native code is required. This functionality is comparable to Windows&rsquo; Platform/Invoke and Python&rsquo;s ctypes.</p>
+</blockquote>
+<blockquote>
+<p>JNA allows you to call directly into native functions using natural Java method invocation. The Java call looks just like the call does in native code. Most calls require no special handling or configuration; no boilerplate or generated code is required.</p>
+</blockquote>
+<p>其是一个由社区开发的库，它使Java程序无需使用Java Native Interface(JNI)即可轻松访问本地共享库。JNA的设计旨在以最少的努力以原生的方式提供本地访问，且不需要样板代码或胶水代码。</p>
+<h2 id="2使用jna">2.使用JNA</h2>
+<p>以CH375为例，CH375是一个USB总线的通用接口芯片，它的驱动是一个dll动态链接库，后文中将借助JNA调用它的dll</p>
+<blockquote>
+<p>CH375官网介绍:<a href="http://www.wch.cn/products/CH375.html">CH375</a></p>
+</blockquote>
+<p>官方提供了一个dll相关的头文件,这里节选出需要调用的方法:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>HANDLE	WINAPI	<span style="color:#a6e22e">CH375OpenDevice</span>(  <span style="color:#75715e">// 打开CH375设备,返回句柄,出错则无效
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	ULONG			iIndex );  <span style="color:#75715e">// 指定CH375设备序号,0对应第一个设备,-1则自动搜索一个可以被打开的设备并返回序号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>BOOL	WINAPI	<span style="color:#a6e22e">CH375SetTimeout</span>(  <span style="color:#75715e">// 设置USB数据读写的超时
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	ULONG			iIndex,  <span style="color:#75715e">// 指定CH375设备序号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	ULONG			iWriteTimeout,  <span style="color:#f92672">//</span> <span style="color:#960050;background-color:#1e0010">指定</span>USB<span style="color:#960050;background-color:#1e0010">写出数据块的超时时间</span>,<span style="color:#960050;background-color:#1e0010">以毫秒</span>mS<span style="color:#960050;background-color:#1e0010">为单位</span>,<span style="color:#ae81ff">0xFFFFFFFF</span><span style="color:#960050;background-color:#1e0010">指定不超时</span>(<span style="color:#960050;background-color:#1e0010">默认值</span>)
+</span></span><span style="display:flex;"><span>	ULONG			iReadTimeout );  <span style="color:#75715e">// 指定USB读取数据块的超时时间,以毫秒mS为单位,0xFFFFFFFF指定不超时(默认值)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	
+</span></span><span style="display:flex;"><span>BOOL	WINAPI	<span style="color:#a6e22e">CH375WriteData</span>(  <span style="color:#75715e">// 写出数据块
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	ULONG			iIndex,  <span style="color:#75715e">// 指定CH375设备序号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	PVOID			iBuffer,  <span style="color:#75715e">// 指向一个缓冲区,放置准备写出的数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	PULONG			ioLength );  <span style="color:#75715e">// 指向长度单元,输入时为准备写出的长度,返回后为实际写出的长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>BOOL	WINAPI	<span style="color:#a6e22e">CH375ReadData</span>(  <span style="color:#75715e">// 读取数据块
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	ULONG			iIndex,  <span style="color:#75715e">// 指定CH375设备序号
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	PVOID			oBuffer,  <span style="color:#75715e">// 指向一个足够大的缓冲区,用于保存读取的数据
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	PULONG			ioLength );  <span style="color:#75715e">// 指向长度单元,输入时为准备读取的长度,返回后为实际读取的长度
+</span></span></span></code></pre></div><h3 id="21引入jna依赖">2.1.引入JNA依赖</h3>
+<p>这里使用的项目管理工具是Gradle,在build.gradle.kts中添加依赖:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>dependencies {
+</span></span><span style="display:flex;"><span>    implementation(<span style="color:#e6db74">&#34;net.java.dev.jna:jna:5.5.0&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="22创建一个接口">2.2.创建一个接口</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">import</span> com.sun.jna.Library<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> com.sun.jna.Native<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Ch375Library</span> <span style="color:#66d9ef">extends</span> Library <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    Ch375Library INSTANCE <span style="color:#f92672">=</span> Native<span style="color:#f92672">.</span><span style="color:#a6e22e">load</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;CH375DLL64.dll&#34;</span><span style="color:#f92672">,</span> Ch375Library<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    Integer <span style="color:#a6e22e">CH375OpenDevice</span><span style="color:#f92672">(</span>Integer index<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    Boolean <span style="color:#a6e22e">CH375SetTimeout</span><span style="color:#f92672">(</span>Integer index<span style="color:#f92672">,</span> Long writeTimeout<span style="color:#f92672">,</span>Long readTimeout<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Boolean <span style="color:#a6e22e">CH375WriteData</span><span style="color:#f92672">(</span>Integer index<span style="color:#f92672">,</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> data<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> length<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Boolean <span style="color:#a6e22e">CH375ReadData</span><span style="color:#f92672">(</span>Integer index<span style="color:#f92672">,</span> <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> data<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> length<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><blockquote>
+<p>需要特别注意的是,头文件中参数数据类型和接口中数据类型的对应,例如指针类型的参数,在Java中就要换为数组类型</p>
+</blockquote>
+<blockquote>
+<p>这里的接口使用kotlin写也是没问题的</p>
+</blockquote>
+<p><code>CH375DLL64.dll</code>文件要放在resources下:<code>resources/win32-x86-64/CH375DLL64.dll</code></p>
+<p>至此,已经可以直接调用这四个函数了,使用JNA就是这么十分的简洁</p>
+<h3 id="23调用示例">2.3.调用示例</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> Ch375Library
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Ch375HandlerKt</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">openDevice</span>(): Boolean {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> openFlagInt = Ch375Library.<span style="color:#a6e22e">INSTANCE</span>.CH375OpenDevice(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (openFlagInt <span style="color:#f92672">==</span> -<span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Ch375Library.<span style="color:#a6e22e">INSTANCE</span>.CH375SetTimeout(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3000</span>, <span style="color:#ae81ff">3000</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">writeCommand</span>(command: String): Boolean {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> data = command.toByteArray()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> length = IntArray(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        length[<span style="color:#ae81ff">0</span>] = <span style="color:#66d9ef">data</span>.size
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Ch375Library.<span style="color:#a6e22e">INSTANCE</span>.CH375WriteData(<span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">data</span>, length)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">readData</span>(): ByteArray {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> data = ByteArray(<span style="color:#ae81ff">64</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> length = IntArray(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        length[<span style="color:#ae81ff">0</span>] = <span style="color:#66d9ef">data</span>.size
+</span></span><span style="display:flex;"><span>        Ch375Library.<span style="color:#a6e22e">INSTANCE</span>.CH375ReadData(<span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">data</span>, length)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">data</span>.copyOf(length[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+
+  <footer>
+  
+  
+  
+  <hr>
+  <div class="copyright">© <a href="https://rivermao.com">RiverMao</a> | since 2020 | <em>本站文章均为原创,转载请标明出处</em></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

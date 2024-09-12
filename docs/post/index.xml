@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on RiverMao</title>
+    <link>https://rivermao.com/post/</link>
+    <description>Recent content in Posts on RiverMao</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 23 Feb 2023 11:09:40 +0800</lastBuildDate><atom:link href="https://rivermao.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在PostgreSQL中使用窗口函数解决取分组后前n条数据的问题</title>
+      <link>https://rivermao.com/post/pgsql01/</link>
+      <pubDate>Thu, 23 Feb 2023 11:09:40 +0800</pubDate>
+      
+      <guid>https://rivermao.com/post/pgsql01/</guid>
+      <description>先描述一个业务场景:
+现有一张数据表,结构如下:
+现在要查询每个不同number的最后一条(create_time)的完整记录
+保证查询结果中的number不重复
+直观的解决办法是:
+对number字段分组 对create_time进行desc排序 如:
+select * from (select * from table_name where create_time &amp;gt; &amp;#39;2022-12-01&amp;#39; and create_time &amp;lt; &amp;#39;2023-12-12&amp;#39; ORDER BY create_time desc) a GROUP BY number; 这条sql放在MySQL中或许可以执行成功,但在PostgreSQL中是无法执行的,因为pgsql的group by是严格的,group by后无法再select * (本文忽略select * 的性能问题,与主题无关)
+在pgSQL中,有一种可行的写法:
+select *, pcd.number from table_name pcd right join (select number, max(create_time) latest_create_time from table_name where create_time &amp;gt; &amp;#39;2023-02-21&amp;#39; and create_time &amp;lt; &amp;#39;2023-02-22&amp;#39; group by factory_number) d on d.number = pcd.number and pcd.</description>
+    </item>
+    
+    <item>
+      <title>Rust特性(1)--所有权,深浅拷贝,引用,借用,悬空引用(野指针)</title>
+      <link>https://rivermao.com/post/rust01/</link>
+      <pubDate>Tue, 31 May 2022 20:59:22 +0800</pubDate>
+      
+      <guid>https://rivermao.com/post/rust01/</guid>
+      <description>内存模型 Rust的内存可分为**栈(stack)和堆(heap)**两种 标量会被分配在栈上 栈为后进先出 分配在堆上的变量在使用时要注意一个叫做所有权的概念 所有权(Ownership) 变量的所有权与变量的声明作用域相同,在变量离开作用域时,变量会发生Drop操作,除非发生所有权的移交(move) 深拷贝(deep copy)与浅拷贝(shallow copy) 堆上数据的拷贝: 分配在堆上的变量默认使用的是浅拷贝
+堆上的变量发生浅拷贝时实际上是将这段堆内存的所有权移交给拷贝者:
+如下的代码在编译时就会报错 fn main() { let s1 = String::from(&amp;#34;hello world&amp;#34;); let s2 = s1; println!(&amp;#34;{}&amp;#34;,s1);//此处会报错 } 因为s1(s1的引用是字符串,指向堆的)对字符串的引用已经移交(move)给了s2,无法再对s1进行操作(其实在移交所有权后s1已经被销毁了),包括读取它
+如果使用深拷贝,则会在堆中真正拷贝一个段相同的数据并将新数据的引用交给(move)拷贝者(s2),此时,s1依然拥有所有权,它与s2之间的所有权是相互独立,互不影响的,如下:
+fn main() { let s1 = String::from(&amp;#34;hello world&amp;#34;); let s2 = s1.clone();//clone()方法将会使用深拷贝 println!(&amp;#34;{},{}&amp;#34;,s1,s2);//此时s1与s2都可以正常读取输出,不会报错 } 即:一块内存在某个时间上只可以属于一个变量
+栈中数据的拷贝: 栈上变量的拷贝本质上是深拷贝,这与栈上拷贝的操作是不同的
+所有标量都会分配在栈上
+例子:
+fn main() { let s1 = 5; let s2 = s1; println!(&amp;#34;{},{}&amp;#34;,s1,s2); } 程序可以正常运行:
+Copy trait Copy trait可以用于像整数这样完全存放在stack上的类型 如果一个类型实现了copy 这个trait,那么这个类型的变量在发生拷贝后依然可以使用 实现了Drop trait 的类型不可以再实现Copy trait(防止double free) 拥有Copy trait的类型:</description>
+    </item>
+    
+  </channel>
+</rss>

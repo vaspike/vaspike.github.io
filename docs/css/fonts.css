@@ -1,0 +1,9 @@
+body {
+  font-family: "SF Mono", Optima, 'Lucida Sans', Calibri, Candara, Arial, 'source-han-serif-sc', 'Source Han Serif SC', 'Source Han Serif CN', 'Source Han Serif TC', 'Source Han Serif TW', 'Source Han Serif', 'Noto Serif CJK SC', 'Songti SC', 'Microsoft YaHei', sans-serif;
+}
+code {
+  font-family: "JetBrains Mono","Fira Code","SF Mono",Consolas,"Lucida Console", 'Andale Mono', 'STKaiti', 'KaiTi', 'SimKai', monospace;
+}
+pre code {
+  font-family: "SF Mono", Consolas, "Fira Code","Lucida Console", Monaco, 'STKaiti', 'KaiTi', 'SimKai', monospace;
+}

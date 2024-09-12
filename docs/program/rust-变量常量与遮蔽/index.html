@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Rust的变量、常量与遮蔽(Shadowing) - RiverMao</title>
+    <meta property="og:title" content="Rust的变量、常量与遮蔽(Shadowing) - RiverMao">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css" media="print" onload="this.media='all'">
+
+    
+      
+      <meta property="description" content="声明变量使用let关键字
+[&amp;hellip;] 默认情况下,Rust的变量是不可变的(immediate),但这与常量仍有很大的区别
+[&amp;hellip;] 在声明变量时,如果变量名前加上_mut_关键字,就可以使此变量可变
+[&amp;hellip;] 变量的声明使用蛇形命名法
+例子:
+[&amp;hellip;] let mut question_will_send = &amp;#34;Who am I &amp;hellip;">
+      <meta property="og:description" content="声明变量使用let关键字
+[&amp;hellip;] 默认情况下,Rust的变量是不可变的(immediate),但这与常量仍有很大的区别
+[&amp;hellip;] 在声明变量时,如果变量名前加上_mut_关键字,就可以使此变量可变
+[&amp;hellip;] 变量的声明使用蛇形命名法
+例子:
+[&amp;hellip;] let mut question_will_send = &amp;#34;Who am I &amp;hellip;">
+      
+    
+
+    
+    
+    <meta name="twitter:image" content="https://z3.ax1x.com/2021/08/15/fcC6sS.png">
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>hljs.configure({
+    ignoreUnescapedHTML: true
+});</script>
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <script type="text/javascript" src="/js/codeBlock.js"></script>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+  </head>
+
+  
+  <body class="program">
+    <header class="masthead">
+      <h1><a href="/">RiverMao</a></h1>
+
+<p class="tagline">环游是无趣~</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/program/">program</a></li>
+  
+  <li><a href="/life/">life</a></li>
+  
+  <li><a href="/about">about</a></li>
+  
+  <li><a href="/index.xml">rss</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Rust的变量、常量与遮蔽(Shadowing)</h1>
+
+
+<h3>
+
+
+
+
+
+2022-05-31
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="rust的变量常量shadowing">Rust的变量,常量,Shadowing</h1>
+<h2 id="变量">变量</h2>
+<ul>
+<li>
+<p>声明变量使用let关键字</p>
+</li>
+<li>
+<p>默认情况下,Rust的变量是不可变的(immediate),但这与常量仍有很大的区别</p>
+</li>
+<li>
+<p>在声明变量时,如果变量名前加上_mut_关键字,就可以使此变量可变</p>
+</li>
+<li>
+<p>变量的声明使用蛇形命名法</p>
+<p>例子:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> question_will_send <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Who am I ?&#34;</span>;
+</span></span></code></pre></div></li>
+</ul>
+<h2 id="常量">常量</h2>
+<ul>
+<li>
+<p>使用const关键字声明常量</p>
+</li>
+<li>
+<p>不可以使用_mnt_关键字,常量永不可变</p>
+</li>
+<li>
+<p>常量在声明时必须同时声明数据类型</p>
+</li>
+<li>
+<p>常量可以在任何作用域中声明,包括全局作用域</p>
+</li>
+<li>
+<p>常量只可以绑定到常量表达式,无法绑定到函数的调用结果或者只有在运行时才能计算出的值(即常量的值和类型在编译期就必须被确定)</p>
+</li>
+<li>
+<p>在程序运行期间,常量在其声明的作用域中一直有效</p>
+</li>
+<li>
+<p>常量的命名规范为</p>
+<p>1.使用大写字母</p>
+<p>2.单词间使用下划线连接</p>
+<p>例子:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> MAX_USER_ID: <span style="color:#a6e22e">U32</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">100_000</span>; <span style="color:#75715e">//100_000即为100000,添加下划线可增强可读性,java中也有类似的使用
+</span></span></span></code></pre></div></li>
+</ul>
+<h2 id="shadowing遮蔽隐藏">Shadowing(遮蔽/隐藏)</h2>
+<ul>
+<li>
+<p>Rust中可以使用相同的名字声明变量,新的变量就会把之前声明的同名变量Shadow(遮蔽掉)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span></code></pre></div><p>这种语法在Java等大多数语言中是不允许的,却是Rust的一大特点</p>
+</li>
+<li>
+<p>shadow的变量可以更改为与之前不同的数据类型</p>
+<p>例子:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span>  space <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;   &#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> space <span style="color:#f92672">=</span> space.len();
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;空格数量为:{}&#34;</span>,space);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/15/fcC6sS.png" alt="shadow"></p>
+</li>
+</ul>
+<p>​	但如果不使用shadow时,一个变量的数据类型不可更改:</p>
+<p>​		例子:</p>
+<p><img src="https://z3.ax1x.com/2021/08/15/fcP9sO.png" alt="不使用shadow"></p>
+
+
+
+  <footer>
+  
+  
+  
+  <hr>
+  <div class="copyright">© <a href="https://rivermao.com">RiverMao</a> | since 2020 | <em>本站文章均为原创,转载请标明出处</em></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

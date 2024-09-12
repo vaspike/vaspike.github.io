@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Compose Multiplatform自定义可下拉输入框组件 - RiverMao</title>
+    <meta property="og:title" content="Compose Multiplatform自定义可下拉输入框组件 - RiverMao">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css" media="print" onload="this.media='all'">
+
+    
+      
+      <meta property="description" content="compose自带库中的TextField和outlinedTextField有默认的大小,都属于Material风格的输入框,最小尺寸很大,如果要创建UI上比较紧凑的表单,就需要自定义组件了,同时让这个自定义组件也可作为下拉框来使用
+[&amp;hellip;] 自带库中,有一个BaseTextField组件,它位于package androidx.compose.foundation.text,我们可 &amp;hellip;">
+      <meta property="og:description" content="compose自带库中的TextField和outlinedTextField有默认的大小,都属于Material风格的输入框,最小尺寸很大,如果要创建UI上比较紧凑的表单,就需要自定义组件了,同时让这个自定义组件也可作为下拉框来使用
+[&amp;hellip;] 自带库中,有一个BaseTextField组件,它位于package androidx.compose.foundation.text,我们可 &amp;hellip;">
+      
+    
+
+    
+    
+    <meta name="twitter:image" content="https://s1.ax1x.com/2023/03/08/ppezAUO.png">
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>hljs.configure({
+    ignoreUnescapedHTML: true
+});</script>
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <script type="text/javascript" src="/js/codeBlock.js"></script>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+  </head>
+
+  
+  <body class="program">
+    <header class="masthead">
+      <h1><a href="/">RiverMao</a></h1>
+
+<p class="tagline">环游是无趣~</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/program/">program</a></li>
+  
+  <li><a href="/life/">life</a></li>
+  
+  <li><a href="/about">about</a></li>
+  
+  <li><a href="/index.xml">rss</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Compose Multiplatform自定义可下拉输入框组件</h1>
+
+
+<h3>
+
+
+
+
+
+2023-03-08
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="heading"></h1>
+<p>compose自带库中的TextField和outlinedTextField有默认的大小,都属于Material风格的输入框,最小尺寸很大,如果要创建UI上比较紧凑的表单,就需要自定义组件了,同时让这个自定义组件也可作为下拉框来使用</p>
+<h2 id="1-阅读basetextfield">1. 阅读BaseTextField</h2>
+<p>自带库中,有一个<strong>BaseTextField</strong>组件,它位于<code>package androidx.compose.foundation.text</code>,我们可以先看下它的注释:</p>
+<blockquote>
+<p>Basic composable that enables users to edit text via hardware or software keyboard, but provides no decorations like hint or placeholder.
+Whenever the user edits the text, onValueChange is called with the most up to date state represented by String with which developer is expected to update their state.
+Unlike TextFieldValue overload, this composable does not let the developer to control selection, cursor and text composition information. Please check TextFieldValue and corresponding BasicTextField overload for more information.
+It is crucial that the value provided in the onValueChange is fed back into BasicTextField in order to have the final state of the text being displayed.</p>
+</blockquote>
+<p>从上述注释中可以确定两件事:</p>
+<ol>
+<li>BaseTextField是一个基础的文本输入框,它不提供任何装饰,比如hint和placeholder</li>
+<li>当用户编辑文本时,会调用onValueChange,并传入最新的String类型的值,这一点和TextField和outlinedTextField是一致的</li>
+</ol>
+<p>看下BaseTextField的函数定义:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#a6e22e">@Composable</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">BasicTextField</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">value</span>: String,
+</span></span><span style="display:flex;"><span>    onValueChange: (String) <span style="color:#f92672">-&gt;</span> Unit,
+</span></span><span style="display:flex;"><span>    modifier: Modifier = Modifier,
+</span></span><span style="display:flex;"><span>    enabled: Boolean = <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    readOnly: Boolean = <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    textStyle: TextStyle = <span style="color:#a6e22e">TextStyle</span>.Default,
+</span></span><span style="display:flex;"><span>    keyboardOptions: KeyboardOptions = <span style="color:#a6e22e">KeyboardOptions</span>.Default,
+</span></span><span style="display:flex;"><span>    keyboardActions: KeyboardActions = <span style="color:#a6e22e">KeyboardActions</span>.Default,
+</span></span><span style="display:flex;"><span>    singleLine: Boolean = <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    maxLines: Int = <span style="color:#a6e22e">Int</span>.MAX_VALUE,
+</span></span><span style="display:flex;"><span>    visualTransformation: VisualTransformation = <span style="color:#a6e22e">VisualTransformation</span>.None,
+</span></span><span style="display:flex;"><span>    onTextLayout: (TextLayoutResult) <span style="color:#f92672">-&gt;</span> Unit = {},
+</span></span><span style="display:flex;"><span>    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+</span></span><span style="display:flex;"><span>    cursorBrush: Brush = SolidColor(<span style="color:#a6e22e">Color</span>.Black),
+</span></span><span style="display:flex;"><span>    decorationBox: <span style="color:#a6e22e">@Composable</span> (innerTextField: <span style="color:#a6e22e">@Composable</span> () <span style="color:#f92672">-&gt;</span> Unit) <span style="color:#f92672">-&gt;</span> Unit =
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">@Composable</span> { innerTextField <span style="color:#f92672">-&gt;</span> innerTextField() },
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//省略函数体
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>可以发现大部分的参数和TextField和outlinedTextField是一致的本处不再介绍,这里关注<strong>decorationBox</strong>参数,同样先看参数注释:</p>
+<blockquote>
+<p>decorationBox - Composable lambda that allows to add decorations around text field, such as icon, placeholder, helper messages or similar, and automatically increase the hit target area of the text field. To allow you to control the placement of the inner text field relative to your decorations, the text field implementation will pass in a framework-controlled composable parameter &ldquo;innerTextField&rdquo; to the decorationBox lambda you provide. You must call innerTextField exactly once.</p>
+</blockquote>
+<p>简单来说这个参数的作用是:</p>
+<blockquote>
+<p>允许在文本字段周围添加装饰，例如图标，占位符，帮助程序消息或类似内容，并自动增加文本字段的命中目标区域</p>
+</blockquote>
+<p>要把自定义组件可作为下拉框来使用,这个参数将会传入Icon</p>
+<p>至于小尺寸的问题,只要使用这个函数时<code>textStyle</code>传入字体小一些的对象即可,因为它不同于Material风格的组件有最小高度</p>
+<h2 id="2-使用basetextfield">2. 使用BaseTextField</h2>
+<p>根据上述思路,给出一个简单的修改:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> androidx.compose.foundation.border
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> androidx.compose.foundation.layout.*
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> androidx.compose.foundation.text.BasicTextField
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> androidx.compose.material.LocalTextStyle
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> androidx.compose.material.MaterialTheme
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> androidx.compose.material.Text
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> androidx.compose.runtime.Composable
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> androidx.compose.ui.Alignment
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> androidx.compose.ui.Modifier
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> androidx.compose.ui.graphics.Color
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> androidx.compose.ui.graphics.SolidColor
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> androidx.compose.ui.unit.TextUnit
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> androidx.compose.ui.unit.dp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Composable</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">CustomTextField</span>(
+</span></span><span style="display:flex;"><span>    modifier: Modifier = Modifier,
+</span></span><span style="display:flex;"><span>    leadingIcon: (<span style="color:#a6e22e">@Composable</span> () <span style="color:#f92672">-&gt;</span> Unit)? = <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>    trailingIcon: (<span style="color:#a6e22e">@Composable</span> () <span style="color:#f92672">-&gt;</span> Unit)? = <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>    placeholderText: String = <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>    fontSize: TextUnit = <span style="color:#a6e22e">MaterialTheme</span>.typography.body2.fontSize,
+</span></span><span style="display:flex;"><span>    readOnly: Boolean = <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">value</span>: String,
+</span></span><span style="display:flex;"><span>    onValueChange: (String) <span style="color:#f92672">-&gt;</span> Unit,
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> contentTextColor = <span style="color:#a6e22e">MaterialTheme</span>.colors.onSurface
+</span></span><span style="display:flex;"><span>    BasicTextField(modifier = modifier
+</span></span><span style="display:flex;"><span>        .fillMaxWidth(),
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">value</span> = <span style="color:#66d9ef">value</span>,
+</span></span><span style="display:flex;"><span>        onValueChange = onValueChange,
+</span></span><span style="display:flex;"><span>        readOnly = readOnly,
+</span></span><span style="display:flex;"><span>        singleLine = <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>        cursorBrush = SolidColor(<span style="color:#a6e22e">MaterialTheme</span>.colors.primary),
+</span></span><span style="display:flex;"><span>        textStyle = <span style="color:#a6e22e">LocalTextStyle</span>.current.copy(
+</span></span><span style="display:flex;"><span>            color = contentTextColor,
+</span></span><span style="display:flex;"><span>            fontSize = fontSize
+</span></span><span style="display:flex;"><span>        ),
+</span></span><span style="display:flex;"><span>        decorationBox = { innerTextField <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>            Row(
+</span></span><span style="display:flex;"><span>                modifier,
+</span></span><span style="display:flex;"><span>                verticalAlignment = <span style="color:#a6e22e">Alignment</span>.CenterVertically
+</span></span><span style="display:flex;"><span>            ) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (leadingIcon <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) leadingIcon()
+</span></span><span style="display:flex;"><span>                Box(<span style="color:#a6e22e">Modifier</span>.weight(<span style="color:#ae81ff">1f</span>)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">value</span>.isEmpty()) Text(
+</span></span><span style="display:flex;"><span>                        placeholderText,
+</span></span><span style="display:flex;"><span>                        style = <span style="color:#a6e22e">LocalTextStyle</span>.current.copy(
+</span></span><span style="display:flex;"><span>                            color = <span style="color:#a6e22e">MaterialTheme</span>.colors.onSurface.copy(alpha = <span style="color:#ae81ff">0.3f</span>),
+</span></span><span style="display:flex;"><span>                            fontSize = fontSize
+</span></span><span style="display:flex;"><span>                        )
+</span></span><span style="display:flex;"><span>                    )
+</span></span><span style="display:flex;"><span>                    innerTextField()
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (trailingIcon <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>) trailingIcon()
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>接下来只需要把这个函数放入一个带边框的<code>Box</code>布局中,就可以实现一个可视友好的输入框(可作为下拉框)</p>
+<p>更进一步,此处给出水平布局和纵向布局的两种实现:</p>
+<ul>
+<li>水平实现:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#a6e22e">@Composable</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">HorizontalCustomTextField</span>(
+</span></span><span style="display:flex;"><span>    modifier: Modifier = Modifier,
+</span></span><span style="display:flex;"><span>    textContent: (<span style="color:#a6e22e">@Composable</span> () <span style="color:#f92672">-&gt;</span> Unit),
+</span></span><span style="display:flex;"><span>    otherContent: (<span style="color:#a6e22e">@Composable</span> () <span style="color:#f92672">-&gt;</span> Unit)? = <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>    customTextFieldContent: (<span style="color:#a6e22e">@Composable</span> () <span style="color:#f92672">-&gt;</span> Unit),
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>    Row(
+</span></span><span style="display:flex;"><span>        modifier = modifier,
+</span></span><span style="display:flex;"><span>        verticalAlignment = <span style="color:#a6e22e">Alignment</span>.CenterVertically,
+</span></span><span style="display:flex;"><span>        horizontalArrangement = <span style="color:#a6e22e">Arrangement</span>.Start
+</span></span><span style="display:flex;"><span>    ) {
+</span></span><span style="display:flex;"><span>        Column(modifier = <span style="color:#a6e22e">Modifier</span>.weight(<span style="color:#ae81ff">0.4f</span>)) {
+</span></span><span style="display:flex;"><span>            textContent()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        Spacer(modifier = <span style="color:#a6e22e">Modifier</span>.width(<span style="color:#ae81ff">5.</span>dp))
+</span></span><span style="display:flex;"><span>        Box(<span style="color:#a6e22e">Modifier</span>.weight(<span style="color:#ae81ff">0.99f</span>).border(<span style="color:#ae81ff">1.</span>dp, <span style="color:#a6e22e">Color</span>.LightGray, RoundedCornerShape(percent = <span style="color:#ae81ff">20</span>))) {
+</span></span><span style="display:flex;"><span>            customTextFieldContent()
+</span></span><span style="display:flex;"><span>            otherContent<span style="color:#f92672">?.</span>let {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">it</span>()
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>垂直实现:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#a6e22e">@Composable</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">VerticalCustomTextField</span>(
+</span></span><span style="display:flex;"><span>    modifier: Modifier = Modifier,
+</span></span><span style="display:flex;"><span>    textContent: (<span style="color:#a6e22e">@Composable</span> () <span style="color:#f92672">-&gt;</span> Unit),
+</span></span><span style="display:flex;"><span>    customTextFieldContent: (<span style="color:#a6e22e">@Composable</span> () <span style="color:#f92672">-&gt;</span> Unit),
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>    Column(
+</span></span><span style="display:flex;"><span>        modifier = modifier,
+</span></span><span style="display:flex;"><span>        horizontalAlignment = <span style="color:#a6e22e">Alignment</span>.CenterHorizontally,
+</span></span><span style="display:flex;"><span>        verticalArrangement = <span style="color:#a6e22e">Arrangement</span>.Center
+</span></span><span style="display:flex;"><span>    ) {
+</span></span><span style="display:flex;"><span>        textContent()
+</span></span><span style="display:flex;"><span>        Box(<span style="color:#a6e22e">Modifier</span>.weight(<span style="color:#ae81ff">0.99f</span>)) {
+</span></span><span style="display:flex;"><span>            customTextFieldContent()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
+<p>垂直实现可以仿照水平实现也加上otherContent参数,因为我写出垂直的后并没有使用过,因此不如水平的完整</p>
+</blockquote>
+<h2 id="3自定义组件的使用">3.自定义组件的使用:</h2>
+<ul>
+<li>非下拉框:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">//省略上方代码,item是LazyListScope
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>item {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> ipAndPort: MutableState&lt;String?&gt; = mutableStateOf(<span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>    HorizontalCustomTextField(
+</span></span><span style="display:flex;"><span>        textContent = { Text(<span style="color:#e6db74">&#34;IP和端口&#34;</span>) },
+</span></span><span style="display:flex;"><span>        modifier = <span style="color:#a6e22e">Modifier</span>.fillMaxWidth(),
+</span></span><span style="display:flex;"><span>    ) {
+</span></span><span style="display:flex;"><span>        CustomTextField(
+</span></span><span style="display:flex;"><span>            modifier = defaultModifier,
+</span></span><span style="display:flex;"><span>            fontSize = textUnit(),
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">value</span> = ipAndPort.<span style="color:#66d9ef">value</span> <span style="color:#f92672">?:</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>            onValueChange = {
+</span></span><span style="display:flex;"><span>                ipAndPort.<span style="color:#66d9ef">value</span> = <span style="color:#66d9ef">it</span>
+</span></span><span style="display:flex;"><span>            },
+</span></span><span style="display:flex;"><span>            placeholderText = <span style="color:#e6db74">&#34;服务器IP与端口&#34;</span>,
+</span></span><span style="display:flex;"><span>            readOnly = <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>下拉框:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>item {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> dropFlag = mutableStateOf(<span style="color:#66d9ef">false</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> communicationMode: MutableState&lt;CommunicationMode?&gt; = mutableStateOf(<span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>    HorizontalCustomTextField(
+</span></span><span style="display:flex;"><span>        textContent = { Text(<span style="color:#e6db74">&#34;通信方式&#34;</span>) },
+</span></span><span style="display:flex;"><span>        modifier = <span style="color:#a6e22e">Modifier</span>.fillMaxWidth(),
+</span></span><span style="display:flex;"><span>        otherContent = {
+</span></span><span style="display:flex;"><span>            DropdownMenu(
+</span></span><span style="display:flex;"><span>                expanded = dropFlag.<span style="color:#66d9ef">value</span>,
+</span></span><span style="display:flex;"><span>                onDismissRequest = { dropFlag.<span style="color:#66d9ef">value</span> = <span style="color:#66d9ef">false</span> },
+</span></span><span style="display:flex;"><span>                modifier = <span style="color:#a6e22e">Modifier</span>.fillMaxWidth(<span style="color:#ae81ff">0.1f</span>)
+</span></span><span style="display:flex;"><span>            ) {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">CommunicationMode</span>.values().forEach {
+</span></span><span style="display:flex;"><span>                    DropdownMenuItem(onClick = {
+</span></span><span style="display:flex;"><span>                        communicationMode.<span style="color:#66d9ef">value</span> = <span style="color:#66d9ef">it</span>
+</span></span><span style="display:flex;"><span>                        dropFlag.<span style="color:#66d9ef">value</span> = <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>                    }) {
+</span></span><span style="display:flex;"><span>                        Text(text = <span style="color:#66d9ef">it</span>.description, fontSize = textUnit())
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    ) {
+</span></span><span style="display:flex;"><span>        CustomTextField(
+</span></span><span style="display:flex;"><span>            modifier = defaultModifier,
+</span></span><span style="display:flex;"><span>            fontSize = textUnit(),
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">value</span> = communicationMode.<span style="color:#66d9ef">value</span><span style="color:#f92672">?.</span>description <span style="color:#f92672">?:</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>            onValueChange = {
+</span></span><span style="display:flex;"><span>                            },
+</span></span><span style="display:flex;"><span>            placeholderText = <span style="color:#e6db74">&#34;通信协议&#34;</span>,
+</span></span><span style="display:flex;"><span>            readOnly = <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>            trailingIcon = {
+</span></span><span style="display:flex;"><span>                Icon(
+</span></span><span style="display:flex;"><span>                    <span style="color:#a6e22e">Icons</span>.<span style="color:#a6e22e">Rounded</span>.ArrowDropDown, contentDescription = <span style="color:#e6db74">&#34;Drop down select&#34;</span>,
+</span></span><span style="display:flex;"><span>                    modifier = <span style="color:#a6e22e">Modifier</span>.clickable(enabled = <span style="color:#66d9ef">true</span>, onClick = {
+</span></span><span style="display:flex;"><span>                        dropFlag.<span style="color:#66d9ef">value</span> = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>                    })
+</span></span><span style="display:flex;"><span>                )
+</span></span><span style="display:flex;"><span>                           },
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//配合阅读,同时给出`CommunicationMode`枚举的代码:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CommunicationMode</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> index: Int,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> description: String
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>    TCP(<span style="color:#ae81ff">0</span>, <span style="color:#e6db74">&#34;TCP&#34;</span>),
+</span></span><span style="display:flex;"><span>    UDP(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#34;UDP&#34;</span>),
+</span></span><span style="display:flex;"><span>    MQTT(<span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#34;MQTT&#34;</span>),
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="4效果图">4.效果图:</h2>
+<p><a href="https://imgse.com/i/ppezAUO"><img src="https://s1.ax1x.com/2023/03/08/ppezAUO.png" alt="ppezAUO.png"></a></p>
+<p>图中所有输入框均使用的是上文中的自定义组件</p>
+
+
+
+  <footer>
+  
+  
+  
+  <hr>
+  <div class="copyright">© <a href="https://rivermao.com">RiverMao</a> | since 2020 | <em>本站文章均为原创,转载请标明出处</em></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

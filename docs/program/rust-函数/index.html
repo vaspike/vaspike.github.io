@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Rust的函数 - RiverMao</title>
+    <meta property="og:title" content="Rust的函数 - RiverMao">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css" media="print" onload="this.media='all'">
+
+    
+      
+      <meta property="description" content="fn main() { println!(&amp;#34;This&amp;#34;); another_function(); } fn another_function(){ println!(&amp;#34;Another&amp;#34;) } 函数不必定义在main前,声明在在其后依然可以在main中调用 函数的参数 形参 parameters 实参 arguments 在函数的声明里,必须声明每个参数的类型:
+">
+      <meta property="og:description" content="fn main() { println!(&amp;#34;This&amp;#34;); another_function(); } fn another_function(){ println!(&amp;#34;Another&amp;#34;) } 函数不必定义在main前,声明在在其后依然可以在main中调用 函数的参数 形参 parameters 实参 arguments 在函数的声明里,必须声明每个参数的类型:
+">
+      
+    
+
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>hljs.configure({
+    ignoreUnescapedHTML: true
+});</script>
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <script type="text/javascript" src="/js/codeBlock.js"></script>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+  </head>
+
+  
+  <body class="program">
+    <header class="masthead">
+      <h1><a href="/">RiverMao</a></h1>
+
+<p class="tagline">环游是无趣~</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/program/">program</a></li>
+  
+  <li><a href="/life/">life</a></li>
+  
+  <li><a href="/about">about</a></li>
+  
+  <li><a href="/index.xml">rss</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Rust的函数</h1>
+
+
+<h3>
+
+
+
+
+
+2022-05-31
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="函数">函数</h1>
+<h2 id="函数的声明">函数的声明</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;This&#34;</span>);
+</span></span><span style="display:flex;"><span>    another_function();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">another_function</span>(){
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;Another&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>函数不必定义在main前,声明在在其后依然可以在main中调用</li>
+</ul>
+<h2 id="函数的参数">函数的参数</h2>
+<ul>
+<li><strong>形参</strong> parameters</li>
+<li><strong>实参</strong> arguments</li>
+</ul>
+<p>在函数的声明里,必须声明每个参数的类型:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;This&#34;</span>);
+</span></span><span style="display:flex;"><span>    another_function(<span style="color:#ae81ff">45</span>,<span style="color:#ae81ff">20.5</span>);<span style="color:#75715e">//argument
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">another_function</span>(x:<span style="color:#66d9ef">i32</span>,y:<span style="color:#66d9ef">f64</span>){<span style="color:#75715e">//parameter
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;{},{}&#34;</span>,x,y);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="函数体中的语句和表达式">函数体中的语句和表达式</h2>
+<ul>
+<li>函数体由一系列语句组成,可选的由一个表达式结束</li>
+<li>Rust是一个基于表达式的语言</li>
+<li>语句是执行一些动作的指令</li>
+<li>表达式会计算并产生一个值</li>
+<li>函数的定义也是一个语句</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> y <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        x<span style="color:#f92672">+</span><span style="color:#ae81ff">3</span><span style="color:#75715e">//此处如果加上分号,则会报错,因为不加分号 x+3就是一个表达式,但加上分号 x+3; 变为了一个语句
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    };
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{}&#34;</span>,y);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="函数的返回值">函数的返回值</h2>
+<ul>
+<li>在 **-&gt;**符号后声明函数返回值的类型,但不可以为返回值明明命名</li>
+<li>在Rust中,返回值就是函数体里面最后一个表达式的值</li>
+<li>若想提前返回,则使用<strong>return</strong>关键字,并指定一个值</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> y <span style="color:#f92672">=</span> plus_five(<span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;{}&#34;</span>,y);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">plus_five</span>(x:<span style="color:#66d9ef">i32</span>)-&gt;<span style="color:#66d9ef">i32</span>{
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">+</span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+
+  <footer>
+  
+  
+  
+  <hr>
+  <div class="copyright">© <a href="https://rivermao.com">RiverMao</a> | since 2020 | <em>本站文章均为原创,转载请标明出处</em></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

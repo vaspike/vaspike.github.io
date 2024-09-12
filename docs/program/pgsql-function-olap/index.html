@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>在PostgreSQL中使用窗口函数解决取分组后前n条数据的问题 - RiverMao</title>
+    <meta property="og:title" content="在PostgreSQL中使用窗口函数解决取分组后前n条数据的问题 - RiverMao">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css" media="print" onload="this.media='all'">
+
+    
+      
+      <meta property="description" content="先描述一个业务场景:
+[&hellip;] 现有一张数据表,结构如下:
+[&hellip;] 现在要查询每个不同number的最后一条(create_time)的完整记录
+[&hellip;] 保证查询结果中的number不重复
+[&hellip;] 直观的解决办法是:
+[&hellip;] 如:
+[&hellip;] select * from (select * from table_name &amp;hellip;">
+      <meta property="og:description" content="先描述一个业务场景:
+[&hellip;] 现有一张数据表,结构如下:
+[&hellip;] 现在要查询每个不同number的最后一条(create_time)的完整记录
+[&hellip;] 保证查询结果中的number不重复
+[&hellip;] 直观的解决办法是:
+[&hellip;] 如:
+[&hellip;] select * from (select * from table_name &amp;hellip;">
+      
+    
+
+    
+    
+    <meta name="twitter:image" content="https://s1.ax1x.com/2023/02/23/pSvjkVg.png">
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>hljs.configure({
+    ignoreUnescapedHTML: true
+});</script>
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <script type="text/javascript" src="/js/codeBlock.js"></script>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+  </head>
+
+  
+  <body class="program">
+    <header class="masthead">
+      <h1><a href="/">RiverMao</a></h1>
+
+<p class="tagline">环游是无趣~</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/program/">program</a></li>
+  
+  <li><a href="/life/">life</a></li>
+  
+  <li><a href="/about">about</a></li>
+  
+  <li><a href="/index.xml">rss</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>在PostgreSQL中使用窗口函数解决取分组后前n条数据的问题</h1>
+
+
+<h3>
+
+
+
+
+
+2023-02-23
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<p>先描述一个业务场景:</p>
+<ul>
+<li>
+<p>现有一张数据表,结构如下:</p>
+<p><a href="https://imgse.com/i/pSvjkVg"><img src="https://s1.ax1x.com/2023/02/23/pSvjkVg.png" alt="pSvjkVg.png"></a></p>
+</li>
+<li>
+<p>现在要查询每个不同<code>number</code>的最后一条(create_time)的完整记录</p>
+</li>
+<li>
+<p>保证查询结果中的<code>number</code>不重复</p>
+</li>
+</ul>
+<p>直观的解决办法是:</p>
+<ol>
+<li>对<code>number</code>字段分组</li>
+<li>对<code>create_time</code>进行desc排序</li>
+</ol>
+<p>如:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> (<span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">from</span> <span style="color:#66d9ef">table_name</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">where</span> create_time <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;2022-12-01&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">and</span> create_time <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;2023-12-12&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> create_time <span style="color:#66d9ef">desc</span>) a
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> number;
+</span></span></code></pre></div><p>这条<code>sql</code>放在<code>MySQL</code>中或许可以执行成功,但在<code>PostgreSQL</code>中是无法执行的,因为<code>pgsql</code>的group by是严格的,group by后无法再select * (本文忽略select * 的性能问题,与主题无关)</p>
+<p>在<code>pgSQL</code>中,有一种可行的写法:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span>, pcd.number
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">from</span> <span style="color:#66d9ef">table_name</span> pcd
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">right</span> <span style="color:#66d9ef">join</span> (<span style="color:#66d9ef">select</span> number, <span style="color:#66d9ef">max</span>(create_time) latest_create_time
+</span></span><span style="display:flex;"><span>                           <span style="color:#66d9ef">from</span> <span style="color:#66d9ef">table_name</span>
+</span></span><span style="display:flex;"><span>                           <span style="color:#66d9ef">where</span> create_time <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;2023-02-21&#39;</span>
+</span></span><span style="display:flex;"><span>                             <span style="color:#66d9ef">and</span> create_time <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;2023-02-22&#39;</span>
+</span></span><span style="display:flex;"><span>                           <span style="color:#66d9ef">group</span> <span style="color:#66d9ef">by</span> number) d
+</span></span><span style="display:flex;"><span>                          <span style="color:#66d9ef">on</span> d.number <span style="color:#f92672">=</span> pcd.number <span style="color:#66d9ef">and</span> pcd.create_time <span style="color:#f92672">=</span> d.latest_create_time
+</span></span></code></pre></div><p>但这种写法存在一个致命的问题:</p>
+<p>如果数据表存在有这么两条或多条记录,它们的<code>number</code>和<code>create_time</code>的值同时相等,那么:</p>
+<p>使用上述连接查询的结果将不会将这些重复记录筛选出去,也就是说查询结果中依然有存在相同<code>number</code>的可能性</p>
+<p>这显然与基本需求不符</p>
+<h3 id="使用窗口函数">使用窗口函数</h3>
+<ul>
+<li>窗口函数是什么:</li>
+</ul>
+<blockquote>
+<p>窗口函数,也称作<code>OLAP</code>函数(On-Line Analytical Processing),可以对数据库数据进行实时分析处理</p>
+</blockquote>
+<ul>
+<li>基本语法:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- &lt;窗口函数&gt; over (partition by &lt;要分组的列名&gt; order by &lt;要排序的列名&gt;)
+</span></span></span></code></pre></div><ul>
+<li>有什么窗口函数:</li>
+</ul>
+<ol>
+<li>专用窗口函数: <code>rank()</code>,<code>dense_rank()</code>,<code>row_number()</code>等</li>
+<li>普通聚合函数:<code>sum()</code>,<code>avg()</code>,<code>count()</code>等</li>
+</ol>
+<ul>
+<li>使用:</li>
+</ul>
+<p>我们使用<code>row_number()</code>解决上述所有问题:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>,
+</span></span><span style="display:flex;"><span>             row_number() OVER (PARTITION <span style="color:#66d9ef">BY</span> number <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> create_time <span style="color:#66d9ef">desc</span> ) <span style="color:#66d9ef">as</span> row_number
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">table_name</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> number) d
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> d.row_number <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">order</span> <span style="color:#66d9ef">by</span> create_time <span style="color:#66d9ef">desc</span>;
+</span></span></code></pre></div>
+
+
+  <footer>
+  
+  
+  
+  <hr>
+  <div class="copyright">© <a href="https://rivermao.com">RiverMao</a> | since 2020 | <em>本站文章均为原创,转载请标明出处</em></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

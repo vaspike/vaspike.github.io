@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Rust中的切片 - RiverMao</title>
+    <meta property="og:title" content="Rust中的切片 - RiverMao">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css" media="print" onload="this.media='all'">
+
+    
+      
+      <meta property="description" content="Rust的另一种不持有所有权的数据类型: 切片(slice)
+[&hellip;] 一道题,编写一个函数:
+[&hellip;] fn main(){ let s = String::from(&#34;see you&#34;); println!(&#34;{}&#34;,first_word(&amp;s)); } fn first_word(s:&amp;String) -&gt; &amp;hellip;">
+      <meta property="og:description" content="Rust的另一种不持有所有权的数据类型: 切片(slice)
+[&hellip;] 一道题,编写一个函数:
+[&hellip;] fn main(){ let s = String::from(&#34;see you&#34;); println!(&#34;{}&#34;,first_word(&amp;s)); } fn first_word(s:&amp;String) -&gt; &amp;hellip;">
+      
+    
+
+    
+    
+    <meta name="twitter:image" content="https://z3.ax1x.com/2021/08/21/fxYB9O.png">
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>hljs.configure({
+    ignoreUnescapedHTML: true
+});</script>
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <script type="text/javascript" src="/js/codeBlock.js"></script>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+  </head>
+
+  
+  <body class="program">
+    <header class="masthead">
+      <h1><a href="/">RiverMao</a></h1>
+
+<p class="tagline">环游是无趣~</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/program/">program</a></li>
+  
+  <li><a href="/life/">life</a></li>
+  
+  <li><a href="/about">about</a></li>
+  
+  <li><a href="/index.xml">rss</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Rust中的切片</h1>
+
+
+<h3>
+
+
+
+
+
+2022-05-31
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="切片slice">切片(Slice)</h1>
+<ul>
+<li>
+<p>Rust的另一种不持有所有权的数据类型: <strong>切片(slice)</strong></p>
+</li>
+<li>
+<p>一道题,编写一个函数:</p>
+<ul>
+<li>它接收字符串作为参数</li>
+<li>返回它在这个字符串的第一个空格的索引</li>
+<li>如果函数没有找到任何空格,那么返回整个字符串的长度</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;see you&#34;</span>);
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,first_word(<span style="color:#f92672">&amp;</span>s));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">first_word</span>(s:<span style="color:#66d9ef">&amp;</span>String) -&gt; <span style="color:#66d9ef">usize</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> my_bytes <span style="color:#f92672">=</span> s.as_bytes();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i, <span style="color:#f92672">&amp;</span>item) <span style="color:#66d9ef">in</span> my_bytes.iter().enumerate() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> item <span style="color:#f92672">==</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39; &#39;</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> i;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    s.len()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/21/fxYB9O.png" alt=""></p>
+<h2 id="字符串切片">字符串切片</h2>
+<ul>
+<li>
+<p>字符串切片是指向字符串中一部分内容的引用:</p>
+<p><img src="https://z3.ax1x.com/2021/08/21/fxNX1U.png" alt=""></p>
+<p>方括号中的两个索引值为<strong>左闭右包</strong></p>
+</li>
+</ul>
+<h3 id="语法糖">语法糖</h3>
+<p><img src="https://z3.ax1x.com/2021/08/21/fxUx8f.png" alt=""></p>
+</li>
+</ul>
+<h2 id="使用">使用</h2>
+<p>改写最开始的函数,让它返回一个字符串切片:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;see you&#34;</span>);
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,first_word(<span style="color:#f92672">&amp;</span>s));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">first_word</span>(s:<span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>) -&gt; <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> my_bytes <span style="color:#f92672">=</span> s.as_bytes();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i, <span style="color:#f92672">&amp;</span>item) <span style="color:#66d9ef">in</span> my_bytes.iter().enumerate() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> item <span style="color:#f92672">==</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39; &#39;</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span>s[<span style="color:#f92672">..</span>i];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&amp;</span>s[<span style="color:#f92672">..</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/21/fx0AIA.png" alt=""></p>
+<ul>
+<li>
+<p>其实,字符串字面值就是字符串切片</p>
+</li>
+<li>
+<p>Rust中切片的其他性质:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//以下代码会报错
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> s <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;see you&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s0 <span style="color:#f92672">=</span> first_word(<span style="color:#f92672">&amp;</span>s);
+</span></span><span style="display:flex;"><span>    s.clear(); 
+</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,s0);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">first_word</span>(s:<span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>) -&gt; <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> my_bytes <span style="color:#f92672">=</span> s.as_bytes();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i, <span style="color:#f92672">&amp;</span>item) <span style="color:#66d9ef">in</span> my_bytes.iter().enumerate() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> item <span style="color:#f92672">==</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39; &#39;</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span>s[<span style="color:#f92672">..</span>i];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&amp;</span>s[<span style="color:#f92672">..</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/21/fxDcDO.png" alt=""></p>
+</li>
+</ul>
+<h2 id="其他">其他</h2>
+<ul>
+<li>
+<p>定义函数时使用字符串切片来代替字符串中的引用会使得我们的API更加通用,且不会损失任何功能</p>
+</li>
+<li>
+<p>其他数据类型的切片:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> arr <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> arr0 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>arr[<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span><span style="color:#ae81ff">3</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> elem <span style="color:#66d9ef">in</span> arr0 {
+</span></span><span style="display:flex;"><span>        println!(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,elem);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/21/fxyMUe.png" alt=""></p>
+</li>
+</ul>
+
+
+
+  <footer>
+  
+  
+  
+  <hr>
+  <div class="copyright">© <a href="https://rivermao.com">RiverMao</a> | since 2020 | <em>本站文章均为原创,转载请标明出处</em></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+
