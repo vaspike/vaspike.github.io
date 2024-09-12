@@ -2,108 +2,108 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>RiverMao</title>
-    <link>http://localhost:1313/</link>
+    <link>https://rivermao.com/</link>
     <description>Recent content on RiverMao</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 12 Sep 2024 12:31:30 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://rivermao.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>2024-09-12记</title>
-      <link>http://localhost:1313/life/2024-09-12/</link>
+      <link>https://rivermao.com/life/2024-09-12/</link>
       <pubDate>Thu, 12 Sep 2024 12:31:30 +0800</pubDate>
-      <guid>http://localhost:1313/life/2024-09-12/</guid>
+      <guid>https://rivermao.com/life/2024-09-12/</guid>
       <description>&lt;h2 id=&#34;_2024-09-12_-重启blog&#34;&gt;&lt;em&gt;2024-09-12&lt;/em&gt; &lt;strong&gt;重启Blog&lt;/strong&gt;&lt;/h2&gt;</description>
     </item>
     <item>
       <title>Birthday_25</title>
-      <link>http://localhost:1313/life/birthday-25/</link>
+      <link>https://rivermao.com/life/birthday-25/</link>
       <pubDate>Fri, 18 Aug 2023 19:44:30 +0800</pubDate>
-      <guid>http://localhost:1313/life/birthday-25/</guid>
+      <guid>https://rivermao.com/life/birthday-25/</guid>
       <description>&lt;h2 id=&#34;无法评价的-公元2023年&#34;&gt;无法评价的: 公元2023年&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;很庆幸自己依然平静的度过了25岁生日&lt;/p&gt;&#xA;&lt;p&gt;看着上一条记录生日的md&lt;/p&gt;&#xA;&lt;p&gt;感慨万千,恍如隔日&lt;/p&gt;</description>
     </item>
     <item>
       <title>在java或kotlin中使用jna调用dll动态链接库</title>
-      <link>http://localhost:1313/program/java-java-kotlin-jna-dll-call/</link>
+      <link>https://rivermao.com/program/java-java-kotlin-jna-dll-call/</link>
       <pubDate>Fri, 10 Mar 2023 08:39:51 +0800</pubDate>
-      <guid>http://localhost:1313/program/java-java-kotlin-jna-dll-call/</guid>
+      <guid>https://rivermao.com/program/java-java-kotlin-jna-dll-call/</guid>
       <description>&lt;h2 id=&#34;1jna介绍&#34;&gt;1.jna介绍&lt;/h2&gt;&#xA;&lt;p&gt;Java Native Access (JNA),Github地址:&lt;a href=&#34;https://github.com/java-native-access/jna&#34;&gt;JNA&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;在仓库的README.md中有:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;JNA provides Java programs easy access to native shared libraries without writing anything but Java code - no JNI or native code is required. This functionality is comparable to Windows&amp;rsquo; Platform/Invoke and Python&amp;rsquo;s ctypes.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Compose Multiplatform自定义可下拉输入框组件</title>
-      <link>http://localhost:1313/program/kotlin-compose-customtextfield/</link>
+      <link>https://rivermao.com/program/kotlin-compose-customtextfield/</link>
       <pubDate>Wed, 08 Mar 2023 14:39:51 +0800</pubDate>
-      <guid>http://localhost:1313/program/kotlin-compose-customtextfield/</guid>
+      <guid>https://rivermao.com/program/kotlin-compose-customtextfield/</guid>
       <description>&lt;h1 id=&#34;heading&#34;&gt;&lt;/h1&gt;&#xA;&lt;p&gt;compose自带库中的TextField和outlinedTextField有默认的大小,都属于Material风格的输入框,最小尺寸很大,如果要创建UI上比较紧凑的表单,就需要自定义组件了,同时让这个自定义组件也可作为下拉框来使用&lt;/p&gt;</description>
     </item>
     <item>
       <title>线性最小二乘法的参数解</title>
-      <link>http://localhost:1313/program/math-normal-latest-squares/</link>
+      <link>https://rivermao.com/program/math-normal-latest-squares/</link>
       <pubDate>Thu, 02 Mar 2023 14:09:40 +0800</pubDate>
-      <guid>http://localhost:1313/program/math-normal-latest-squares/</guid>
+      <guid>https://rivermao.com/program/math-normal-latest-squares/</guid>
       <description>&lt;h2 id=&#34;定义&#34;&gt;定义&lt;/h2&gt;&#xA;&lt;p&gt;最小二乘法（英语：least squares method），又称最小平方法，是一种数学优化建模方法。它通过最小化误差的平方和寻找数据的最佳函数匹配。利用最小二乘法可以简便的求得未知的数据，并使得求得的数据与实际数据之间误差的平方和为最小。&lt;/p&gt;</description>
     </item>
     <item>
       <title>在PostgreSQL中使用窗口函数解决取分组后前n条数据的问题</title>
-      <link>http://localhost:1313/program/pgsql-function-olap/</link>
+      <link>https://rivermao.com/program/pgsql-function-olap/</link>
       <pubDate>Thu, 23 Feb 2023 11:09:40 +0800</pubDate>
-      <guid>http://localhost:1313/program/pgsql-function-olap/</guid>
+      <guid>https://rivermao.com/program/pgsql-function-olap/</guid>
       <description>&lt;p&gt;先描述一个业务场景:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;现有一张数据表,结构如下:&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://imgse.com/i/pSvjkVg&#34;&gt;&lt;img src=&#34;https://s1.ax1x.com/2023/02/23/pSvjkVg.png&#34; alt=&#34;pSvjkVg.png&#34;&gt;&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;现在要查询每个不同&lt;code&gt;number&lt;/code&gt;的最后一条(create_time)的完整记录&lt;/p&gt;</description>
     </item>
     <item>
       <title>Birthday_24</title>
-      <link>http://localhost:1313/life/birthday-24/</link>
+      <link>https://rivermao.com/life/birthday-24/</link>
       <pubDate>Sun, 31 Jul 2022 19:39:30 +0800</pubDate>
-      <guid>http://localhost:1313/life/birthday-24/</guid>
+      <guid>https://rivermao.com/life/birthday-24/</guid>
       <description>&lt;h2 id=&#34;happy-24th-birthday--&#34;&gt;Happy 24th birthday!  🎂&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;祝自己24岁生日快乐&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Kotlin中select关键字与Channel的用法</title>
-      <link>http://localhost:1313/program/kotlin-select-channel-using/</link>
+      <link>https://rivermao.com/program/kotlin-select-channel-using/</link>
       <pubDate>Fri, 08 Jul 2022 16:39:51 +0800</pubDate>
-      <guid>http://localhost:1313/program/kotlin-select-channel-using/</guid>
+      <guid>https://rivermao.com/program/kotlin-select-channel-using/</guid>
       <description>&lt;h2 id=&#34;kotlin中channel的使用&#34;&gt;Kotlin中Channel的使用&lt;/h2&gt;&#xA;&lt;p&gt;类似&lt;em&gt;Go&lt;/em&gt;中的&lt;em&gt;Channel&lt;/em&gt;,&lt;em&gt;Kotlin&lt;/em&gt;中的&lt;em&gt;Channel&lt;/em&gt;也可以在&lt;strong&gt;协程&lt;/strong&gt;间通信&lt;/p&gt;</description>
     </item>
     <item>
       <title>Rust中的切片</title>
-      <link>http://localhost:1313/program/rust-slice/</link>
+      <link>https://rivermao.com/program/rust-slice/</link>
       <pubDate>Tue, 31 May 2022 20:59:22 +0800</pubDate>
-      <guid>http://localhost:1313/program/rust-slice/</guid>
+      <guid>https://rivermao.com/program/rust-slice/</guid>
       <description>&lt;h1 id=&#34;切片slice&#34;&gt;切片(Slice)&lt;/h1&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Rust的另一种不持有所有权的数据类型: &lt;strong&gt;切片(slice)&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;一道题,编写一个函数:&lt;/p&gt;</description>
     </item>
     <item>
       <title>Rust特性(1)--所有权,深浅拷贝,引用,借用,悬空引用(野指针)</title>
-      <link>http://localhost:1313/program/rust-features-01/</link>
+      <link>https://rivermao.com/program/rust-features-01/</link>
       <pubDate>Tue, 31 May 2022 20:59:22 +0800</pubDate>
-      <guid>http://localhost:1313/program/rust-features-01/</guid>
+      <guid>https://rivermao.com/program/rust-features-01/</guid>
       <description>&lt;h2 id=&#34;内存模型&#34;&gt;内存模型&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Rust的内存可分为**栈(stack)&lt;strong&gt;和&lt;/strong&gt;堆(heap)**两种&lt;/li&gt;&#xA;&lt;li&gt;标量会被分配在栈上&lt;/li&gt;&#xA;&lt;li&gt;栈为后进先出&lt;/li&gt;&#xA;&lt;li&gt;分配在堆上的变量在使用时要注意一个叫做&lt;strong&gt;所有权&lt;/strong&gt;的概念&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;所有权ownership&#34;&gt;所有权(Ownership)&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;变量的所有权与变量的声明作用域相同,在变量离开作用域时,变量会发生Drop操作,除非发生所有权的&lt;strong&gt;移交(move)&lt;/strong&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;深拷贝deep-copy与浅拷贝shallow-copy&#34;&gt;深拷贝(deep copy)与浅拷贝(shallow copy)&lt;/h2&gt;&#xA;&lt;h3 id=&#34;堆上数据的拷贝&#34;&gt;堆上数据的拷贝:&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;分配在堆上的变量默认使用的是浅拷贝&lt;/p&gt;</description>
     </item>
     <item>
       <title>Rust的函数</title>
-      <link>http://localhost:1313/program/rust-function/</link>
+      <link>https://rivermao.com/program/rust-function/</link>
       <pubDate>Tue, 31 May 2022 20:59:22 +0800</pubDate>
-      <guid>http://localhost:1313/program/rust-function/</guid>
+      <guid>https://rivermao.com/program/rust-function/</guid>
       <description>&lt;h1 id=&#34;函数&#34;&gt;函数&lt;/h1&gt;&#xA;&lt;h2 id=&#34;函数的声明&#34;&gt;函数的声明&lt;/h2&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    println!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;This&amp;#34;&lt;/span&gt;);&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    another_function();&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;another_function&lt;/span&gt;(){&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    println!(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Another&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
     </item>
     <item>
       <title>Rust的变量、常量与遮蔽(Shadowing)</title>
-      <link>http://localhost:1313/program/rust-variable-constants-shadowing/</link>
+      <link>https://rivermao.com/program/rust-variable-constants-shadowing/</link>
       <pubDate>Tue, 31 May 2022 20:59:22 +0800</pubDate>
-      <guid>http://localhost:1313/program/rust-variable-constants-shadowing/</guid>
+      <guid>https://rivermao.com/program/rust-variable-constants-shadowing/</guid>
       <description>&lt;h1 id=&#34;rust的变量常量shadowing&#34;&gt;Rust的变量,常量,Shadowing&lt;/h1&gt;&#xA;&lt;h2 id=&#34;变量&#34;&gt;变量&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;声明变量使用let关键字&lt;/p&gt;</description>
     </item>
     <item>
       <title>Rust的数据类型</title>
-      <link>http://localhost:1313/program/rust-data_type/</link>
+      <link>https://rivermao.com/program/rust-data_type/</link>
       <pubDate>Tue, 31 May 2022 20:59:22 +0800</pubDate>
-      <guid>http://localhost:1313/program/rust-data_type/</guid>
+      <guid>https://rivermao.com/program/rust-data_type/</guid>
       <description>&lt;h1 id=&#34;rust数据类型&#34;&gt;Rust数据类型&lt;/h1&gt;&#xA;&lt;h2 id=&#34;标量和复合类型&#34;&gt;标量和复合类型&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Rust是静态编译语言,在编译时必须知道所有变量的类型&lt;/p&gt;</description>
     </item>
     <item>
       <title>关于我</title>
-      <link>http://localhost:1313/about/</link>
+      <link>https://rivermao.com/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/about/</guid>
+      <guid>https://rivermao.com/about/</guid>
       <description>&lt;ul&gt;&#xA;&lt;li&gt;男&lt;/li&gt;&#xA;&lt;li&gt;科班CS,软件开发工程师&lt;/li&gt;&#xA;&lt;li&gt;漂于南京,有只猫&lt;/li&gt;&#xA;&lt;li&gt;二刺螈&lt;/li&gt;&#xA;&lt;li&gt;Love Kotlin,Jetbrains IDEs续费用户&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-markdown&#34; data-lang=&#34;markdown&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Java,Kotlin,JavaScript,Go,Python,C,C++&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Rust&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;&#xA;&lt;li&gt;Email: &lt;a href=&#34;mailto:vaspike@outlook.com&#34;&gt;vaspike@outlook.com&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
   </channel>
