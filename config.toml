@@ -28,7 +28,7 @@ weight = "3"
 
 [params]
 # description abou this website
-description = "环游是无趣~"
+description = "从未来再见"
 email = "Email:i@rivermao.com"
 footer = "&copy; [RiverMao](https://rivermao.com) | since 2020 | *本站文章均为原创,转载请标明出处*"
 [markup]
