@@ -30,7 +30,7 @@ weight = "3"
 # description abou this website
 description = "从未来再见"
 email = "Email:i@rivermao.com"
-footer = "&copy; [RiverMao](https://rivermao.com) | since 2020 | *本站文章均为原创,转载请标明出处*"
+footer = "&copy; [RiverMao](mailto:i@rivermao.com) | since 2020 | *本站文章均为原创,转载请标明出处*"
 [markup]
 [goldmark]
 [renderer]

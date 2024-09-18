@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Lives on RiverMao</title>
-    <link>http://localhost:1313/life/</link>
+    <link>https://rivermao.com/life/</link>
     <description>Recent content in Lives on RiverMao</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 12 Sep 2024 12:31:30 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/life/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://rivermao.com/life/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>2024-09-12记</title>
-      <link>http://localhost:1313/life/2024-09-12/</link>
+      <link>https://rivermao.com/life/2024-09-12/</link>
       <pubDate>Thu, 12 Sep 2024 12:31:30 +0800</pubDate>
-      <guid>http://localhost:1313/life/2024-09-12/</guid>
+      <guid>https://rivermao.com/life/2024-09-12/</guid>
       <description>&lt;h2 id=&#34;_2024-09-12_-重启blog&#34;&gt;&lt;em&gt;2024-09-12&lt;/em&gt; &lt;strong&gt;重启Blog&lt;/strong&gt;&lt;/h2&gt;</description>
     </item>
     <item>
       <title>Birthday_25</title>
-      <link>http://localhost:1313/life/birthday-25/</link>
+      <link>https://rivermao.com/life/birthday-25/</link>
       <pubDate>Fri, 18 Aug 2023 19:44:30 +0800</pubDate>
-      <guid>http://localhost:1313/life/birthday-25/</guid>
+      <guid>https://rivermao.com/life/birthday-25/</guid>
       <description>&lt;h2 id=&#34;无法评价的-公元2023年&#34;&gt;无法评价的: 公元2023年&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;很庆幸自己依然平静的度过了25岁生日&lt;/p&gt;&#xA;&lt;p&gt;看着上一条记录生日的md&lt;/p&gt;&#xA;&lt;p&gt;感慨万千,恍如隔日&lt;/p&gt;</description>
     </item>
     <item>
       <title>Birthday_24</title>
-      <link>http://localhost:1313/life/birthday-24/</link>
+      <link>https://rivermao.com/life/birthday-24/</link>
       <pubDate>Sun, 31 Jul 2022 19:39:30 +0800</pubDate>
-      <guid>http://localhost:1313/life/birthday-24/</guid>
+      <guid>https://rivermao.com/life/birthday-24/</guid>
       <description>&lt;h2 id=&#34;happy-24th-birthday--&#34;&gt;Happy 24th birthday!  🎂&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;祝自己24岁生日快乐&lt;/strong&gt;&lt;/p&gt;</description>
     </item>
   </channel>
