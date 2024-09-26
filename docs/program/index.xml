@@ -6,8 +6,15 @@
     <description>Recent content in Programs on RiverMao</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 13 Sep 2024 09:07:06 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 26 Sep 2024 19:30:49 +0800</lastBuildDate>
     <atom:link href="https://rivermao.com/program/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git中的Git-SVN使用指南</title>
+      <link>https://rivermao.com/program/git-svn-helper/</link>
+      <pubDate>Thu, 26 Sep 2024 19:30:49 +0800</pubDate>
+      <guid>https://rivermao.com/program/git-svn-helper/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;献给所有习惯使用了Git但不得不使用SVN的人们, 比如我&lt;/p&gt;&#xA;&lt;p&gt;使用git-svn拉下来的仓库本质上是一个git仓库, 但所有push和fetch都必须使用&lt;code&gt;git-svn&lt;/code&gt;而不是&lt;code&gt;git&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Mybatis &amp; Spring Data Jpa 多数据源配置</title>
       <link>https://rivermao.com/program/orm-multiple-datasource/</link>
