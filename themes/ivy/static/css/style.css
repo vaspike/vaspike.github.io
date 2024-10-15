@@ -1,6 +1,7 @@
 :root {
   --primaryColor: #87b2b2;
   --surfaceColor: #2e3440;
+  --mainFontColor: black;
 }
 
 /* Micro Reset */
@@ -46,6 +47,12 @@ body {
   margin: 0;
   padding: 0;
   color: var(--surfaceColor);
+  background: url('../img/temp.png') no-repeat center center fixed;
+  background-size: cover; /* 使背景图片自动伸展以填充整个视口区域 */
+}
+article,.masthead{
+  backdrop-filter: blur(20px); /* 模糊程度，数值越大，模糊程度越高 */
+  border-radius: 10px; /* 可选，为元素添加圆角效果 */
 }
 
 button, input, select, textarea, label {
@@ -135,7 +142,7 @@ a {
   border-bottom: 1px solid;
 }
 li a{
-  color: black;
+  color: var(--mainFontColor);
 }
 
 a:hover {
@@ -200,7 +207,7 @@ body {
   width: 700px;
   padding: 32px 10px 20px 50px;
   margin-left: 260px;
-  border-left: 3px solid black;
+  border-left: 3px solid var(--mainFontColor);
   min-height: calc(100vh - 60px);
 }
 
@@ -217,7 +224,7 @@ body {
 
 .masthead h1 a {
   border-bottom: none;
-  color: black;
+  color: var(--mainFontColor);
 }
 
 .masthead .tagline {
@@ -363,7 +370,7 @@ thead, tfoot, tr:nth-child(even) {
     text-align: center;
     margin-left: 10px;
     margin-right: 10px;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid var(--mainFontColor);
     position: relative;
   }
 
