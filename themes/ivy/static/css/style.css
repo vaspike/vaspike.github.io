@@ -43,22 +43,31 @@ html {
   box-sizing: inherit;
 }
 
+body {
+  height: 100vh;
+}
+
 .background-div {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
   color: var(--surfaceColor);
-  background:  url('../img/temp.png') no-repeat center center fixed;
+  background:  url('../img/background_img.png') no-repeat center center fixed;
   background-size: cover; /* 使背景图片自动伸展以填充整个视口区域 */
   z-index: -1; /* 背景层在其他内容下面 */
 }
 article,.masthead{
   backdrop-filter: blur(20px); /* 模糊程度，数值越大，模糊程度越高 */
   border-radius: 10px; /* 可选，为元素添加圆角效果 */
+}
+
+article {
+    overflow: auto;
+    /*height: 100vh;*/
 }
 
 button, input, select, textarea, label {
@@ -121,7 +130,8 @@ pre code {
 }
 
 code {
-  background: #f9f9f9;
+  background: lightblue;
+  border-radius: 3px;
 }
 
 pre code {
