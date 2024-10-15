@@ -55,6 +55,7 @@
 
   {{ $.Scratch.Set "section" (replaceRE "^/([^/]+)/.*" "$1" .RelPermalink) }}
   <body class="{{ if .IsHome }}home{{ else }}{{ $.Scratch.Get "section" }}{{ end }}{{ with .Params.page_class }} {{ . }}{{ end }}">
+  <div class="background-div"></div>
     <header class="masthead">
       {{ partial "tagline.html" . }}
       {{ partial "menu.html" . }}
