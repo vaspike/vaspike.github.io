@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>知识图谱与图数据库Neo4j--Part01 - RiverMao</title>
+    <meta property="og:title" content="知识图谱与图数据库Neo4j--Part01 - RiverMao">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css" media="print" onload="this.media='all'">
+
+    
+      
+      <meta property="description" content="{ 此Part较枯燥, 看不下去可以直接看Part02&ndash;&gt; 知识图谱与图数据库Neo4j&ndash;Part02 }
+[&hellip;] 下一Part介绍Neo4j: Part02
+">
+      <meta property="og:description" content="{ 此Part较枯燥, 看不下去可以直接看Part02&ndash;&gt; 知识图谱与图数据库Neo4j&ndash;Part02 }
+[&hellip;] 下一Part介绍Neo4j: Part02
+">
+      
+    
+
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>hljs.configure({
+    ignoreUnescapedHTML: true
+});</script>
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <script type="text/javascript" src="/js/codeBlock.js"></script>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+  </head>
+
+  
+  <body class="program">
+  <div class="background-div"></div>
+    <header class="masthead">
+      <h1><a href="/">RiverMao</a></h1>
+
+<p class="tagline">从未来再见</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/program/">program</a></li>
+  
+  <li><a href="/life/">life</a></li>
+  
+  <li><a href="/about">about</a></li>
+  
+  <li><a href="/index.xml">rss</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>知识图谱与图数据库Neo4j--Part01</h1>
+
+
+<h3>
+
+River
+
+
+
+
+
+ / 
+2024-11-16
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h1 id="知识图谱">知识图谱</h1>
+<blockquote>
+<p>{  此Part较枯燥, 看不下去可以直接看Part02&ndash;&gt; <a href="https://rivermao.com/program/knowledge_graph_002/">知识图谱与图数据库Neo4j&ndash;Part02</a>   }</p>
+</blockquote>
+<h2 id="1-什么是知识图谱">1. 什么是知识图谱</h2>
+<ol>
+<li>基本概念: 知识图谱是一种结构化的语义知识库, 用于快速描述物理世界中的概念及其相互关系. 它通常以图形结构的方式来直观展示实体(对象, 事件, 状况或概念)及其关系. 知识图谱的基本组成为: “<strong>实体</strong>&mdash;-&gt;<strong>关系</strong>&mdash;-&gt;<strong>实体</strong>”三元组, 这些信息常常存储在图形数据库中.</li>
+<li>直观描述: 知识图谱本质为存储实体之间的复杂关系,并让资源更易于计算,理解和评价</li>
+<li>目前的应用:
+<ul>
+<li>搜索结果优化</li>
+<li>电商智能推荐与智能客服</li>
+<li>金融风控分析</li>
+<li>公安情报分析与反欺诈</li>
+<li>自然语言分析</li>
+<li>…</li>
+</ul>
+</li>
+<li>组成: 知识图谱由模式层和数据层两部分组成.
+1).模式层: 存储着经过提炼的知识
+2).数据层: 存储着事实</li>
+</ol>
+<h2 id="2-知识图谱的原始数据类型和存储方式">2. 知识图谱的原始数据类型和存储方式</h2>
+<ol>
+<li>原始数据结构: 知识图谱的原始数据结构一般来说有三类:
+<ul>
+<li>结构化数据(关系型数据库, 链接数据等)</li>
+<li>半结构化数据(XML, JSON, 百科等)</li>
+<li>非结构化数据(图片,音频,视频等)</li>
+</ul>
+</li>
+<li>存储方式:
+<ul>
+<li>通过RDF(资源描述框架)这样的存储格式来存储, 比如Jena</li>
+<li>使用图数据库来存储, 常用的有Neo4j</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>下一Part介绍Neo4j: <a href="https://rivermao.com/program/knowledge_graph_002/">Part02</a></p>
+</blockquote>
+
+
+
+  <footer>
+  
+  
+  
+  <hr>
+  <div class="copyright">© <a href="mailto:i@rivermao.com">RiverMao</a> | since 2020 | <em>本站文章均为原创,转载请标明出处</em></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

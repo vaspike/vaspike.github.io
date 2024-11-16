@@ -6,8 +6,29 @@
     <description>Recent content in Programs on RiverMao</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 26 Sep 2024 19:30:49 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 16 Nov 2024 21:03:44 +0800</lastBuildDate>
     <atom:link href="https://rivermao.com/program/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>知识图谱与图数据库Neo4j--Part03</title>
+      <link>https://rivermao.com/program/knowledge_graph_003/</link>
+      <pubDate>Sat, 16 Nov 2024 21:03:44 +0800</pubDate>
+      <guid>https://rivermao.com/program/knowledge_graph_003/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://rivermao.com/program/knowledge_graph_002/&#34;&gt;知识图谱与图数据库Neo4j&amp;ndash;Part02&lt;/a&gt; &amp;lt;&amp;mdash; Part02&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>知识图谱与图数据库Neo4j--Part02</title>
+      <link>https://rivermao.com/program/knowledge_graph_002/</link>
+      <pubDate>Sat, 16 Nov 2024 20:32:11 +0800</pubDate>
+      <guid>https://rivermao.com/program/knowledge_graph_002/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://rivermao.com/program/knowledge_graph_001/&#34;&gt;知识图谱与图数据库Neo4j&amp;ndash;Part01&lt;/a&gt; &amp;lt;&amp;mdash; Part01&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>知识图谱与图数据库Neo4j--Part01</title>
+      <link>https://rivermao.com/program/knowledge_graph_001/</link>
+      <pubDate>Sat, 16 Nov 2024 19:46:11 +0800</pubDate>
+      <guid>https://rivermao.com/program/knowledge_graph_001/</guid>
+      <description>&lt;h1 id=&#34;知识图谱&#34;&gt;知识图谱&lt;/h1&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;{  此Part较枯燥, 看不下去可以直接看Part02&amp;ndash;&amp;gt; &lt;a href=&#34;https://rivermao.com/program/knowledge_graph_002/&#34;&gt;知识图谱与图数据库Neo4j&amp;ndash;Part02&lt;/a&gt;   }&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Git中的Git-SVN使用指南</title>
       <link>https://rivermao.com/program/git-svn-helper/</link>
