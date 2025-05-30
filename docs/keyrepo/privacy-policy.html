@@ -3,7 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title data-lang-zh="KeyRepo - 隐私政策" data-lang-en="KeyRepo - Privacy Policy">KeyRepo - 隐私政策</title>
+        <title
+            data-lang-zh="KeyRepo - 隐私政策"
+            data-lang-en="KeyRepo - Privacy Policy"
+        >
+            KeyRepo - 隐私政策
+        </title>
         <style>
             :root {
                 --primary-color: #4a6fff;
@@ -126,7 +131,7 @@
                 font-size: 14px;
                 color: #777;
             }
-            
+
             .lang-switch {
                 position: absolute;
                 top: 20px;
@@ -134,7 +139,7 @@
                 display: flex;
                 gap: 10px;
             }
-            
+
             .lang-btn {
                 padding: 5px 10px;
                 background-color: var(--section-bg);
@@ -143,14 +148,18 @@
                 cursor: pointer;
                 color: var(--text-color);
             }
-            
+
             .lang-btn.active {
                 background-color: var(--primary-color);
                 color: white;
             }
-            
-            [data-lang="en"] {
+
+            [data-lang] {
                 display: none;
+            }
+
+            [data-lang].active {
+                display: block;
             }
 
             @media (max-width: 768px) {
@@ -165,7 +174,7 @@
                 .section {
                     padding: 20px;
                 }
-                
+
                 .lang-switch {
                     position: relative;
                     top: 0;
@@ -178,39 +187,54 @@
     </head>
     <body>
         <div class="lang-switch">
-            <button class="lang-btn active" data-lang="zh">中文</button>
-            <button class="lang-btn" data-lang="en">English</button>
+            <button class="lang-btn" data-lang="zh">中文</button>
+            <button class="lang-btn active" data-lang="en">English</button>
         </div>
-        
+
         <div class="container">
             <header>
                 <div class="logo">KeyRepo</div>
-                <div class="tagline" data-lang="zh">安全可靠的密码管理原生应用</div>
-                <div class="tagline" data-lang="en">Secure and reliable native password management app</div>
+                <div class="tagline" data-lang="zh">
+                    安全可靠的密码管理原生应用
+                </div>
+                <div class="tagline" data-lang="en">
+                    Secure and reliable native password management app
+                </div>
             </header>
 
             <section class="section">
                 <h1 data-lang="zh">隐私政策</h1>
                 <h1 data-lang="en">Privacy Policy</h1>
-                
-                <p class="last-updated" data-lang="zh">最后更新日期：2025年05月30日</p>
-                <p class="last-updated" data-lang="en">Last Updated: May 30, 2025</p>
+
+                <p class="last-updated" data-lang="zh">
+                    最后更新日期：2025年05月30日
+                </p>
+                <p class="last-updated" data-lang="en">
+                    Last Updated: May 30, 2025
+                </p>
 
                 <div class="highlight">
                     <p data-lang="zh">
                         KeyRepo致力于保护您的隐私。本政策概述了我们如何收集、使用和保护您的个人信息，以及您对这些信息的控制权。使用我们的应用即表示您同意本政策中描述的做法。
                     </p>
                     <p data-lang="en">
-                        KeyRepo is committed to protecting your privacy. This policy outlines how we collect, use, and protect your personal information, and your control over this information. By using our app, you agree to the practices described in this policy.
+                        KeyRepo is committed to protecting your privacy. This
+                        policy outlines how we collect, use, and protect your
+                        personal information, and your control over this
+                        information. By using our app, you agree to the
+                        practices described in this policy.
                     </p>
                 </div>
 
                 <h2 data-lang="zh">收集的信息</h2>
                 <h2 data-lang="en">Information Collected</h2>
-                
+
                 <p data-lang="zh">KeyRepo设计为高度保护隐私的密码管理应用：</p>
-                <p data-lang="en">KeyRepo is designed as a highly privacy-protective password management app:</p>
-                
+                <p data-lang="en">
+                    KeyRepo is designed as a highly privacy-protective password
+                    management app:
+                </p>
+
                 <ul data-lang="zh">
                     <li>
                         <strong>本地存储的信息</strong
@@ -221,40 +245,53 @@
                         >：我们不收集、存储或传输您的任何密码和信息到我们的服务器(当前MVP版本无需联网)。
                     </li>
                 </ul>
-                
+
                 <ul data-lang="en">
                     <li>
-                        <strong>Locally Stored Information</strong>: All your passwords and personal data are stored on your device using advanced encryption, not on our servers.
+                        <strong>Locally Stored Information</strong>: All your
+                        passwords and personal data are stored on your device
+                        using advanced encryption, not on our servers.
                     </li>
                     <li>
-                        <strong>No Personal Data Collection</strong>: We do not collect, store, or transmit any of your passwords and information to our servers (the current MVP version does not require internet connection).
+                        <strong>No Personal Data Collection</strong>: We do not
+                        collect, store, or transmit any of your passwords and
+                        information to our servers (the current MVP version does
+                        not require internet connection).
                     </li>
                 </ul>
 
                 <h2 data-lang="zh">数据使用</h2>
                 <h2 data-lang="en">Data Usage</h2>
-                
+
                 <p data-lang="zh">我们使用收集的有限信息：</p>
                 <p data-lang="en">We use the limited information collected:</p>
-                
+
                 <ul data-lang="zh">
                     <li>改进应用功能和用户体验</li>
                     <li>诊断和修复技术问题</li>
                     <li>了解用户如何与应用交互以优化界面</li>
                 </ul>
-                
+
                 <ul data-lang="en">
                     <li>To improve app functionality and user experience</li>
                     <li>To diagnose and fix technical issues</li>
-                    <li>To understand how users interact with the app to optimize the interface</li>
+                    <li>
+                        To understand how users interact with the app to
+                        optimize the interface
+                    </li>
                 </ul>
 
                 <h2 data-lang="zh">数据安全</h2>
                 <h2 data-lang="en">Data Security</h2>
-                
-                <p data-lang="zh">保护您的数据安全是我们的首要任务。我们采取以下措施：</p>
-                <p data-lang="en">Protecting your data security is our top priority. We take the following measures:</p>
-                
+
+                <p data-lang="zh">
+                    保护您的数据安全是我们的首要任务。我们采取以下措施：
+                </p>
+                <p data-lang="en">
+                    Protecting your data security is our top priority. We take
+                    the following measures:
+                </p>
+
                 <ul data-lang="zh">
                     <li>所有密码数据使用AES-256加密存储在您的设备上</li>
                     <li>使用您的主密码作为加密密钥</li>
@@ -262,113 +299,157 @@
                     <li>自动锁定功能</li>
                     <li>不将敏感数据传输到云端或我们的服务器</li>
                 </ul>
-                
+
                 <ul data-lang="en">
-                    <li>All password data is stored on your device using AES-256 encryption</li>
+                    <li>
+                        All password data is stored on your device using AES-256
+                        encryption
+                    </li>
                     <li>Your master password is used as the encryption key</li>
-                    <li>Optional biometric authentication (Face ID/Touch ID)</li>
+                    <li>
+                        Optional biometric authentication (Face ID/Touch ID)
+                    </li>
                     <li>Automatic lock feature</li>
-                    <li>No sensitive data is transmitted to the cloud or our servers</li>
+                    <li>
+                        No sensitive data is transmitted to the cloud or our
+                        servers
+                    </li>
                 </ul>
 
                 <h2 data-lang="zh">数据共享</h2>
                 <h2 data-lang="en">Data Sharing</h2>
-                
+
                 <p data-lang="zh">
                     我们不会出售、交易或以其他方式转让您的个人信息给外部第三方。唯一可能的例外是：
                 </p>
                 <p data-lang="en">
-                    We do not sell, trade, or otherwise transfer your personal information to external third parties. The only possible exceptions are:
+                    We do not sell, trade, or otherwise transfer your personal
+                    information to external third parties. The only possible
+                    exceptions are:
                 </p>
-                
+
                 <ul data-lang="zh">
                     <li>当需要遵守法律、法院命令或法律程序时</li>
                     <li>保护我们或他人的权利、财产或安全时</li>
                 </ul>
-                
+
                 <ul data-lang="en">
-                    <li>When required to comply with the law, court order, or legal process</li>
-                    <li>When needed to protect our rights, property, or safety, or that of others</li>
+                    <li>
+                        When required to comply with the law, court order, or
+                        legal process
+                    </li>
+                    <li>
+                        When needed to protect our rights, property, or safety,
+                        or that of others
+                    </li>
                 </ul>
 
                 <h2 data-lang="zh">第三方服务</h2>
                 <h2 data-lang="en">Third-Party Services</h2>
-                
+
                 <p data-lang="zh">我们的应用可能使用以下第三方服务：</p>
-                <p data-lang="en">Our app may use the following third-party services:</p>
-                
+                <p data-lang="en">
+                    Our app may use the following third-party services:
+                </p>
+
                 <ul data-lang="zh">
                     <li>Apple的App Analytics（用于收集匿名使用统计数据）</li>
                     <li>
                         Apple的iCloud（如果您选择启用iCloud备份，则您的加密数据将通过您的iCloud帐户存储）
                     </li>
                 </ul>
-                
+
                 <ul data-lang="en">
-                    <li>Apple's App Analytics (for collecting anonymous usage statistics)</li>
                     <li>
-                        Apple's iCloud (if you choose to enable iCloud backup, your encrypted data will be stored through your iCloud account)
+                        Apple's App Analytics (for collecting anonymous usage
+                        statistics)
+                    </li>
+                    <li>
+                        Apple's iCloud (if you choose to enable iCloud backup,
+                        your encrypted data will be stored through your iCloud
+                        account)
                     </li>
                 </ul>
-                
-                <p data-lang="zh">这些第三方服务的使用受其各自的隐私政策约束。</p>
-                <p data-lang="en">The use of these third-party services is subject to their respective privacy policies.</p>
+
+                <p data-lang="zh">
+                    这些第三方服务的使用受其各自的隐私政策约束。
+                </p>
+                <p data-lang="en">
+                    The use of these third-party services is subject to their
+                    respective privacy policies.
+                </p>
 
                 <h2 data-lang="zh">您的权利</h2>
                 <h2 data-lang="en">Your Rights</h2>
-                
+
                 <p data-lang="zh">作为KeyRepo的用户，您有权：</p>
                 <p data-lang="en">As a KeyRepo user, you have the right to:</p>
-                
+
                 <ul data-lang="zh">
                     <li>随时删除应用及其存储的所有数据</li>
                     <li>通过应用内设置管理您的密码和个人数据</li>
                     <li>选择是否启用匿名使用统计数据收集</li>
                 </ul>
-                
+
                 <ul data-lang="en">
-                    <li>Delete the app and all data stored in it at any time</li>
-                    <li>Manage your passwords and personal data through in-app settings</li>
-                    <li>Choose whether to enable anonymous usage statistics collection</li>
+                    <li>
+                        Delete the app and all data stored in it at any time
+                    </li>
+                    <li>
+                        Manage your passwords and personal data through in-app
+                        settings
+                    </li>
+                    <li>
+                        Choose whether to enable anonymous usage statistics
+                        collection
+                    </li>
                 </ul>
 
                 <h2 data-lang="zh">儿童隐私</h2>
                 <h2 data-lang="en">Children's Privacy</h2>
-                
+
                 <p data-lang="zh">
                     我们的服务不面向13岁以下的儿童。我们不会故意收集13岁以下儿童的个人身份信息。
                 </p>
                 <p data-lang="en">
-                    Our services are not directed at children under 13. We do not knowingly collect personally identifiable information from children under 13.
+                    Our services are not directed at children under 13. We do
+                    not knowingly collect personally identifiable information
+                    from children under 13.
                 </p>
 
                 <h2 data-lang="zh">政策变更</h2>
                 <h2 data-lang="en">Policy Changes</h2>
-                
+
                 <p data-lang="zh">
                     我们可能会不时更新本隐私政策。我们会在应用内通知您任何重大变更，并更新本页面顶部的"最后更新日期"。建议您定期查看本政策以了解我们如何保护您的信息。
                 </p>
                 <p data-lang="en">
-                    We may update this privacy policy from time to time. We will notify you of any significant changes within the app and update the "Last Updated" date at the top of this page. We recommend that you periodically review this policy to understand how we protect your information.
+                    We may update this privacy policy from time to time. We will
+                    notify you of any significant changes within the app and
+                    update the "Last Updated" date at the top of this page. We
+                    recommend that you periodically review this policy to
+                    understand how we protect your information.
                 </p>
 
                 <h2 data-lang="zh">联系我们</h2>
                 <h2 data-lang="en">Contact Us</h2>
-                
+
                 <p data-lang="zh">
                     如果您对我们的隐私政策有任何疑问或建议，请通过以下方式联系我们：
                 </p>
                 <p data-lang="en">
-                    If you have any questions or suggestions about our privacy policy, please contact us:
+                    If you have any questions or suggestions about our privacy
+                    policy, please contact us:
                 </p>
-                
+
                 <p data-lang="zh">
                     电子邮件：<a href="mailto:river.mao@outlook.com"
                         >river.mao@outlook.com</a
                     >
                 </p>
                 <p data-lang="en">
-                    Email: <a href="mailto:river.mao@outlook.com"
+                    Email:
+                    <a href="mailto:river.mao@outlook.com"
                         >river.mao@outlook.com</a
                     >
                 </p>
@@ -376,57 +457,78 @@
         </div>
 
         <footer>
-            <p data-lang="zh">&copy; 2023 KeyRepo. 保留所有权利。</p>
+            <p data-lang="zh">&copy; 2025 KeyRepo. 保留所有权利。</p>
             <p data-lang="en">&copy; 2023 KeyRepo. All rights reserved.</p>
         </footer>
-        
+
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const langButtons = document.querySelectorAll('.lang-btn');
+            document.addEventListener("DOMContentLoaded", function () {
+                const langButtons = document.querySelectorAll(".lang-btn");
                 const htmlElement = document.documentElement;
-                
+
                 // 检测浏览器语言
                 function detectBrowserLanguage() {
-                    const browserLang = navigator.language || navigator.userLanguage;
-                    return browserLang.startsWith('zh') ? 'zh' : 'en';
+                    const browserLang =
+                        navigator.language || navigator.userLanguage;
+                    console.log("Browser language detected:", browserLang);
+                    return browserLang.startsWith("zh") ? "zh" : "en";
                 }
-                
+
                 // 设置语言
                 function setLanguage(lang) {
+                    console.log("Setting language to:", lang);
+
                     // 更新HTML lang属性
-                    htmlElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
-                    
+                    htmlElement.setAttribute(
+                        "lang",
+                        lang === "zh" ? "zh-CN" : "en",
+                    );
+
                     // 更新标题
-                    document.title = document.querySelector(`title`).getAttribute(`data-lang-${lang}`);
-                    
+                    document.title = document
+                        .querySelector(`title`)
+                        .getAttribute(`data-lang-${lang}`);
+
                     // 隐藏所有语言元素
-                    document.querySelectorAll('[data-lang]').forEach(el => {
-                        el.style.display = 'none';
+                    document.querySelectorAll("[data-lang]").forEach((el) => {
+                        el.classList.remove("active");
                     });
-                    
+
                     // 显示当前语言元素
-                    document.querySelectorAll(`[data-lang="${lang}"]`).forEach(el => {
-                        el.style.display = '';
-                    });
-                    
+                    document
+                        .querySelectorAll(`[data-lang="${lang}"]`)
+                        .forEach((el) => {
+                            el.classList.add("active");
+                        });
+
                     // 更新按钮状态
-                    langButtons.forEach(btn => {
-                        btn.classList.toggle('active', btn.dataset.lang === lang);
+                    langButtons.forEach((btn) => {
+                        btn.classList.toggle(
+                            "active",
+                            btn.dataset.lang === lang,
+                        );
                     });
-                    
+
                     // 存储语言偏好
-                    localStorage.setItem('keyrepo-language', lang);
+                    localStorage.setItem("keyrepo-language", lang);
                 }
-                
+
                 // 注册按钮点击事件
-                langButtons.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        setLanguage(btn.dataset.lang);
+                langButtons.forEach((btn) => {
+                    btn.addEventListener("click", () => {
+                        if (
+                            btn.dataset.lang === "zh" ||
+                            btn.dataset.lang === "zh-CN"
+                        ) {
+                            setLanguage("en");
+                        } else {
+                            setLanguage("zh");
+                        }
                     });
                 });
-                
+
                 // 初始化语言设置
-                const savedLang = localStorage.getItem('keyrepo-language');
+                const savedLang = localStorage.getItem("keyrepo-language");
                 const initialLang = savedLang || detectBrowserLanguage();
                 setLanguage(initialLang);
             });
