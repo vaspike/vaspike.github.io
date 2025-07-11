@@ -101,12 +101,12 @@
 <h1 id="函数">函数</h1>
 <h2 id="函数的声明">函数的声明</h2>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;This&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;This&#34;</span>);
 </span></span><span style="display:flex;"><span>    another_function();
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">another_function</span>(){
-</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;Another&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;Another&#34;</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
 <li>函数不必定义在main前,声明在在其后依然可以在main中调用</li>
@@ -118,12 +118,12 @@
 </ul>
 <p>在函数的声明里,必须声明每个参数的类型:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;This&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;This&#34;</span>);
 </span></span><span style="display:flex;"><span>    another_function(<span style="color:#ae81ff">45</span>,<span style="color:#ae81ff">20.5</span>);<span style="color:#75715e">//argument
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">another_function</span>(x:<span style="color:#66d9ef">i32</span>,y:<span style="color:#66d9ef">f64</span>){<span style="color:#75715e">//parameter
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println!(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,x,y);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,x,y);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="函数体中的语句和表达式">函数体中的语句和表达式</h2>
 <ul>
@@ -139,7 +139,7 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 </span></span><span style="display:flex;"><span>        x<span style="color:#f92672">+</span><span style="color:#ae81ff">3</span><span style="color:#75715e">//此处如果加上分号,则会报错,因为不加分号 x+3就是一个表达式,但加上分号 x+3; 变为了一个语句
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    };
-</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,y);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,y);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h2 id="函数的返回值">函数的返回值</h2>
 <ul>
@@ -149,7 +149,7 @@
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> y <span style="color:#f92672">=</span> plus_five(<span style="color:#ae81ff">4</span>);
-</span></span><span style="display:flex;"><span>    println!(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,y);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,y);
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">plus_five</span>(x:<span style="color:#66d9ef">i32</span>)-&gt;<span style="color:#66d9ef">i32</span>{

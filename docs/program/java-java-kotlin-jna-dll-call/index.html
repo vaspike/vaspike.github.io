@@ -104,17 +104,14 @@
 <p>Java Native Access (JNA),Github地址:<a href="https://github.com/java-native-access/jna">JNA</a></p>
 <p>在仓库的README.md中有:</p>
 <blockquote>
-<p>JNA provides Java programs easy access to native shared libraries without writing anything but Java code - no JNI or native code is required. This functionality is comparable to Windows&rsquo; Platform/Invoke and Python&rsquo;s ctypes.</p>
-</blockquote>
+<p>JNA provides Java programs easy access to native shared libraries without writing anything but Java code - no JNI or native code is required. This functionality is comparable to Windows&rsquo; Platform/Invoke and Python&rsquo;s ctypes.</p></blockquote>
 <blockquote>
-<p>JNA allows you to call directly into native functions using natural Java method invocation. The Java call looks just like the call does in native code. Most calls require no special handling or configuration; no boilerplate or generated code is required.</p>
-</blockquote>
+<p>JNA allows you to call directly into native functions using natural Java method invocation. The Java call looks just like the call does in native code. Most calls require no special handling or configuration; no boilerplate or generated code is required.</p></blockquote>
 <p>其是一个由社区开发的库，它使Java程序无需使用Java Native Interface(JNI)即可轻松访问本地共享库。JNA的设计旨在以最少的努力以原生的方式提供本地访问，且不需要样板代码或胶水代码。</p>
 <h2 id="2使用jna">2.使用JNA</h2>
 <p>以CH375为例，CH375是一个USB总线的通用接口芯片，它的驱动是一个dll动态链接库，后文中将借助JNA调用它的dll</p>
 <blockquote>
-<p>CH375官网介绍:<a href="http://www.wch.cn/products/CH375.html">CH375</a></p>
-</blockquote>
+<p>CH375官网介绍:<a href="http://www.wch.cn/products/CH375.html">CH375</a></p></blockquote>
 <p>官方提供了一个dll相关的头文件,这里节选出需要调用的方法:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>HANDLE	WINAPI	<span style="color:#a6e22e">CH375OpenDevice</span>(  <span style="color:#75715e">// 打开CH375设备,返回句柄,出错则无效
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	ULONG			iIndex );  <span style="color:#75715e">// 指定CH375设备序号,0对应第一个设备,-1则自动搜索一个可以被打开的设备并返回序号
@@ -155,11 +152,9 @@
 </span></span><span style="display:flex;"><span>    Boolean <span style="color:#a6e22e">CH375ReadData</span>(Integer index, <span style="color:#66d9ef">byte</span><span style="color:#f92672">[]</span> data, <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> length);
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><blockquote>
-<p>需要特别注意的是,头文件中参数数据类型和接口中数据类型的对应,例如指针类型的参数,在Java中就要换为数组类型</p>
-</blockquote>
+<p>需要特别注意的是,头文件中参数数据类型和接口中数据类型的对应,例如指针类型的参数,在Java中就要换为数组类型</p></blockquote>
 <blockquote>
-<p>这里的接口使用kotlin写也是没问题的</p>
-</blockquote>
+<p>这里的接口使用kotlin写也是没问题的</p></blockquote>
 <p><code>CH375DLL64.dll</code>文件要放在resources下:<code>resources/win32-x86-64/CH375DLL64.dll</code></p>
 <p>至此,已经可以直接调用这四个函数了,使用JNA就是这么十分的简洁</p>
 <h3 id="23调用示例">2.3.调用示例</h3>

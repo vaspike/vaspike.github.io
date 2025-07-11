@@ -101,7 +101,7 @@
 
 
 
-<h1 id="heading"></h1>
+<h1></h1>
 <p>compose自带库中的TextField和outlinedTextField有默认的大小,都属于Material风格的输入框,最小尺寸很大,如果要创建UI上比较紧凑的表单,就需要自定义组件了,同时让这个自定义组件也可作为下拉框来使用</p>
 <h2 id="1-阅读basetextfield">1. 阅读BaseTextField</h2>
 <p>自带库中,有一个<strong>BaseTextField</strong>组件,它位于<code>package androidx.compose.foundation.text</code>,我们可以先看下它的注释:</p>
@@ -109,8 +109,7 @@
 <p>Basic composable that enables users to edit text via hardware or software keyboard, but provides no decorations like hint or placeholder.
 Whenever the user edits the text, onValueChange is called with the most up to date state represented by String with which developer is expected to update their state.
 Unlike TextFieldValue overload, this composable does not let the developer to control selection, cursor and text composition information. Please check TextFieldValue and corresponding BasicTextField overload for more information.
-It is crucial that the value provided in the onValueChange is fed back into BasicTextField in order to have the final state of the text being displayed.</p>
-</blockquote>
+It is crucial that the value provided in the onValueChange is fed back into BasicTextField in order to have the final state of the text being displayed.</p></blockquote>
 <p>从上述注释中可以确定两件事:</p>
 <ol>
 <li>BaseTextField是一个基础的文本输入框,它不提供任何装饰,比如hint和placeholder</li>
@@ -140,12 +139,10 @@ It is crucial that the value provided in the onValueChange is fed back into Basi
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
 </span></span></code></pre></div><p>可以发现大部分的参数和TextField和outlinedTextField是一致的本处不再介绍,这里关注<strong>decorationBox</strong>参数,同样先看参数注释:</p>
 <blockquote>
-<p>decorationBox - Composable lambda that allows to add decorations around text field, such as icon, placeholder, helper messages or similar, and automatically increase the hit target area of the text field. To allow you to control the placement of the inner text field relative to your decorations, the text field implementation will pass in a framework-controlled composable parameter &ldquo;innerTextField&rdquo; to the decorationBox lambda you provide. You must call innerTextField exactly once.</p>
-</blockquote>
+<p>decorationBox - Composable lambda that allows to add decorations around text field, such as icon, placeholder, helper messages or similar, and automatically increase the hit target area of the text field. To allow you to control the placement of the inner text field relative to your decorations, the text field implementation will pass in a framework-controlled composable parameter &ldquo;innerTextField&rdquo; to the decorationBox lambda you provide. You must call innerTextField exactly once.</p></blockquote>
 <p>简单来说这个参数的作用是:</p>
 <blockquote>
-<p>允许在文本字段周围添加装饰，例如图标，占位符，帮助程序消息或类似内容，并自动增加文本字段的命中目标区域</p>
-</blockquote>
+<p>允许在文本字段周围添加装饰，例如图标，占位符，帮助程序消息或类似内容，并自动增加文本字段的命中目标区域</p></blockquote>
 <p>要把自定义组件可作为下拉框来使用,这个参数将会传入Icon</p>
 <p>至于小尺寸的问题,只要使用这个函数时<code>textStyle</code>传入字体小一些的对象即可,因为它不同于Material风格的组件有最小高度</p>
 <h2 id="2-使用basetextfield">2. 使用BaseTextField</h2>
@@ -260,8 +257,7 @@ It is crucial that the value provided in the onValueChange is fed back into Basi
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><blockquote>
-<p>垂直实现可以仿照水平实现也加上otherContent参数,因为我写出垂直的后并没有使用过,因此不如水平的完整</p>
-</blockquote>
+<p>垂直实现可以仿照水平实现也加上otherContent参数,因为我写出垂直的后并没有使用过,因此不如水平的完整</p></blockquote>
 <h2 id="3自定义组件的使用">3.自定义组件的使用:</h2>
 <ul>
 <li>非下拉框:</li>

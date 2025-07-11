@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Java Launcher 中文介绍 - RiverMao</title>
+    <meta property="og:title" content="Java Launcher 中文介绍 - RiverMao">
+    
+    <meta name="twitter:card" content="summary">
+
+    
+      
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css" media="print" onload="this.media='all'">
+
+    
+      
+      <meta property="description" content="Java Launcher 是一款功能强大、操作直观的 VS Code 插件，用于发现、运行、管理和调试您的 Java 应用。其设计灵感来源于 JetBrains IntelliJ IDEA 中流畅的运行和调试体验。
+告别手动编辑 launch.json 的繁琐工作。Java Launcher 会自动发现您项目中所有可运行的入口点——包括 main 方法、Spring Boot 应用和测试——并将 &amp;hellip;">
+      <meta property="og:description" content="Java Launcher 是一款功能强大、操作直观的 VS Code 插件，用于发现、运行、管理和调试您的 Java 应用。其设计灵感来源于 JetBrains IntelliJ IDEA 中流畅的运行和调试体验。
+告别手动编辑 launch.json 的繁琐工作。Java Launcher 会自动发现您项目中所有可运行的入口点——包括 main 方法、Spring Boot 应用和测试——并将 &amp;hellip;">
+      
+    
+
+    
+    
+    <meta name="twitter:image" content="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/MFdm/150X150/logo-small.png">
+    
+    
+
+    
+
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+<script>hljs.configure({
+    ignoreUnescapedHTML: true
+});</script>
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <script type="text/javascript" src="/js/codeBlock.js"></script>
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+  </head>
+
+  
+  <body class="program">
+  <div class="background-div"></div>
+    <header class="masthead">
+      <h1><a href="/">RiverMao</a></h1>
+
+<p class="tagline">从未来再见</p>
+
+      <nav class="menu">
+  <input id="menu-check" type="checkbox" hidden/>
+  <label id="menu-label" for="menu-check" class="unselectable" hidden>
+    <span class="icon close-icon">✕</span>
+    <span class="icon open-icon">☰</span>
+    <span class="text">Menu</span>
+  </label>
+  <ul>
+  
+  
+  <li><a href="/program/">program</a></li>
+  
+  <li><a href="/life/">life</a></li>
+  
+  <li><a href="/about">about</a></li>
+  
+  <li><a href="/index.xml">rss</a></li>
+  
+  
+  </ul>
+</nav>
+
+    </header>
+
+    <article class="main">
+      <header class="title">
+      
+<h1>Java Launcher 中文介绍</h1>
+
+
+<h3>
+
+
+
+
+
+2025-07-11
+</h3>
+
+<hr>
+
+
+      </header>
+
+
+
+
+
+<h2 id="150x150logo-smallpng-java-launcher"><img src="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/MFdm/150X150/logo-small.png" alt="150X150/logo-small.png"> Java Launcher</h2>
+<h2 id="-instructions-in-english">⭐️ <a href="https://rivermao.com/program/java-launcher/">Instructions in English</a></h2>
+<p>Java Launcher 是一款功能强大、操作直观的 VS Code 插件，用于发现、运行、管理和调试您的 Java 应用。其设计灵感来源于 JetBrains IntelliJ IDEA 中流畅的运行和调试体验。</p>
+<p>告别手动编辑 launch.json 的繁琐工作。Java Launcher 会自动发现您项目中所有可运行的入口点——包括 main 方法、Spring Boot 应用和测试——并将它们展示在活动栏的一个专属视图中。您甚至可以一键启动,重启, 停止整个微服务技术栈。</p>
+<h2 id="地址">地址</h2>
+<ul>
+<li>插件市场: <a href="https://marketplace.visualstudio.com/items?itemName=River.java-launcher">VScode marketplace</a></li>
+<li>仓库: <a href="https://github.com/RiverMao/java-launcher">Java-Launcher</a></li>
+</ul>
+<h2 id="核心功能展示">核心功能展示</h2>
+<ul>
+<li>
+<p>零配置运行/调试: 自动扫描并发现您工作区中所有可运行的入口点（main 方法、@SpringBootApplication、JUnit &amp; TestNG 测试）。</p>
+</li>
+<li>
+<p>清晰的树状视图: 在专属的侧边栏视图中，将所有发现的应用和测试按项目模块分组，一目了然，方便管理。</p>
+</li>
+<li>
+<p>一键化操作: 直接在树状视图中运行、调试或停止任何一个应用。
+<img src="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/8Pxw/902X356/Snipaste_2025-07-11_09-40-22.png" alt="902X356/Snipaste_2025-07-11_09-40-22.png"></p>
+<p><img src="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/mCCe/1526X1862/Snipaste_2025-07-11_11-09-53.png" alt="1526X1862/Snipaste_2025-07-11_11-09-53.png"></p>
+<p><img src="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/kOtD/1088X936/Snipaste_2025-07-11_09-31-15.png" alt="1088X936/Snipaste_2025-07-11_09-31-15.png"></p>
+</li>
+<li>
+<p>聚合启动配置: 将多个应用组合成一个“聚合启动配置”。您可以按预设顺序和自定义延迟，一键启动您的整个微服务技术栈。
+<img src="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/Xn70/1646X1742/Snipaste_2025-07-11_11-07-04.png" alt="1646X1742/Snipaste_2025-07-11_11-07-04.png"></p>
+</li>
+<li>
+<p>快速搜索与运行: 提供一个强大的命令面板（类似 Ctrl+P），让您能快速查找并运行任何入口点或聚合配置。
+<img src="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/HsJc/1520X956/Snipaste_2025-07-11_09-38-01.png" alt="1520X956/Snipaste_2025-07-11_09-38-01.png"></p>
+<p><img src="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/eVPH/2094X528/Snipaste_2025-07-11_11-14-13.png" alt="2094X528/Snipaste_2025-07-11_11-14-13.png"></p>
+</li>
+<li>
+<p>强大的 Spring Boot 支持, 自动识别 Spring Boot 应用。为单个或所有 Spring Boot 应用轻松设置和切换 Active Profile。
+<img src="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/Qcpq/1256X330/Snipaste_2025-07-11_09-38-56.png" alt="1256X330/Snipaste_2025-07-11_09-38-56.png"></p>
+</li>
+<li>
+<p>进程管理: 在专属的管理界面中，查看、停止或重启由本插件启动的任何 Java 进程。
+<img src="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/iHVJ/2702X676/Snipaste_2025-07-11_09-33-49.png" alt="2702X676/Snipaste_2025-07-11_09-33-49.png"></p>
+<p><img src="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/LxzL/1620X596/Snipaste_2025-07-11_09-35-19.png" alt="1620X596/Snipaste_2025-07-11_09-35-19.png"></p>
+<p><img src="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/WSyj/898X164/Snipaste_2025-07-11_09-43-07.png" alt="898X164/Snipaste_2025-07-11_09-43-07.png"></p>
+<p><img src="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/CsDJ/886X164/Snipaste_2025-07-11_09-44-08.png" alt="886X164/Snipaste_2025-07-11_09-44-08.png"></p>
+</li>
+</ul>
+<h2 id="注意事项">注意事项</h2>
+<ul>
+<li>
+<p>建议在VScode中关闭jmx选项, 否则启动<code>聚合配置</code>时可能遇到<strong>jmx端口冲突</strong>的问题; 如果不是远程开发, 关闭这个选项不会影响开发调试工作, 且让java资源占用更少
+<img src="https://tc.z.wiki/autoupload/f/orCzaWOvKzgYH1bdiGU7RymIkHMchKbLor7dh3rvZ9Gyl5f0KlZfm6UsKj-HyTuv/20250711/zTd9/2132X338/Snipaste_2025-07-10_22-03-05.png" alt="2132X338/Snipaste_2025-07-10_22-03-05.png"></p>
+</li>
+<li>
+<p>目前Java Launcher对Gradle 项目的支持还仅仅是实验性的</p>
+</li>
+</ul>
+
+
+
+  <footer>
+  
+  
+  
+  <hr>
+  <div class="copyright">© <a href="mailto:i@rivermao.com">RiverMao</a> | since 2020 | <em>本站文章均为原创,转载请标明出处</em></div>
+  
+  </footer>
+  </article>
+  
+  </body>
+</html>
+

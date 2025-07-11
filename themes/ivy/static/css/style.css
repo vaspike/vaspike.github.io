@@ -56,7 +56,6 @@ body {
   margin: 0;
   padding: 0;
   color: var(--surfaceColor);
-  background:  url('../img/background_img.png') no-repeat center center fixed;
   background-size: cover; /* 使背景图片自动伸展以填充整个视口区域 */
   z-index: -1; /* 背景层在其他内容下面 */
 }

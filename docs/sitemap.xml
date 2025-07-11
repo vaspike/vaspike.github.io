@@ -2,11 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://rivermao.com/program/java-launcher/</loc>
+    <lastmod>2025-07-11T10:19:25+08:00</lastmod>
+  </url><url>
+    <loc>https://rivermao.com/program/java-launcher-zh/</loc>
+    <lastmod>2025-07-11T10:19:25+08:00</lastmod>
+  </url><url>
     <loc>https://rivermao.com/program/</loc>
-    <lastmod>2024-11-16T21:03:44+08:00</lastmod>
+    <lastmod>2025-07-11T10:19:25+08:00</lastmod>
   </url><url>
     <loc>https://rivermao.com/</loc>
-    <lastmod>2024-11-16T21:03:44+08:00</lastmod>
+    <lastmod>2025-07-11T10:19:25+08:00</lastmod>
   </url><url>
     <loc>https://rivermao.com/program/knowledge_graph_003/</loc>
     <lastmod>2024-11-16T21:03:44+08:00</lastmod>

@@ -117,31 +117,31 @@
 <table>
   <thead>
       <tr>
-          <th style="text-align: left">通道类型</th>
-          <th style="text-align: left">构造参数</th>
-          <th style="text-align: left">通道特点</th>
+          <th>通道类型</th>
+          <th>构造参数</th>
+          <th>通道特点</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left">Rendezvous</td>
-          <td style="text-align: left">空参</td>
-          <td style="text-align: left">0尺寸buffer, <em>send</em>和<em>receive</em>要<strong>meet on time</strong>, 否则挂起. (默认类型)</td>
+          <td>Rendezvous</td>
+          <td>空参</td>
+          <td>0尺寸buffer, <em>send</em>和<em>receive</em>要<strong>meet on time</strong>, 否则挂起. (默认类型)</td>
       </tr>
       <tr>
-          <td style="text-align: left">Buffered</td>
-          <td style="text-align: left"><strong>Int</strong>值</td>
-          <td style="text-align: left">Int值即为通道大小, 满了之后<em>send</em>挂起</td>
+          <td>Buffered</td>
+          <td><strong>Int</strong>值</td>
+          <td>Int值即为通道大小, 满了之后<em>send</em>挂起</td>
       </tr>
       <tr>
-          <td style="text-align: left">Conflated</td>
-          <td style="text-align: left"><strong>CONFLATED</strong></td>
-          <td style="text-align: left">新元素会覆盖旧元素, <em>receiver</em>只会得到最新元素, <em>send</em>永不挂起</td>
+          <td>Conflated</td>
+          <td><strong>CONFLATED</strong></td>
+          <td>新元素会覆盖旧元素, <em>receiver</em>只会得到最新元素, <em>send</em>永不挂起</td>
       </tr>
       <tr>
-          <td style="text-align: left">Unlimited</td>
-          <td style="text-align: left"><strong>UNLIMITED</strong></td>
-          <td style="text-align: left">无限元素, <em>send</em>不被挂起</td>
+          <td>Unlimited</td>
+          <td><strong>UNLIMITED</strong></td>
+          <td>无限元素, <em>send</em>不被挂起</td>
       </tr>
   </tbody>
 </table>
