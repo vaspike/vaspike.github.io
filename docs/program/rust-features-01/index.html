@@ -18,10 +18,10 @@
       
       <meta property="description" content="分配在堆上的变量默认使用的是浅拷贝
 [&hellip;] 堆上的变量发生浅拷贝时实际上是将这段堆内存的所有权移交给拷贝者:
-[&hellip;] fn main() { let s1 = String::from(&#34;hello world&#34;); let s2 = s1; println!(&#34;{}&#34;,s1);//此处会报错 } 因为s1(s1的引用是字符串,指向堆的) &amp;hellip;">
+[&hellip;] fn main() { let s1 = String::from(&quot;hello world&quot;); let s2 = s1; println!(&quot;{}&quot;,s1);//此处会报错 } 因为s1(s1的引用是字符串,指 &amp;hellip;">
       <meta property="og:description" content="分配在堆上的变量默认使用的是浅拷贝
 [&hellip;] 堆上的变量发生浅拷贝时实际上是将这段堆内存的所有权移交给拷贝者:
-[&hellip;] fn main() { let s1 = String::from(&#34;hello world&#34;); let s2 = s1; println!(&#34;{}&#34;,s1);//此处会报错 } 因为s1(s1的引用是字符串,指向堆的) &amp;hellip;">
+[&hellip;] fn main() { let s1 = String::from(&quot;hello world&quot;); let s2 = s1; println!(&quot;{}&quot;,s1);//此处会报错 } 因为s1(s1的引用是字符串,指 &amp;hellip;">
       
     
 
@@ -125,21 +125,23 @@
 <ul>
 <li>如下的代码在编译时就会报错</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s1 <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;hello world&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s2 <span style="color:#f92672">=</span> s1;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,s1);<span style="color:#75715e">//此处会报错
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p>因为<strong>s1</strong>(s1的引用是字符串,指向堆的)对字符串的引用已经<strong>移交(move)<strong>给了</strong>s2</strong>,无法再对<strong>s1</strong>进行操作(其实在移交所有权后<strong>s1</strong>已经被销毁了),包括读取它</p>
+<pre><code class="language-rust">fn main() {
+    let s1 = String::from(&quot;hello world&quot;);
+    let s2 = s1;
+    println!(&quot;{}&quot;,s1);//此处会报错
+}
+</code></pre>
+<p>因为<strong>s1</strong>(s1的引用是字符串,指向堆的)对字符串的引用已经<strong>移交(move)<strong>给了</strong>s2</strong>,无法再对<strong>s1</strong>进行操作(其实在移交所有权后<strong>s1</strong>已经被销毁了),包括读取它</p>
 </li>
 <li>
 <p>如果使用深拷贝,则会在堆中真正拷贝一个段相同的数据并将新数据的引用交给(move)拷贝者(s2),此时,s1依然拥有所有权,它与s2之间的所有权是相互独立,互不影响的,如下:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s1 <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;hello world&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s2 <span style="color:#f92672">=</span> s1.clone();<span style="color:#75715e">//clone()方法将会使用深拷贝
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,s1,s2);<span style="color:#75715e">//此时s1与s2都可以正常读取输出,不会报错
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/15/f2tK2R.png" alt=""></p>
+<pre><code class="language-rust">fn main() {
+    let s1 = String::from(&quot;hello world&quot;);
+    let s2 = s1.clone();//clone()方法将会使用深拷贝
+    println!(&quot;{},{}&quot;,s1,s2);//此时s1与s2都可以正常读取输出,不会报错
+}
+</code></pre>
+<p><img src="https://z3.ax1x.com/2021/08/15/f2tK2R.png" alt=""></p>
 </li>
 </ul>
 <p>即:<strong>一块内存在某个时间上只可以属于一个变量</strong></p>
@@ -153,12 +155,13 @@
 </li>
 <li>
 <p>例子:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s2 <span style="color:#f92672">=</span> s1;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,s1,s2);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>程序可以正常运行:</p>
+<pre><code class="language-rust">fn main() {
+    let s1 = 5;
+    let s2 = s1;
+    println!(&quot;{},{}&quot;,s1,s2);
+}
+</code></pre>
+<p>程序可以正常运行:</p>
 <p><img src="https://z3.ax1x.com/2021/08/15/f2UtgA.png" alt=""></p>
 </li>
 </ul>
@@ -186,56 +189,59 @@
 <li>在语义上,将值传递给函数和将值赋给变量是类似的,因此将值传递给函数时也会发生移动或者复制</li>
 </ul>
 <p>例子</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//以下代码会报错
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;hello&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-</span></span><span style="display:flex;"><span>    take_ownership(s);<span style="color:#75715e">//s将所有权移交(move)给了take_ownership()中的some_string变量,s不可再被读取和操作
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    makes_copy(i);<span style="color:#75715e">//i将自己的副本传入了makes_copy(),i的所有权仍在自己手上
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,s);<span style="color:#75715e">//在此处程序会报错
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,i);<span style="color:#75715e">//i还是可以正常被读取使用的
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">take_ownership</span>(some_string: String){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,some_string);
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//在此时some_thing变量的作用域马上结束,Rust会调用drop(),它引用的内存将会被free
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">makes_copy</span>(some_number: <span style="color:#66d9ef">i32</span>){
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,some_number);
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//此处却不会发生什么
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><h2 id="返回值与作用域">返回值与作用域</h2>
+<pre><code class="language-rust">//以下代码会报错
+fn main() {
+    let s = String::from(&quot;hello&quot;);
+    let i = 5;
+    take_ownership(s);//s将所有权移交(move)给了take_ownership()中的some_string变量,s不可再被读取和操作
+    makes_copy(i);//i将自己的副本传入了makes_copy(),i的所有权仍在自己手上
+
+    println!(&quot;{}&quot;,s);//在此处程序会报错
+    println!(&quot;{}&quot;,i);//i还是可以正常被读取使用的
+
+}
+fn take_ownership(some_string: String){
+    println!(&quot;{}&quot;,some_string);
+    //在此时some_thing变量的作用域马上结束,Rust会调用drop(),它引用的内存将会被free
+}
+fn makes_copy(some_number: i32){
+    println!(&quot;{}&quot;,some_number);
+    //此处却不会发生什么
+}
+</code></pre>
+<h2 id="返回值与作用域">返回值与作用域</h2>
 <ul>
 <li>函数在返回值的过程中同样会发生所有权的转移</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> k <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;kaka&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s1 <span style="color:#f92672">=</span> give_ownership();<span style="color:#75715e">//give_ownership()中的s变量的所有权将会移交给s1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> g <span style="color:#f92672">=</span> take_and_gives_back(k);<span style="color:#75715e">//k变量的所有权将先回移交给a_string,a_strin会再将所有权移交回给g,而k已经不再有意义了
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">give_ownership</span>() -&gt; String {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;hello&#34;</span>);
-</span></span><span style="display:flex;"><span>    s<span style="color:#75715e">//所有权移交给give_ownership()的接收者
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">take_and_gives_back</span>(a_string: String) -&gt; String {
-</span></span><span style="display:flex;"><span>    a_string<span style="color:#75715e">//a_string的所有权来自于k的所有权,最后又将此所有权移交给函数接收者g
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
-</span></span></code></pre></div><ul>
+<pre><code class="language-rust">fn main() {
+    let k = String::from(&quot;kaka&quot;);
+    let s1 = give_ownership();//give_ownership()中的s变量的所有权将会移交给s1
+    let g = take_and_gives_back(k);//k变量的所有权将先回移交给a_string,a_strin会再将所有权移交回给g,而k已经不再有意义了
+}
+fn give_ownership() -&gt; String {
+    let s = String::from(&quot;hello&quot;);
+    s//所有权移交给give_ownership()的接收者
+}
+fn take_and_gives_back(a_string: String) -&gt; String {
+    a_string//a_string的所有权来自于k的所有权,最后又将此所有权移交给函数接收者g
+}
+</code></pre>
+<ul>
 <li>当一个包含heap数据的变量在离开作用域时,它的值就会被drop()函数清理,除非数据的所有权移动到另一个变量上了</li>
 </ul>
 <h2 id="引用reference和借用">引用(Reference)和借用</h2>
 <h3 id="引用reference">引用(Reference)</h3>
 <p>例子:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> k <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;kaka&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> g <span style="color:#f92672">=</span> take_and_gives_back(<span style="color:#f92672">&amp;</span>k);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,k);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">take_and_gives_back</span>(a_string: <span style="color:#66d9ef">&amp;</span>String) -&gt; <span style="color:#66d9ef">usize</span> {
-</span></span><span style="display:flex;"><span>    a_string.len()
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/15/f26Mz8.png" alt=""></p>
+<pre><code class="language-rust">fn main() {
+    let k = String::from(&quot;kaka&quot;);
+    let g = take_and_gives_back(&amp;k);
+    println!(&quot;{}&quot;,k);
+}
+fn take_and_gives_back(a_string: &amp;String) -&gt; usize {
+    a_string.len()
+}
+</code></pre>
+<p><img src="https://z3.ax1x.com/2021/08/15/f26Mz8.png" alt=""></p>
 <p>可以看到程序正常运行,并没有报错,这是因为:</p>
 <ul>
 <li>参数的类型是**&amp;string<strong>而不是</strong>string**</li>
@@ -249,16 +255,17 @@
 </li>
 <li>
 <p>默认是<strong>不可以</strong>修改借用的东西的,除非在声明变量和引用是都加上<strong>mut</strong>关键字:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> k <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;kaka&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> g <span style="color:#f92672">=</span> take_and_gives_back(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> k);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,k,g);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">take_and_gives_back</span>(a_string: <span style="color:#66d9ef">&amp;</span><span style="color:#a6e22e">mut</span> String) -&gt; <span style="color:#66d9ef">usize</span> {
-</span></span><span style="display:flex;"><span>    a_string.push_str(<span style="color:#e6db74">&#34; hello&#34;</span>);
-</span></span><span style="display:flex;"><span>    a_string.len()
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></li>
+<pre><code class="language-rust">fn main() {
+    let mut k = String::from(&quot;kaka&quot;);
+    let g = take_and_gives_back(&amp;mut k);
+    println!(&quot;{},{}&quot;,k,g);
+}
+fn take_and_gives_back(a_string: &amp;mut String) -&gt; usize {
+    a_string.push_str(&quot; hello&quot;);
+    a_string.len()
+}
+</code></pre>
+</li>
 </ul>
 <p>可变引用的限制:</p>
 <ul>
@@ -283,15 +290,16 @@
 <li>在Rust中,编译器可以保证引用永远都不是悬空引用</li>
 </ul>
 <p>例子:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//以下代码会报错
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>   dangle();
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">dangle</span>() -&gt; <span style="color:#66d9ef">&amp;</span>String { <span style="color:#75715e">//此处报错
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span>  k <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;kaka&#34;</span>); 
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&amp;</span>k;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>因为假使编译可以通过,那么在dangle()结束时,k变量就会被Drop(),那么返回的就是一个悬空引用(野指针),这是没有意义且危险的</p>
+<pre><code class="language-rust">//以下代码会报错
+fn main() {
+   dangle();
+}
+fn dangle() -&gt; &amp;String { //此处报错
+    let  k = String::from(&quot;kaka&quot;); 
+    &amp;k;
+}
+</code></pre>
+<p>因为假使编译可以通过,那么在dangle()结束时,k变量就会被Drop(),那么返回的就是一个悬空引用(野指针),这是没有意义且危险的</p>
 <h3 id="引用的使用规则">引用的使用规则</h3>
 <ul>
 <li>在同一作用域内一个数据只有一个可变引用</li>

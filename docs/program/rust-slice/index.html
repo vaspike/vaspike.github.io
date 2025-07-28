@@ -18,10 +18,10 @@
       
       <meta property="description" content="Rust的另一种不持有所有权的数据类型: 切片(slice)
 [&hellip;] 一道题,编写一个函数:
-[&hellip;] fn main(){ let s = String::from(&#34;see you&#34;); println!(&#34;{}&#34;,first_word(&amp;s)); } fn first_word(s:&amp;String) -&gt; &amp;hellip;">
+[&hellip;] fn main(){ let s = String::from(&quot;see you&quot;); println!(&quot;{}&quot;,first_word(&amp;s)); } fn first_word(s:&amp;String) -&gt; &amp;hellip;">
       <meta property="og:description" content="Rust的另一种不持有所有权的数据类型: 切片(slice)
 [&hellip;] 一道题,编写一个函数:
-[&hellip;] fn main(){ let s = String::from(&#34;see you&#34;); println!(&#34;{}&#34;,first_word(&amp;s)); } fn first_word(s:&amp;String) -&gt; &amp;hellip;">
+[&hellip;] fn main(){ let s = String::from(&quot;see you&quot;); println!(&quot;{}&quot;,first_word(&amp;s)); } fn first_word(s:&amp;String) -&gt; &amp;hellip;">
       
     
 
@@ -115,20 +115,21 @@
 <li>返回它在这个字符串的第一个空格的索引</li>
 <li>如果函数没有找到任何空格,那么返回整个字符串的长度</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;see you&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,first_word(<span style="color:#f92672">&amp;</span>s));
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">first_word</span>(s:<span style="color:#66d9ef">&amp;</span>String) -&gt; <span style="color:#66d9ef">usize</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> my_bytes <span style="color:#f92672">=</span> s.as_bytes();
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i, <span style="color:#f92672">&amp;</span>item) <span style="color:#66d9ef">in</span> my_bytes.iter().enumerate() {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> item <span style="color:#f92672">==</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39; &#39;</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> i;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    s.len()
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/21/fxYB9O.png" alt=""></p>
+<pre><code class="language-rust">fn main(){
+    let s = String::from(&quot;see you&quot;);
+    println!(&quot;{}&quot;,first_word(&amp;s));
+}
+fn first_word(s:&amp;String) -&gt; usize{
+    let my_bytes = s.as_bytes();
+    for (i, &amp;item) in my_bytes.iter().enumerate() {
+        if item == b' '{
+            return i;
+        }
+    }
+    s.len()
+}
+</code></pre>
+<p><img src="https://z3.ax1x.com/2021/08/21/fxYB9O.png" alt=""></p>
 <h2 id="字符串切片">字符串切片</h2>
 <ul>
 <li>
@@ -143,43 +144,45 @@
 </ul>
 <h2 id="使用">使用</h2>
 <p>改写最开始的函数,让它返回一个字符串切片:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;see you&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,first_word(<span style="color:#f92672">&amp;</span>s));
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">first_word</span>(s:<span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>) -&gt; <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> my_bytes <span style="color:#f92672">=</span> s.as_bytes();
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i, <span style="color:#f92672">&amp;</span>item) <span style="color:#66d9ef">in</span> my_bytes.iter().enumerate() {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> item <span style="color:#f92672">==</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39; &#39;</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span>s[<span style="color:#f92672">..</span>i];
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&amp;</span>s[<span style="color:#f92672">..</span>]
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/21/fx0AIA.png" alt=""></p>
+<pre><code class="language-rust">fn main(){
+    let s = String::from(&quot;see you&quot;);
+    println!(&quot;{}&quot;,first_word(&amp;s));
+}
+fn first_word(s:&amp;str) -&gt; &amp;str{
+    let my_bytes = s.as_bytes();
+    for (i, &amp;item) in my_bytes.iter().enumerate() {
+        if item == b' '{
+            return &amp;s[..i];
+        }
+    }
+    &amp;s[..]
+}
+</code></pre>
+<p><img src="https://z3.ax1x.com/2021/08/21/fx0AIA.png" alt=""></p>
 <ul>
 <li>
 <p>其实,字符串字面值就是字符串切片</p>
 </li>
 <li>
 <p>Rust中切片的其他性质:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//以下代码会报错
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> s <span style="color:#f92672">=</span> String::from(<span style="color:#e6db74">&#34;see you&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> s0 <span style="color:#f92672">=</span> first_word(<span style="color:#f92672">&amp;</span>s);
-</span></span><span style="display:flex;"><span>    s.clear(); 
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,s0);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">first_word</span>(s:<span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>) -&gt; <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>{
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> my_bytes <span style="color:#f92672">=</span> s.as_bytes();
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i, <span style="color:#f92672">&amp;</span>item) <span style="color:#66d9ef">in</span> my_bytes.iter().enumerate() {
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> item <span style="color:#f92672">==</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#39; &#39;</span>{
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span>s[<span style="color:#f92672">..</span>i];
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&amp;</span>s[<span style="color:#f92672">..</span>]
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/21/fxDcDO.png" alt=""></p>
+<pre><code class="language-rust">//以下代码会报错
+fn main(){
+    let mut s = String::from(&quot;see you&quot;);
+    let s0 = first_word(&amp;s);
+    s.clear(); 
+    println!(&quot;{}&quot;,s0);
+}
+fn first_word(s:&amp;str) -&gt; &amp;str{
+    let my_bytes = s.as_bytes();
+    for (i, &amp;item) in my_bytes.iter().enumerate() {
+        if item == b' '{
+            return &amp;s[..i];
+        }
+    }
+    &amp;s[..]
+}
+</code></pre>
+<p><img src="https://z3.ax1x.com/2021/08/21/fxDcDO.png" alt=""></p>
 </li>
 </ul>
 <h2 id="其他">其他</h2>
@@ -189,14 +192,15 @@
 </li>
 <li>
 <p>其他数据类型的切片:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>(){
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> arr <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> arr0 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>arr[<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span><span style="color:#ae81ff">3</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> elem <span style="color:#66d9ef">in</span> arr0 {
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,elem);
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/21/fxyMUe.png" alt=""></p>
+<pre><code class="language-rust">fn main(){
+    let arr = [1,2,3,4,5];
+    let arr0 = &amp;arr[1..3];
+    for elem in arr0 {
+        println!(&quot;{}&quot;,elem);
+    }
+}
+</code></pre>
+<p><img src="https://z3.ax1x.com/2021/08/21/fxyMUe.png" alt=""></p>
 </li>
 </ul>
 

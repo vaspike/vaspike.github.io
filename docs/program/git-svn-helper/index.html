@@ -112,26 +112,31 @@
 <p>缺点: 主流IDE中不支持git-svn的自动操作 比如IDEA中的push和fetch需要自己自定义操作并绑定快捷键才算是能用,否则每次push和fetch都需要打开命令窗口手动执行</p>
 <p>另一个缺点是本地代码必须全部提交才能做push和fetch操作</p></blockquote>
 <h2 id="clone一个svn项目">clone一个svn项目</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git svn clone svn://xxx.xx/code
-</span></span></code></pre></div><p>可选参数:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>--no-metadata
-</span></span></code></pre></div><p>使用此参数时,拉取下来的仓库将会变成独立仓库,之前的提交信息都在,但之后的所有与svn远程仓库的相关<code>拉取</code>和<code>提交</code>都不会成功</p>
+<pre><code class="language-shell">git svn clone svn://xxx.xx/code
+</code></pre>
+<p>可选参数:</p>
+<pre><code class="language-shell">--no-metadata
+</code></pre>
+<p>使用此参数时,拉取下来的仓库将会变成独立仓库,之前的提交信息都在,但之后的所有与svn远程仓库的相关<code>拉取</code>和<code>提交</code>都不会成功</p>
 <h2 id="提交">提交</h2>
 <p>提交分为两个步骤,首先将暂存区文件提交到git本地仓库,然后再上传到svn远程仓库</p>
 <ol>
 <li>
 <p>git提交</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git commit -m<span style="color:#e6db74">&#34;git 提交&#34;</span>
-</span></span></code></pre></div></li>
+<pre><code class="language-shell">git commit -m&quot;git 提交&quot;
+</code></pre>
+</li>
 <li>
 <p>git-svn提交</p>
 <p><code>dcommit</code>会将git repo当前branch与远程svn repo中的差异的git commit都提交到svn repo，并为每个git commit生成一个对应的svn revision。这和”git push”很类似。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git svn dcommit
-</span></span></code></pre></div></li>
+<pre><code class="language-shell">git svn dcommit
+</code></pre>
+</li>
 </ol>
 <h2 id="从svn-repo拉取最新代码变更">从svn repo拉取最新代码变更</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git svn rebase
-</span></span></code></pre></div>
+<pre><code class="language-shell">git svn rebase
+</code></pre>
+
 
 
   <footer>

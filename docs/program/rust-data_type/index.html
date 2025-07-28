@@ -19,11 +19,11 @@
       <meta property="description" content="Rust是静态编译语言,在编译时必须知道所有变量的类型
 [&hellip;] 基于使用的值编译器通常能够推断出变量的具体类型
 [&hellip;] 但如果可能的类型比较多,就必须标注变量的具体类型,否则在编译期就会报错,例:
-[&hellip;] fn main() { let test = &#34;65&#34;.parse().expect(&#34;Not a number!&#34;); &amp;hellip;">
+fn main() { let test = &quot;65&quot;.parse().expect(&quot;Not a number!&quot;); } ​ 修改 &amp;hellip;">
       <meta property="og:description" content="Rust是静态编译语言,在编译时必须知道所有变量的类型
 [&hellip;] 基于使用的值编译器通常能够推断出变量的具体类型
 [&hellip;] 但如果可能的类型比较多,就必须标注变量的具体类型,否则在编译期就会报错,例:
-[&hellip;] fn main() { let test = &#34;65&#34;.parse().expect(&#34;Not a number!&#34;); &amp;hellip;">
+fn main() { let test = &quot;65&quot;.parse().expect(&quot;Not a number!&quot;); } ​ 修改 &amp;hellip;">
       
     
 
@@ -116,20 +116,22 @@
 </li>
 <li>
 <p>但如果可能的类型比较多,就必须标注变量的具体类型,否则在编译期就会报错,例:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> test <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;65&#34;</span>.parse().expect(<span style="color:#e6db74">&#34;Not a number!&#34;</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></li>
+<pre><code class="language-rust">fn main() {
+    let test = &quot;65&quot;.parse().expect(&quot;Not a number!&quot;);
+}
+</code></pre>
+</li>
 </ol>
 </li>
 </ul>
 <p>​          <img src="https://z3.ax1x.com/2021/08/15/fcf7mF.png" alt="编译报错"></p>
 <p>修改为:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> test: <span style="color:#66d9ef">u32</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;65&#34;</span>.parse().expect(<span style="color:#e6db74">&#34;Not a number!&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, test);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/15/fc4Rx0.png" alt="更改为:"></p>
+<pre><code class="language-rust">fn main() {
+    let test: u32 = &quot;65&quot;.parse().expect(&quot;Not a number!&quot;);
+    println!(&quot;{}&quot;, test);
+}
+</code></pre>
+<p><img src="https://z3.ax1x.com/2021/08/15/fc4Rx0.png" alt="更改为:"></p>
 <p>指定test变量的类型为<strong>u32</strong>类型,成功编译运行</p>
 <h2 id="标量">标量</h2>
 <ul>
@@ -230,17 +232,18 @@
 <ul>
 <li>
 <p>加减乘除余:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//加
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">45</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">56</span>;
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//减
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> difference <span style="color:#f92672">=</span> <span style="color:#ae81ff">78.0</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">45.2</span>;
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//乘
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> product <span style="color:#f92672">=</span> <span style="color:#ae81ff">45</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">34</span>;
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//除
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> quotient <span style="color:#f92672">=</span> <span style="color:#ae81ff">89</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">12</span>;
-</span></span><span style="display:flex;"><span><span style="color:#75715e">//取余
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> reminder <span style="color:#f92672">=</span> <span style="color:#ae81ff">65</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">4</span>;
-</span></span></code></pre></div><p>与其他语言无区别</p>
+<pre><code class="language-rust">//加
+let sum = 45 + 56;
+//减
+let difference = 78.0 - 45.2;
+//乘
+let product = 45 * 34;
+//除
+let quotient = 89 / 12;
+//取余
+let reminder = 65 % 4;
+</code></pre>
+<p>与其他语言无区别</p>
 </li>
 </ul>
 <h2 id="布尔类型">布尔类型</h2>
@@ -257,10 +260,11 @@
 </li>
 <li>
 <p>符号为bool</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#75715e">//两种声明bool值的方式
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> flag_t <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> flag_f:<span style="color:#66d9ef">bool</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-</span></span></code></pre></div></li>
+<pre><code class="language-rust">//两种声明bool值的方式
+let flag_t = true;
+let flag_f:bool = false;
+</code></pre>
+</li>
 </ul>
 <h2 id="字符类型">字符类型</h2>
 <ul>
@@ -278,10 +282,11 @@
 </li>
 <li>
 <p>但Unicode并没有字符的概念,因此直觉上认为的字符也许和Rust中的概念并不相符:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> a:<span style="color:#66d9ef">char</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;s&#39;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> b <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;在&#39;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;😂&#39;</span>;
-</span></span></code></pre></div></li>
+<pre><code class="language-rust">    let a:char = 's';
+    let b = '在';
+    let c = '😂';
+</code></pre>
+</li>
 </ul>
 <h2 id="复合类型">复合类型</h2>
 <ul>
@@ -309,21 +314,23 @@
 </li>
 <li>
 <p>Tuple 的每个位置都对应一个类型, Tuple中的各元素类型不必相同:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> tup:(<span style="color:#66d9ef">i32</span>,<span style="color:#66d9ef">f64</span>,<span style="color:#66d9ef">u8</span>) <span style="color:#f92672">=</span> (<span style="color:#ae81ff">78</span>,<span style="color:#ae81ff">45.4</span>,<span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div></li>
+<pre><code class="language-rust">fn main() {
+    let tup:(i32,f64,u8) = (78,45.4,1);
+}
+</code></pre>
+</li>
 <li>
 <p><strong>获取Tuple中的值:</strong></p>
 <ul>
 <li>
 <p>可以使用模式匹配来<strong>解构</strong>(destructure)一个Tuple来获取元素的值</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> tup:(<span style="color:#66d9ef">i32</span>,<span style="color:#66d9ef">f64</span>,<span style="color:#66d9ef">u8</span>) <span style="color:#f92672">=</span> (<span style="color:#ae81ff">78</span>,<span style="color:#ae81ff">45.4</span>,<span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> (x,y,z) <span style="color:#f92672">=</span> tup;
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,x,y,z);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/15/fcLZ5T.png" alt=""></p>
+<pre><code class="language-rust">fn main() {
+    let tup:(i32,f64,u8) = (78,45.4,1);
+    let (x,y,z) = tup;
+    println!(&quot;{},{},{}&quot;,x,y,z);
+}
+</code></pre>
+<p><img src="https://z3.ax1x.com/2021/08/15/fcLZ5T.png" alt=""></p>
 </li>
 </ul>
 </li>
@@ -332,11 +339,12 @@
 <ul>
 <li>
 <p>对Tuple变量使用点标记法,后接元素的索引号</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> tup:(<span style="color:#66d9ef">i32</span>,<span style="color:#66d9ef">f64</span>,<span style="color:#66d9ef">u8</span>) <span style="color:#f92672">=</span> (<span style="color:#ae81ff">78</span>,<span style="color:#ae81ff">45.4</span>,<span style="color:#ae81ff">1</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">,</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,tup.<span style="color:#ae81ff">0</span>,tup.<span style="color:#ae81ff">1</span>,tup.<span style="color:#ae81ff">2</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/15/fcqUun.png" alt=""></p>
+<pre><code class="language-rust">fn main() {
+    let tup:(i32,f64,u8) = (78,45.4,1);
+    println!(&quot;{},{},{}&quot;,tup.0,tup.1,tup.2);
+}
+</code></pre>
+<p><img src="https://z3.ax1x.com/2021/08/15/fcqUun.png" alt=""></p>
 </li>
 </ul>
 </li>
@@ -359,8 +367,9 @@
 <ul>
 <li>
 <p>在中括号里,各个值使用逗号分开:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> arr <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>];
-</span></span></code></pre></div></li>
+<pre><code class="language-rust">let arr = [1,2,3,4,8,9];
+</code></pre>
+</li>
 </ul>
 </li>
 <li>
@@ -379,16 +388,18 @@
 </li>
 <li>
 <p><strong>数组的类型</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> a:[<span style="color:#66d9ef">i32</span>;<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">3</span>];
-</span></span></code></pre></div><ul>
+<pre><code class="language-rust">let a:[i32;5] = [1,6,8,4,3];
+</code></pre>
+<ul>
 <li>
 <p>另一种声明数组的方式(特殊)</p>
 <ul>
 <li>
 <p>如果数组的每个元素都相同,那么在中括号中指定初始值,初始值后是一个分号,最后是数组的长度:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> [<span style="color:#ae81ff">3</span>;<span style="color:#ae81ff">5</span>];<span style="color:#75715e">//那么此语句等价为:
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">3</span>];
-</span></span></code></pre></div></li>
+<pre><code class="language-rust">let a = [3;5];//那么此语句等价为:
+let a = [3,3,3,3,3];
+</code></pre>
+</li>
 </ul>
 </li>
 </ul>
@@ -401,10 +412,11 @@
 </li>
 <li>
 <p>可以使用索引来访问数组的元素:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> arr <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>];
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> a <span style="color:#f92672">=</span> arr[<span style="color:#ae81ff">0</span>];<span style="color:#75715e">//1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> y <span style="color:#f92672">=</span> arr[<span style="color:#ae81ff">4</span>];<span style="color:#75715e">//8
-</span></span></span></code></pre></div></li>
+<pre><code class="language-rust">let arr = [1,2,3,4,8,9];
+let a = arr[0];//1
+let y = arr[4];//8
+</code></pre>
+</li>
 </ul>
 </li>
 <li>

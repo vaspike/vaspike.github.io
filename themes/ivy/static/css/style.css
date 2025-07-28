@@ -538,3 +538,312 @@ thead, tfoot, tr:nth-child(even) {
   }
 
 }
+
+/* Solana 打赏模块样式 */
+.solana-tip-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #cbd5e1 100%);
+}
+
+.solana-tip-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #cbd5e1 100%);
+}
+
+.solana-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+}
+
+.solana-logo {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(45deg, #9945ff, #14f195);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+}
+
+.solana-title {
+  color: #1e293b;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.wallet-section {
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(203, 213, 225, 0.5);
+}
+
+.wallet-label {
+  color: #475569;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.wallet-address {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(248, 250, 252, 0.8);
+  border-radius: 8px;
+  padding: 0.75rem;
+  border: 1px solid rgba(203, 213, 225, 0.6);
+}
+
+.wallet-text {
+  flex: 1;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.8rem;
+  color: #334155;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+.copy-btn {
+  background: linear-gradient(45deg, #9945ff, #14f195);
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+  font-size: 0.8rem;
+  min-width: 50px;
+}
+
+.copy-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.copy-btn:active {
+  transform: scale(0.95);
+}
+
+.qr-section {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.qr-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.qr-icon {
+  animation: pulse 2s infinite;
+}
+
+.qr-code {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  display: inline-block;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  transition: all 0.3s ease;
+  /* transform: scale(1.05); */
+  
+}
+
+.qr-code::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: linear-gradient(45deg, #9945ff, #14f195, #9945ff);
+  border-radius: 19px;
+  z-index: -1;
+  background-size: 200% 200%;
+  animation: gradientMove 3s ease infinite;
+}
+
+.qr-code:hover {
+  transform: scale(1.05);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.2);
+}
+
+.qr-decorations {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+}
+
+.qr-decoration {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(45deg, #9945ff, #14f195);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  animation: float 2s ease-in-out infinite;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.qr-decoration:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.qr-decoration:nth-child(3) {
+  animation-delay: 1s;
+}
+
+.qr-code img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.tip-note {
+  text-align: center;
+  color: #64748b;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-top: 1rem;
+}
+
+.tip-amounts {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.amount-btn {
+  background: rgba(153, 69, 255, 0.2);
+  border: 1px solid #9945ff;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  color: #9945ff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.amount-btn:hover {
+  background: rgba(153, 69, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+  .solana-tip-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+  
+  .wallet-text {
+    font-size: 0.7rem;
+  }
+  
+  .tip-amounts {
+    gap: 0.3rem;
+  }
+  
+  .amount-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+  
+  .qr-code {
+    padding: 1rem;
+    transform: none !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  }
+  
+  .qr-code:hover {
+    transform: none !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  }
+  
+  .qr-decorations {
+    top: -8px;
+  }
+  
+  .qr-decoration {
+    width: 16px;
+    height: 16px;
+    font-size: 8px;
+  }
+  
+  .qr-header {
+    font-size: 0.8rem;
+  }
+}

@@ -21,13 +21,13 @@
 [&hellip;] 在声明变量时,如果变量名前加上_mut_关键字,就可以使此变量可变
 [&hellip;] 变量的声明使用蛇形命名法
 例子:
-[&hellip;] let mut question_will_send = &#34;Who am I &amp;hellip;">
+let mut question_will_send = &quot;Who am I ?&quot;; 常量 使 &amp;hellip;">
       <meta property="og:description" content="声明变量使用let关键字
 [&hellip;] 默认情况下,Rust的变量是不可变的(immediate),但这与常量仍有很大的区别
 [&hellip;] 在声明变量时,如果变量名前加上_mut_关键字,就可以使此变量可变
 [&hellip;] 变量的声明使用蛇形命名法
 例子:
-[&hellip;] let mut question_will_send = &#34;Who am I &amp;hellip;">
+let mut question_will_send = &quot;Who am I ?&quot;; 常量 使 &amp;hellip;">
       
     
 
@@ -124,8 +124,9 @@
 <li>
 <p>变量的声明使用蛇形命名法</p>
 <p>例子:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">mut</span> question_will_send <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Who am I ?&#34;</span>;
-</span></span></code></pre></div></li>
+<pre><code class="language-rust">let mut question_will_send = &quot;Who am I ?&quot;;
+</code></pre>
+</li>
 </ul>
 <h2 id="常量">常量</h2>
 <ul>
@@ -152,26 +153,29 @@
 <p>1.使用大写字母</p>
 <p>2.单词间使用下划线连接</p>
 <p>例子:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">MAX_USER_ID</span>: <span style="color:#a6e22e">U32</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">100_000</span>; <span style="color:#75715e">//100_000即为100000,添加下划线可增强可读性,java中也有类似的使用
-</span></span></span></code></pre></div></li>
+<pre><code class="language-rust">const MAX_USER_ID: U32 = 100_000; //100_000即为100000,添加下划线可增强可读性,java中也有类似的使用
+</code></pre>
+</li>
 </ul>
 <h2 id="shadowing遮蔽隐藏">Shadowing(遮蔽/隐藏)</h2>
 <ul>
 <li>
 <p>Rust中可以使用相同的名字声明变量,新的变量就会把之前声明的同名变量Shadow(遮蔽掉)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> x <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-</span></span></code></pre></div><p>这种语法在Java等大多数语言中是不允许的,却是Rust的一大特点</p>
+<pre><code class="language-rust">let x = 5;
+let x = x + 1;
+</code></pre>
+<p>这种语法在Java等大多数语言中是不允许的,却是Rust的一大特点</p>
 </li>
 <li>
 <p>shadow的变量可以更改为与之前不同的数据类型</p>
 <p>例子:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span>  space <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;   &#34;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> space <span style="color:#f92672">=</span> space.len();
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">println!</span>(<span style="color:#e6db74">&#34;空格数量为:</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>,space);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><img src="https://z3.ax1x.com/2021/08/15/fcC6sS.png" alt="shadow"></p>
+<pre><code class="language-rust">fn main() {
+    let  space = &quot;   &quot;;
+    let space = space.len();
+    println!(&quot;空格数量为:{}&quot;,space);
+}
+</code></pre>
+<p><img src="https://z3.ax1x.com/2021/08/15/fcC6sS.png" alt="shadow"></p>
 </li>
 </ul>
 <p>​	但如果不使用shadow时,一个变量的数据类型不可更改:</p>
