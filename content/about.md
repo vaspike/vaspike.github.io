@@ -74,11 +74,9 @@ function copyWalletAddress() {
 }
 
 
-// 添加一些交互动画
 document.addEventListener('DOMContentLoaded', function() {
   const container = document.querySelector('.solana-tip-container');
   if (container) {
-    // 添加鼠标进入效果
     container.addEventListener('mouseenter', function() {
       this.style.background = 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #cbd5e1 100%)';
     });
