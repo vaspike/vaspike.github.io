@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page-title">DevSwitcher2 - 高效优雅的 macOS 窗口切换工具</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+            background-color: #050816;
+            color: #E6E6E6;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #8A2BE2, #4169E1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-bg {
+            background-color: #050816;
+            background-image: radial-gradient(at 47% 33%, hsl(218.00, 100%, 10%) 0, transparent 59%), radial-gradient(at 82% 65%, hsl(263.00, 100%, 15%) 0, transparent 55%);
+        }
+        .btn-primary {
+            background: linear-gradient(90deg, #8A2BE2, #4169E1);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2), 0 6px 6px rgba(65, 105, 225, 0.2);
+        }
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(138, 43, 226, 0.5);
+        }
+        .preview-image {
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .preview-image:hover {
+            transform: scale(1.03);
+        }
+        .code-block {
+            background-color: #1a1a2e;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 8px 12px;
+            backdrop-filter: blur(10px);
+        }
+        .lang-switcher button {
+            color: #E6E6E6;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        .lang-switcher button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .lang-switcher button.active {
+            background: rgba(138, 43, 226, 0.3);
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <button onclick="switchLanguage('zh')" id="btn-zh" class="active">中文</button>
+        <span class="text-gray-400 mx-1">|</span>
+        <button onclick="switchLanguage('en')" id="btn-en">EN</button>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero-bg py-20 md:py-32">
+        <div class="container mx-auto px-6 text-center">
+            <img src="https://tc.z.wiki/autoupload/f/0pFpQ-sjfTdei2ti7U8wGpmesdO83n0jJRcmVXjsIsc/20250729/ExKV/1452X1434/logo.png/webp" alt="DevSwitcher2 Logo" class="w-28 h-28 md:w-36 md:h-36 mx-auto mb-6 rounded-3xl shadow-2xl">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
+                DevSwitcher2
+            </h1>
+            <p class="text-lg md:text-xl font-medium max-w-3xl mx-auto mb-8 text-gray-300">
+                <span data-i18n="hero-desc-1">一款</span><span class="gradient-text" data-i18n="hero-highlight">高效优雅</span><span data-i18n="hero-desc-2">的 macOS 窗口切换工具，</span>
+                <br class="hidden md:block">
+                <span data-i18n="hero-desc-3">为您的工作流带来前所未有的流畅体验。</span>
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#download" class="btn-primary text-white font-bold py-3 px-8 rounded-full shadow-lg text-lg" data-i18n="btn-download">
+                    下载应用
+                </a>
+                <a href="https://github.com/vaspike/DevSwitcher2" target="_blank" rel="noopener noreferrer" class="btn-secondary text-white font-semibold py-3 px-8 rounded-full flex items-center space-x-2">
+                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    <span data-i18n="btn-github">在 GitHub 上点星</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Features Section -->
+        <section id="features" class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white" data-i18n="features-title">强大特性，专为效率打造</h2>
+                    <p class="text-lg text-gray-400 mt-4 max-w-2xl mx-auto" data-i18n="features-subtitle">从应用内窗口切换到智能标题识别，一切都为您的流畅操作而设计。</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="feature-card p-8 text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-500 bg-opacity-20 mx-auto mb-6">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 21h7a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v11m0 5l-2.293-2.293a1 1 0 010-1.414l7-7a1 1 0 011.414 0l7 7a1 1 0 010 1.414L15 21m-5-5V9" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2" data-i18n="feature1-title">增强切换器</h3>
+                        <p class="text-gray-400" data-i18n="feature1-desc">增强版 Command + ` 和 Command + Tab，在应用内和应用间丝滑切换。支持在偏好设置中自定义快捷键。</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="feature-card p-8 text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-purple-500 bg-opacity-20 mx-auto mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2" data-i18n="feature2-title">智能标题识别</h3>
+                        <p class="text-gray-400" data-i18n="feature2-desc">自动识别 Xcode 项目、VSCode 工作区等，告别混乱的窗口标题。支持在偏好设置中自定义识别规则。</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="feature-card p-8 text-center">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-sky-500 bg-opacity-20 mx-auto mb-6">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2" data-i18n="feature3-title">极致性能</h3>
+                        <p class="text-gray-400" data-i18n="feature3-desc">基于 Swift 和 AppKit 构建，图标缓存加持，用很低的内存资源占用，带来 60Hz 实时响应的流畅体验。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preview Section -->
+        <section id="preview" class="py-20 md:py-28 bg-black bg-opacity-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white" data-i18n="preview-title">所见即所得</h2>
+                    <p class="text-lg text-gray-400 mt-4" data-i18n="preview-subtitle">直观的界面，强大的功能。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <img src="https://tc.z.wiki/autoupload/f/bRWXqOmJV6gqytU3GpotFgC03Y8QskjEI7gIxHL71tayl5f0KlZfm6UsKj-HyTuv/20250728/szAC/1614X1064/2.png" alt="App Preview 1" class="preview-image">
+                    <img src="https://tc.z.wiki/autoupload/f/bRWXqOmJV6gqytU3GpotFgC03Y8QskjEI7gIxHL71tayl5f0KlZfm6UsKj-HyTuv/20250728/2ifI/1448X1002/1.png" alt="App Preview 2" class="preview-image">
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section id="download" class="py-20 md:py-28">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white" data-i18n="download-title">立即开始使用</h2>
+                    <p class="text-lg text-gray-400 mt-4" data-i18n="download-subtitle">选择你喜欢的方式安装，仅需片刻即可提升你的工作效率。</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Homebrew -->
+                    <div class="feature-card p-8">
+                        <h3 class="text-2xl font-bold text-white mb-4" data-i18n="homebrew-title">使用 Homebrew</h3>
+                        <p class="text-gray-400 mb-6" data-i18n="homebrew-desc">如果你已经安装了Homebrew，这是最快的方式。</p>
+                        <div class="code-block p-4 flex items-center justify-between">
+                            <code class="text-green-300">brew tap vaspike/devswitcher2 && brew install --cask DevSwitcher2</code>
+                            <button onclick="copyToClipboard('brew tap vaspike/devswitcher2 && brew install --cask DevSwitcher2')" class="text-gray-400 hover:text-white transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Direct Download -->
+                    <div class="feature-card p-8">
+                        <h3 class="text-2xl font-bold text-white mb-4" data-i18n="direct-download-title">直接下载</h3>
+                        <p class="text-gray-400 mb-6" data-i18n="direct-download-desc">从 GitHub Releases 下载最新的 .dmg 文件。</p>
+                        <a href="https://github.com/vaspike/DevSwitcher2/releases/latest" target="_blank" rel="noopener noreferrer" class="w-full inline-block text-center btn-primary text-white font-bold py-3 px-8 rounded-full shadow-lg" data-i18n="btn-download-latest">
+                            下载最新版本
+                        </a>
+                         <p class="text-xs text-gray-500 mt-2" data-i18n="system-requirement">macOS 12.0 或更高版本</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section id="star" class="py-20 text-center">
+            <div class="container mx-auto px-6">
+                 <h2 class="text-3xl md:text-4xl font-bold text-white" data-i18n="cta-title">喜欢这个应用？</h2>
+                 <p class="text-lg text-gray-400 mt-4 mb-8 max-w-2xl mx-auto" data-i18n="cta-desc">您的支持是项目不断前进的最大动力。请考虑在 GitHub 上给我们一个星星！</p>
+                 <a href="https://github.com/vaspike/DevSwitcher2" target="_blank" rel="noopener noreferrer" class="inline-block btn-primary text-white font-bold py-4 px-10 rounded-full shadow-lg text-xl transform hover:scale-105 transition-transform" data-i18n="btn-star">
+                    ⭐ 在 GitHub 上点星
+                </a>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="text-center py-8 border-t border-gray-800">
+        <p class="text-gray-500">&copy; 2025 DevSwitcher2. <span data-i18n="footer-license">基于 MIT 许可证发布。</span></p>
+        <p class="text-gray-600 text-sm mt-2"><span data-i18n="footer-created">由</span> <a href="https://rivermao.com" class="hover:text-white" target="_blank" rel="noopener noreferrer">River</a> <span data-i18n="footer-with-love">❤️ 创建</span></p>
+    </footer>
+
+    <script>
+        // Translation resources
+        const translations = {
+            zh: {
+                'page-title': 'DevSwitcher2 - 高效优雅的 macOS 窗口切换工具',
+                'hero-desc-1': '一款',
+                'hero-highlight': '高效优雅',
+                'hero-desc-2': '的 macOS 窗口切换工具，',
+                'hero-desc-3': '为您的工作流带来前所未有的流畅体验。',
+                'btn-download': '下载应用',
+                'btn-github': '在 GitHub 上点星',
+                'features-title': '强大特性，专为效率打造',
+                'features-subtitle': '从应用内窗口切换到智能标题识别，一切都为您的流畅操作而设计。',
+                'feature1-title': '增强切换器',
+                'feature1-desc': '增强版 Command + ` 和 Command + Tab，在应用内和应用间丝滑切换。支持在偏好设置中自定义快捷键。',
+                'feature2-title': '智能标题识别',
+                'feature2-desc': '自动识别 Xcode 项目、VSCode 工作区等，告别混乱的窗口标题。支持在偏好设置中自定义识别规则。',
+                'feature3-title': '极致性能',
+                'feature3-desc': '基于 Swift 和 AppKit 构建，图标缓存加持，用很低的内存资源占用，带来 60Hz 实时响应的流畅体验。',
+                'preview-title': '所见即所得',
+                'preview-subtitle': '直观的界面，强大的功能。',
+                'download-title': '立即开始使用',
+                'download-subtitle': '选择你喜欢的方式安装，仅需片刻即可提升你的工作效率。',
+                'homebrew-title': '使用 Homebrew',
+                'homebrew-desc': '如果你已经安装了Homebrew，这是最快的方式。',
+                'direct-download-title': '直接下载',
+                'direct-download-desc': '从 GitHub Releases 下载最新的 .dmg 文件。',
+                'btn-download-latest': '下载最新版本',
+                'system-requirement': 'macOS 12.0 或更高版本',
+                'cta-title': '喜欢这个应用？',
+                'cta-desc': '您的支持是项目不断前进的最大动力。请考虑在 GitHub 上给我们一个星星！',
+                'btn-star': '⭐ 在 GitHub 上点星',
+                'footer-license': '基于 MIT 许可证发布。',
+                'footer-created': '由',
+                'footer-with-love': '❤️ 创建'
+            },
+            en: {
+                'page-title': 'DevSwitcher2 - Efficient and Elegant macOS Window Switcher',
+                'hero-desc-1': 'An',
+                'hero-highlight': 'efficient and elegant',
+                'hero-desc-2': 'macOS window switching tool',
+                'hero-desc-3': 'that brings unprecedented smooth experience to your workflow.',
+                'btn-download': 'Download App',
+                'btn-github': 'Star on GitHub',
+                'features-title': 'Powerful Features Built for Efficiency',
+                'features-subtitle': 'From in-app window switching to smart title recognition, everything is designed for your smooth operation.',
+                'feature1-title': 'Enhanced Switcher',
+                'feature1-desc': 'Enhanced Command + ` and Command + Tab for seamless switching within apps and between apps. Supports custom shortcuts in preferences.',
+                'feature2-title': 'Smart Title Recognition',
+                'feature2-desc': 'Automatically recognizes Xcode projects, VSCode workspaces, etc. Say goodbye to messy window titles. Supports custom recognition rules in preferences.',
+                'feature3-title': 'Ultimate Performance',
+                'feature3-desc': 'Built with Swift and AppKit, powered by icon caching, with very low memory footprint, delivering 60Hz real-time responsive smooth experience.',
+                'preview-title': 'What You See Is What You Get',
+                'preview-subtitle': 'Intuitive interface, powerful functionality.',
+                'download-title': 'Get Started Now',
+                'download-subtitle': 'Choose your preferred installation method and boost your productivity in just moments.',
+                'homebrew-title': 'Using Homebrew',
+                'homebrew-desc': 'If you already have Homebrew installed, this is the fastest way.',
+                'direct-download-title': 'Direct Download',
+                'direct-download-desc': 'Download the latest .dmg file from GitHub Releases.',
+                'btn-download-latest': 'Download Latest Version',
+                'system-requirement': 'macOS 12.0 or higher',
+                'cta-title': 'Like this app?',
+                'cta-desc': 'Your support is the greatest motivation for the project to keep moving forward. Please consider giving us a star on GitHub!',
+                'btn-star': '⭐ Star on GitHub',
+                'footer-license': 'Released under MIT License.',
+                'footer-created': 'Created by',
+                'footer-with-love': '❤️'
+            }
+        };
+
+        // Current language
+        let currentLanguage = 'zh';
+
+        // Initialize language
+        function initLanguage() {
+            // Detect browser language
+            const browserLang = navigator.language || navigator.userLanguage;
+            if (browserLang.startsWith('en')) {
+                currentLanguage = 'en';
+            } else {
+                currentLanguage = 'zh';
+            }
+            
+            // Check if language preference is stored
+            const savedLang = localStorage.getItem('preferred-language');
+            if (savedLang && (savedLang === 'zh' || savedLang === 'en')) {
+                currentLanguage = savedLang;
+            }
+            
+            switchLanguage(currentLanguage);
+        }
+
+        // Switch language function
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('preferred-language', lang);
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+            
+            // Update active button
+            document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            
+            // Update all translatable elements
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'TITLE') {
+                        element.textContent = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        // Copy to clipboard function
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const message = currentLanguage === 'zh' ? '已复制到剪贴板!' : 'Copied to clipboard!';
+                alert(message);
+            }, (err) => {
+                const message = currentLanguage === 'zh' ? '复制失败: ' : 'Copy failed: ';
+                alert(message + err);
+            });
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initLanguage);
+    </script>
+</body>
+</html> 
