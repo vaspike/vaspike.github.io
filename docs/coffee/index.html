@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    <title>Coffee Time</title>
+    <meta name="description" content="与同事一起享受咖啡时光">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Coffee Time">
+    <meta property="og:description" content="与同事一起享受咖啡时光">
+    <meta property="og:image" content="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Coffee Time">
+    <meta property="twitter:description" content="与同事一起享受咖啡时光">
+    <meta property="twitter:image" content="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app" id="app">
+        <!-- 用户名设置页面 -->
+        <div class="page" id="userPage">
+            <div class="container">
+                <div class="brand">
+                    <div class="brand-icon">☕</div>
+                    <h1 class="brand-title">Coffee Time</h1>
+                    <p class="brand-subtitle">© River 2025</p>
+                </div>
+                
+                <div class="form-card">
+                    <h2>开始使用</h2>
+                    <div class="input-group">
+                        <label for="username">选择你的用户名</label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            placeholder="输入用户名"
+                            maxlength="20"
+                        >
+                    </div>
+                    <button class="btn-primary" onclick="setUsername()">
+                        继续
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 日期时间选择页面 -->
+        <div class="page hidden" id="datePage">
+            <div class="container">
+                <div class="page-header">
+                    <button class="btn-back" onclick="showUserPage()">←</button>
+                    <h1>选择时间</h1>
+                    <div class="user-info">
+                        <span class="user-avatar">👤</span>
+                        <span class="username" id="currentUsername"></span>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <div class="input-group">
+                        <label for="orderDate">选择日期</label>
+                        <input type="date" id="orderDate">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>选择时间段</label>
+                        <div class="time-selector">
+                            <button class="time-option" data-period="上午" onclick="selectTimePeriod('上午')">
+                                <div class="time-icon">🌅</div>
+                                <span>上午</span>
+                            </button>
+                            <button class="time-option" data-period="下午" onclick="selectTimePeriod('下午')">
+                                <div class="time-icon">🌇</div>
+                                <span>下午</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 咖啡订购页面 -->
+        <div class="page hidden" id="orderPage">
+            <div class="container">
+                <div class="page-header">
+                    <button class="btn-back" onclick="showDatePage()">←</button>
+                    <h1>Coffee Time</h1>
+                    <div class="session-info">
+                        <span class="date" id="sessionDate"></span>
+                        <span class="period" id="sessionPeriod"></span>
+                    </div>
+                </div>
+
+                <div class="order-section">
+                    <div class="form-card collapsible-card">
+                        <div class="card-header" onclick="toggleMyOrderCard()">
+                            <h3>我的选择</h3>
+                            <div class="collapse-icon" id="myOrderIcon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6,9 12,15 18,9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="card-content" id="myOrderContent">
+                            <div class="input-group">
+                                <label for="coffeeType">选择咖啡</label>
+                                <select id="coffeeType">
+                                    <option value="">请选择咖啡类型</option>
+                                    <option value="冰美式">冰美式</option>
+                                    <option value="拿铁(冰)">拿铁(冰)</option>
+                                    <option value="拿铁(热)">拿铁(热)</option>
+                                    <option value="冰生椰拿铁">冰生椰拿铁</option>
+                                    <option value="燕麦拿铁(冰)">燕麦拿铁(冰)</option>
+                                    <option value="燕麦拿铁(热)">燕麦拿铁(热)</option>
+                                    <option value="香蕉拿铁">香蕉拿铁</option>
+                                    <option value="橙C拿铁(冰)">橙C拿铁(冰)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="remark">备注</label>
+                                <input 
+                                    type="text" 
+                                    id="remark" 
+                                    placeholder="少糖、无冰等（10字内）"
+                                    maxlength="10"
+                                >
+                                <span class="char-count">0/10</span>
+                            </div>
+                            
+                            <div class="button-group">
+                                <button class="btn-secondary" onclick="clearMyOrder()">清除</button>
+                                <button class="btn-primary" onclick="submitOrder()">确认订购</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="orders-card">
+                        <h3>大家的选择</h3>
+                        <div class="orders-summary">
+                            <span class="total-count">共 <span id="totalCount">0</span> 人订购</span>
+                            <span class="refresh-time">刚刚更新</span>
+                        </div>
+                        <div class="orders-list" id="ordersList">
+                            <div class="empty-state">
+                                <div class="empty-icon">📝</div>
+                                <p>还没有人订购咖啡</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 加载指示器 -->
+        <div class="loading-overlay hidden" id="loading">
+            <div class="loading-spinner"></div>
+        </div>
+
+        <!-- Toast 消息 -->
+        <div class="toast hidden" id="toast">
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

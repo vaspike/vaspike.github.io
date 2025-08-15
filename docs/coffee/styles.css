@@ -1,0 +1,749 @@
+
+/* === Animation Definitions: The Breath of the Cosmos === */
+@keyframes aurora-bg {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes subtle-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* === Root Variables: The Symphony of Colors === */
+:root {
+    --glow-primary: #5EEAD4; /* Teal */
+    --glow-secondary: #60A5FA; /* Sky Blue */
+    --glow-tertiary: #A7F3D0; /* Mint Green */
+    --text-primary: #F3F4F6;
+    --text-secondary: #D1D5DB;
+    --text-muted: #9CA3AF;
+    --bg-glass: rgba(17, 25, 40, 0.65);
+    --border-glass: rgba(255, 255, 255, 0.1);
+    --shadow-glow: 0 0 20px rgba(var(--glow-primary-rgb), 0.3), 
+                   0 0 30px rgba(var(--glow-secondary-rgb), 0.2);
+    
+    /* RGB versions for effects */
+    --glow-primary-rgb: 94, 234, 212;
+    --glow-secondary-rgb: 96, 165, 250;
+}
+
+/* === Base Styles: Reshaping the World === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    /* For smooth scrolling on mobile */
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #030712;
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    /* Fix for mobile viewport height */
+    min-height: -webkit-fill-available;
+    overflow-x: hidden;
+}
+
+.app {
+    position: relative;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    width: 100%;
+    isolation: isolate;
+}
+
+/* === Static Background: The Cosmic Aurora === */
+.app::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        125deg,
+        var(--glow-primary),
+        var(--glow-secondary),
+        var(--glow-tertiary)
+    );
+    filter: blur(80px) saturate(1.5);
+    transform: translateZ(-1px);
+    z-index: -1;
+    opacity: 0.8;
+}
+
+/* === Page Layout: Staging the Scene === */
+.page {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    animation: page-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    width: 100%;
+}
+
+.page.hidden {
+    display: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    animation: subtle-float 8s ease-in-out infinite;
+}
+
+/* === Brand Area: The Totem of Faith === */
+.brand {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.brand-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px var(--glow-primary), 0 0 30px var(--glow-secondary);
+    transition: transform 0.3s ease;
+}
+.brand-icon:hover {
+    transform: scale(1.1) rotate(-5deg);
+}
+
+.brand-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(120deg, #FFFFFF, #E5E7EB);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.03em;
+}
+
+.brand-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+/* === Page Header: The Guiding Stars === */
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+    width: 100%;
+}
+
+.page-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.btn-back, .user-info {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.btn-back:hover, .user-info:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-glow);
+    border-color: rgba(var(--glow-primary-rgb), 0.5);
+}
+
+.btn-back {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+}
+
+.user-avatar {
+    font-size: 1.2rem;
+    text-shadow: 0 0 5px var(--glow-primary);
+}
+
+.username {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.session-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+}
+
+.session-info .date {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.session-info .period {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.8rem;
+    border-radius: 12px;
+    font-weight: 500;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, var(--glow-primary), var(--glow-secondary));
+    box-shadow: 0 2px 8px rgba(var(--glow-primary-rgb), 0.4);
+}
+
+/* === Card Styles: The Floating Sanctuaries === */
+.form-card, .orders-card {
+    background: var(--bg-glass);
+    border-radius: 24px;
+    padding: 2rem;
+    border: 1px solid var(--border-glass);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.05);
+    transition: all 0.4s ease;
+    width: 100%;
+}
+
+.form-card:hover, .orders-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: var(--shadow-glow), 0 12px 40px rgba(0,0,0,0.3);
+    border-color: rgba(var(--glow-primary-rgb), 0.5);
+}
+
+.form-card h2, .form-card h3, .orders-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+/* === Input Components: The Vessels of Energy === */
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.input-group input[type="text"],
+.input-group input[type="date"],
+.input-group select {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--border-glass);
+    border-radius: 16px;
+    font-size: 1rem;
+    background: rgba(0,0,0,0.2);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    font-family: inherit;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    appearance: none; /* For select dropdown */
+    -webkit-appearance: none;
+}
+
+.input-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 3rem; /* Make space for arrow */
+}
+
+.input-group input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.input-group input[type="text"]:focus,
+.input-group input[type="date"]:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: rgba(var(--glow-primary-rgb), 0.8);
+    box-shadow: 0 0 0 4px rgba(var(--glow-primary-rgb), 0.2);
+    background: rgba(0,0,0,0.3);
+}
+
+.char-count {
+    position: absolute;
+    right: 1rem;
+    bottom: -1.2rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* === Time Period Selector: The Choice of Destiny === */
+.time-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.time-option {
+    padding: 1.5rem 1rem;
+    border: 1px solid var(--border-glass);
+    border-radius: 20px;
+    background: rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--text-secondary);
+}
+
+.time-option:hover {
+    transform: translateY(-4px);
+    border-color: rgba(var(--glow-primary-rgb), 0.7);
+    background: rgba(var(--glow-primary-rgb), 0.1);
+    color: var(--text-primary);
+}
+
+.time-option.selected {
+    background: linear-gradient(135deg, var(--glow-primary), var(--glow-secondary));
+    color: white;
+    border-color: transparent;
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(var(--glow-primary-rgb), 0.5);
+}
+
+.time-icon {
+    font-size: 1.8rem;
+    transition: transform 0.3s ease;
+}
+.time-option:hover .time-icon {
+    transform: scale(1.2);
+}
+
+.time-option span {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* === Button Styles: The Manifestation of Will === */
+.btn-primary, .btn-secondary {
+    padding: 1rem 2rem;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0); /* Promotes to a new layer */
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--glow-primary), var(--glow-secondary));
+    color: white;
+    box-shadow: 0 4px 15px rgba(var(--glow-primary-rgb), 0.4);
+    width: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(var(--glow-primary-rgb), 0.6);
+}
+
+.btn-primary:active {
+    transform: translateY(0) scale(1);
+}
+
+/* Shimmer effect */
+.btn-primary::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+    animation: shimmer 4s infinite;
+}
+
+.btn-secondary {
+    background: rgba(0,0,0,0.2);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-glass);
+}
+
+.btn-secondary:hover {
+    background: rgba(var(--border-glass), 0.5);
+    color: var(--text-primary);
+    border-color: rgba(var(--border-glass), 2);
+}
+
+.button-group {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* === Order Section: The Collective Echo === */
+.order-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.orders-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-glass);
+}
+
+.total-count {
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.total-count span {
+    font-weight: 700;
+    color: var(--text-primary);
+    text-shadow: 0 0 8px rgba(var(--glow-primary-rgb), 0.5);
+}
+
+.refresh-time {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.orders-list {
+    max-height: 300px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-right: 0.5rem; /* For scrollbar gap */
+}
+
+.order-item {
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.1);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.order-item:hover {
+    background: rgba(var(--glow-primary-rgb), 0.05);
+    border-color: rgba(var(--glow-primary-rgb), 0.2);
+    transform: translateX(4px);
+}
+
+.order-user {
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.order-coffee {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.order-remark {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-top: 0.25rem;
+    word-break: break-all;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--text-muted);
+}
+
+.empty-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.3;
+    text-shadow: 0 0 10px rgba(var(--glow-secondary-rgb), 0.3);
+}
+
+/* === Statistics: The Constellation of Data === */
+.coffee-stats {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-glass);
+}
+
+.stats-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.stats-coffee {
+    color: var(--text-secondary);
+}
+
+.stats-count {
+    background: rgba(var(--glow-primary-rgb), 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-weight: 500;
+    color: var(--glow-primary);
+    border: 1px solid rgba(var(--glow-primary-rgb), 0.2);
+}
+
+/* === Loaders & Toasts: Ripples in Spacetime === */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(3, 7, 18, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid rgba(var(--glow-primary-rgb), 0.2);
+    border-top-color: var(--glow-primary);
+    animation: spin 1s linear infinite;
+}
+
+.toast {
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 20px;
+    z-index: 1001;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    max-width: 90%;
+    text-align: center;
+    font-weight: 500;
+}
+
+.toast.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px) scale(0.95);
+    pointer-events: none;
+}
+
+.toast.success {
+    background: linear-gradient(135deg, rgba(94, 234, 212, 0.2), rgba(96, 165, 250, 0.2));
+    border-color: rgba(94, 234, 212, 0.8);
+    color: var(--text-primary);
+}
+.toast.error {
+    background: linear-gradient(135deg, rgba(225, 29, 72, 0.2), rgba(244, 114, 182, 0.2));
+    border-color: rgba(244, 114, 182, 0.8);
+    color: var(--text-primary);
+}
+.toast.warning {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.2));
+    border-color: rgba(251, 191, 36, 0.8);
+    color: var(--text-primary);
+}
+
+/* === Scrollbar Styles: The Galactic Trail === */
+.orders-list::-webkit-scrollbar { width: 8px; }
+.orders-list::-webkit-scrollbar-track { background: transparent; }
+.orders-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--glow-primary), var(--glow-secondary));
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+/* === Collapsible Card: Folding Space === */
+.collapsible-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 2;
+}
+
+.collapse-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--glow-primary), var(--glow-secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 10px rgba(var(--glow-primary-rgb), 0.4);
+}
+
+.collapse-icon svg {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    color: white;
+}
+
+.collapsible-card.collapsed .collapse-icon {
+    transform: rotate(-180deg);
+    background: var(--bg-glass);
+    box-shadow: none;
+}
+
+.card-content {
+    transition: opacity 0.5s ease, max-height 0.5s ease, transform 0.5s ease, margin 0.5s ease, padding 0.5s ease;
+    opacity: 1;
+    max-height: 1000px;
+    transform: translateY(0);
+    overflow: hidden;
+}
+
+.collapsible-card.collapsed .card-content {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: -1.5rem; /* To pull up the bottom card */
+}
+
+.collapsible-card.collapsed .card-header {
+    margin-bottom: 0;
+}
+
+/* === Responsive Design: Dimensional Shift === */
+@media (max-width: 480px) {
+    .page { padding: 1rem; }
+    .container { max-width: 100%; }
+    .brand-title { font-size: 2.2rem; }
+    .form-card, .orders-card { padding: 1.5rem; border-radius: 20px; }
+    .button-group { grid-template-columns: 1fr; }
+    .btn-secondary { order: 2; }
+}
+
+/* === Order Page Specific Layout for Mobile === */
+#orderPage .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: -webkit-fill-available;
+    padding: 0; /* Remove container padding */
+}
+
+#orderPage .page-header {
+    padding: 1rem;
+    padding-bottom: 0;
+    flex-shrink: 0;
+}
+
+#orderPage .order-section {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    /* For smooth scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+}
+
+#orderPage .orders-list {
+    max-height: none; /* Allow it to fill space */
+}
+
+#orderPage .orders-card {
+    display: flex;
+    flex-direction: column;
+    /* Allow card to grow */
+    flex-grow: 1;
+}
+
+#orderPage .orders-card .orders-list {
+    /* Allow list to grow within the card */
+    flex-grow: 1;
+}
+
+/* === Hidden Class === */
+.hidden {
+    display: none !important;
+}
