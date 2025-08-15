@@ -62,6 +62,13 @@ function formatDate(dateStr) {
     });
 }
 
+function isDateInPast(dateStr) {
+    const selectedDateObj = new Date(dateStr);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return selectedDateObj < today;
+}
+
 // API 调用函数
 async function apiCall(endpoint, options = {}) {
     const url = `${API_BASE}${endpoint}`;
@@ -170,6 +177,22 @@ function showOrderPage() {
     // 显示会话信息
     elements.sessionDate.textContent = formatDate(selectedDate);
     elements.sessionPeriod.textContent = selectedPeriod;
+
+    // 根据日期是否为过去来更新UI状态
+    const isPast = isDateInPast(selectedDate);
+    const myOrderCard = document.querySelector('.collapsible-card');
+    const confirmButton = myOrderCard.querySelector('.btn-primary');
+
+    elements.coffeeType.disabled = isPast;
+    elements.remark.disabled = isPast;
+    myOrderCard.querySelector('.btn-secondary').disabled = isPast;
+    confirmButton.disabled = isPast;
+
+    if (isPast) {
+        confirmButton.textContent = '仅供查看';
+    } else {
+        confirmButton.textContent = '确认订购';
+    }
     
     // 恢复折叠状态
     setTimeout(restoreCollapseState, 100);
@@ -215,16 +238,6 @@ function selectTimePeriod(period) {
         return;
     }
     
-    // 检查日期是否为今天或未来
-    const selectedDateObj = new Date(date);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    if (selectedDateObj < today) {
-        showToast('不能选择过去的日期', 'warning');
-        return;
-    }
-    
     selectedDate = date;
     selectedPeriod = period;
     
@@ -232,6 +245,11 @@ function selectTimePeriod(period) {
 }
 
 async function submitOrder() {
+    if (isDateInPast(selectedDate)) {
+        showToast('过去的日期只能查看, 且不发送请求', 'warning');
+        return;
+    }
+
     const coffeeType = elements.coffeeType.value;
     const remark = elements.remark.value.trim();
     
@@ -267,6 +285,11 @@ async function submitOrder() {
 }
 
 async function clearMyOrder() {
+    if (isDateInPast(selectedDate)) {
+        showToast('过去的日期只能查看', 'warning');
+        return;
+    }
+
     if (!confirm('确定要清除你的订购吗？')) {
         return;
     }

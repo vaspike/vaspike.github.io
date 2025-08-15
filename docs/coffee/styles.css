@@ -135,6 +135,7 @@ body {
 }
 
 .brand-icon {
+    color: white;
     font-size: 4rem;
     margin-bottom: 1rem;
     text-shadow: 0 0 20px var(--glow-primary), 0 0 30px var(--glow-secondary);
