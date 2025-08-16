@@ -5,7 +5,7 @@ let selectedPeriod = null;
 let pollInterval = null;
 
 // API 配置
-const API_BASE = 'https://coffee.rivermao.com:3000/api'; // 替换为实际服务器地址
+const API_BASE = 'https://coffee.rivermao.com:8443/api'; // 替换为实际服务器地址
 
 // DOM 元素
 const elements = {
