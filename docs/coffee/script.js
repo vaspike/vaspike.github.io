@@ -102,6 +102,7 @@ async function loginUser(username) {
         return result;
     } catch (error) {
         showToast('登录失败，请检查网络连接', 'error');
+        console.log(error);
         throw error;
     }
 }
